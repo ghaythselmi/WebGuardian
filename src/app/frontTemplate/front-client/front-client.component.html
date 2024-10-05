@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web Guardian</title>
+</head>
+<body>
+
+    <app-header [userId]="userId"></app-header>
+
+    <section id="home" class="welcome-hero">
+        <div class="container">
+            <div class="welcome-hero-txt">
+                <h2>Best place to test your websites <br> Availability</h2>
+                <p>All you have to do is to put your URL</p>
+
+                <form (ngSubmit)="checkWebsite()">
+                    <input type="text" [(ngModel)]="url" name="url" placeholder="Enter website URL" required />
+                    <button type="submit">Check</button>
+                </form>
+
+                <div *ngIf="result" class="result">
+                    <h3>Website Status:</h3>
+                    <p>Status: {{ result.availability.status }}</p>
+                    <p>HTTP Status Code: {{ result.availability.statusCode }}</p>
+
+                    <h3>SSL Certificate:</h3>
+                    <p>Expires in: {{ result.ssl.expires_in_days }} days</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="works" class="works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Learn more about how our website monitors other websites</p>
+            </div>
+            <div class="works-content">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="single-how-works">
+                            <div class="single-how-works-icon">
+                                <i class="flaticon-list-with-dots"></i>
+                            </div>
+                            <h2>Choose <span> a Website</span></h2>
+                            <p>Select any website you want to monitor. Our website allows you to check the status and security of any site you care about.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="single-how-works">
+                            <div class="single-how-works-icon">
+                                <i class="flaticon-search"></i>
+                            </div>
+                            <h2>Monitor <span> Availability</span></h2>
+                            <p>Our service checks whether the website is online or offline. We provide instant feedback on the website's status.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="single-how-works">
+                            <div class="single-how-works-icon">
+                                <i class="flaticon-networking"></i>
+                            </div>
+                            <h2>Check <span> SSL Security</span></h2>
+                            <p>We inspect the SSL certificate of the website, letting you know if it’s secure and when the certificate will expire.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="footer-menu">
+                <div class="row">
+                    <div class="col-sm-3">
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="hm-footer-copyright">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <p>&copy; Copyright. Designed and developed by <a href="https://www.shyrineprod.com">ShyrineProd</a></p>
+                    </div>
+                    <div class="col-sm-7">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="scroll-Top">
+            <div class="return-to-top">
+                <i class="fa fa-angle-up" id="scroll-top" aria-hidden="true"></i>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

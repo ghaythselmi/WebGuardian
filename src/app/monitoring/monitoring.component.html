@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web Guardian</title>
+</head>
+<body>
+
+    <app-header [userId]="userId"></app-header>
+  
+<section id="home" class="welcome-hero">
+    <div class="container">
+      <div class="welcome-hero-txt">
+        <h2>Best place to test your websites ! </h2>
+        <p class="description">Here you can add a URL</p>
+  
+        <form (ngSubmit)="checkWebsite(url)">
+          <input type="text" [(ngModel)]="url" name="url" placeholder="Enter website URL" required />
+          <button type="submit">Add</button>
+        </form>
+        <p>Here you can add a list of URLs</p>
+  
+        <div class="upload-container">
+            <input type="file" #csvFileInput (change)="onFileChange($event)" accept=".csv" style="display: none;" />
+            <button type="submit" (click)="csvFileInput.click()" class="upload-button">Upload CSV</button>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  
+  
+  <section id="website-list" class="website-list-section">
+    <div class="container">
+        <h2 class="section-title">Website List</h2>
+        <div class="button-container">
+          <button (click)="updatedCheck()" class="update-all-button">Update All</button>
+      </div>
+  
+        <!-- Loading Overlay -->
+        <div *ngIf="loading" class="loading-overlay">
+          <div class="loading-spinner"></div>
+          <p>Updating websites, please wait...</p>
+        </div>
+  
+        <table class="website-table">
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Availability</th>
+                    <th>SSL Status</th>
+                    <th>Expires In</th>
+                    <th>Last Check</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let website of websites">
+                  <td><span class="url-bold">{{ website.url }}</span></td>
+                  <td [ngClass]="{'online': website.availability === 'Online', 'offline': website.availability === 'Offline'}">
+                    {{ website.availability }}
+                  </td>
+                  <td [ngClass]="{'ssl-valid': website.ssl_status === 'Valid', 'ssl-invalid': website.ssl_status === 'Expired'}">
+                    {{ website.ssl_status }}
+                  </td>
+                  <td [ngClass]="{
+                    'expire-red': website.expires_in! <= 0,
+                    'expire-yellow': website.expires_in! > 0 && website.expires_in! < 50,
+                    'expire-blue': website.expires_in! >= 50
+                }">
+                    {{ website.expires_in }}
+                </td>
+                
+                  <td>
+                    {{ website.last_check }} 
+                  </td>
+                  <td>
+                    <button (click)="deleteWebsite(website.id!)" class="delete-button">Delete</button>
+                    <button (click)="updateWebsite(website)" class="update-button">Update</button>
+                  </td>
+                </tr>
+              </tbody>
+        </table>
+    </div>
+  </section>
+  
+
+
+<footer id="footer" class="footer">
+  <div class="container">
+      <div class="footer-menu">
+          <div class="row">
+              <div class="col-sm-3">
+                 
+              </div>
+          </div>
+      </div>
+      <div class="hm-footer-copyright">
+          <div class="row">
+              <div class="col-sm-5">
+                  <p>&copy; Copyright. Designed and developed by <a href="https://www.shyrineprod.com">ShyrineProd</a></p>
+              </div>
+              <div class="col-sm-7">
+                 
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div id="scroll-Top">
+      <div class="return-to-top">
+          <i class="fa fa-angle-up" id="scroll-top" aria-hidden="true"></i>
+      </div>
+  </div>
+</footer>
+ </body>
+  

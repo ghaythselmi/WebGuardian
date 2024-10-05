@@ -1,0 +1,124 @@
+/* Navbar Styles */
+.navbar {
+  background-color: white;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between; /* Space between logo/menu and user */
+  align-items: center;
+  transition: top 0.3s;
+}
+
+.navbar-container {
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Center items vertically */
+  width: 100%; /* Ensure the container takes the full width */
+}
+
+.navbar-logo {
+  margin-right: 200px;
+  margin-left: 200px;
+}
+
+.logo-image {
+  height: 40px; /* Set desired height for the logo */
+  width: auto; /* Maintain aspect ratio */
+}
+
+.navbar-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1; /* Allow this section to grow and take remaining space */
+}
+
+/* Navbar menu is aligned in the center */
+.navbar-menu {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-item {
+  margin: 0 10px;
+}
+
+.navbar-link {
+  display: block;
+  color: #004d99;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar-link:hover {
+  color: #006bb3;
+}
+
+/* User Section - Positioned to the right but not too far */
+.navbar-user {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 20px; /* Adjusted right margin */
+}
+
+.user-link {
+  display: flex;
+  align-items: center;
+  color: #004d99;
+  text-decoration: none;
+  cursor: pointer; /* Show hand pointer when hovering over the user */
+}
+
+.user-link i {
+  margin-right: 8px; /* Space between icon and username */
+  font-size: 18px;
+}
+
+.user-link:hover {
+  color: #006bb3;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu li {
+  list-style: none;
+  padding: 8px 12px;
+}
+
+.dropdown-menu li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+  color: #004d99;
+}
+
+/* Fade-in effect */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+      opacity: 1;
+  }
+}

@@ -1,0 +1,143 @@
+/* General Styles */
+body {
+    background-color: #f8f9fc;
+  }
+  
+  .container {
+    max-width: 100%;
+  }
+  
+  .card {
+    width: 900px; /* Increase card size */
+    height: 500px; /* Ensure the card is square */
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: auto; /* Center the card horizontally */
+  }
+  
+  .card-body {
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    justify-content: center; /* Horizontally center the content */
+    padding: 0;
+  }
+  
+  /* Left Image Section */
+  .bg-login-image {
+    background-size: cover;
+    border-radius: 1rem 0 0 1rem;
+  }
+  
+  /* Form Section */
+  .p-5 {
+    padding: 3rem !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Center everything inside this container */
+    height: 100%; /* Ensure the content fills the card height */
+  }
+  
+  h1.h4 {
+    font-size: 2rem; /* Increase the size of the header */
+    font-weight: 600;
+    color: #4e73df;
+    margin-bottom: 2rem;
+  }
+  
+  .form-group {
+    width: 100%; /* Ensure the inputs take the full width */
+  }
+  
+  .form-control-user {
+    border-radius: 50px;
+    padding: 1rem;
+    font-size: 1rem;
+    color: #6c757d;
+    border: 1px solid #d1d3e2;
+    background-color: #f8f9fc;
+    text-align: center; 
+  }
+  
+  .form-control-user:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+  }
+  
+  .btn-user {
+    border-radius: 50px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background-color: #4e73df;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Make the button take full width */
+  }
+  
+  .btn-user:hover {
+    background-color: #2e59d9;
+  }
+  
+  hr {
+    border-top: 1px solid #e3e6f0;
+    margin: 2rem 0;
+    width: 100%; /* Extend hr width */
+  }
+  
+  /* Error Message */
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    text-align: center;
+    padding: 0.75rem;
+    width: 100%; /* Ensure the error message takes full width */
+  }
+  
+  /* Links */
+  a.small {
+    color: #4e73df;
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+  
+  a.small:hover {
+    color: #2e59d9;
+    text-decoration: underline;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 767.98px) {
+    .bg-login-image {
+      display: none;
+    }
+  
+    .card {
+      width: 100%; /* Make card full-width on small screens */
+      height: auto; /* Adjust height to content */
+      border-radius: 0.5rem;
+    }
+  
+    .p-5 {
+      padding: 1.5rem !important;
+    }
+  }
+
+  .container {
+    background-image: url('/assets/img/bg.png'); /* Replace with your image file name */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+  }
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background for the card */
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  
+  

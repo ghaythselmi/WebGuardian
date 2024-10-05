@@ -1,0 +1,132 @@
+.single-how-works-icon i {
+    display: block; 
+    margin-bottom: 20px; 
+}
+
+.single-how-works h2 {
+    margin-top: 30px; 
+}
+
+
+#navbar {
+    transition: top 0.3s;
+}
+
+.hidden {
+    top: -60px; 
+}
+
+
+.navbar {
+    background-color: white;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: top 0.3s;
+  }
+  
+  .navbar-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+  }
+  
+  .navbar-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #004d99;
+    padding: 8px 16px;
+  }
+  
+  .navbar-menu {
+    display: flex;
+    justify-content: center; 
+    flex-grow: 1; 
+  }
+  
+  .navbar-item {
+    margin: 0 10px; 
+  }
+  
+  .navbar-link {
+    display: block;
+    color: #004d99;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  .works {
+    margin-top: 150px; 
+}
+
+
+.button-container {
+    margin-top: 20px; 
+  }
+  
+  .button {
+    display: inline-block; 
+    padding: 10px 20px; 
+    background-color: #004d99; 
+    color: white; 
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s; 
+    margin-right: 10px; 
+  }
+  
+  .button:hover {
+    background-color: #003366; 
+  }
+
+  .navbar-logo {
+    margin-right: 100px;
+    
+  }
+  
+  .logo-image {
+    height: 40px; /* Set desired height for the logo */
+    width: auto; /* Maintain aspect ratio */
+  }
+
+  .hero-buttons {
+    margin-top: 20px; /* Space between text and buttons */
+}
+
+
+.btn {
+  padding: 15px 30px;
+  font-size: 1.1em;
+  background-color: #ffffff;
+  color: #004d99; 
+  border: none;
+  border-radius: 50px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  margin-right: 10px; 
+}
+
+.hero-buttons a:last-child {
+  margin-right: 0; 
+}
+
+
+
+/* Adjust Navbar Logo */
+.navbar-logo {
+  margin-right: 20px; /* Reduce this value to move the logo closer to the left */
+}
+
+/* Navbar Title */
+.navbar-title {
+  margin-left: 20px; /* Optional: Adjust margin-left if needed */
+}
+
+
+

@@ -1,0 +1,548 @@
+.single-how-works-icon i {
+    display: block;
+    margin-bottom: 20px; 
+}
+
+.single-how-works h2 {
+    margin-top: 30px; 
+}
+
+
+
+
+.welcome-hero {
+  background-color: #f5f5f5;
+  padding: 60px 0;
+  text-align: center;
+}
+
+/* Input field styling */
+.search-container {
+  display: inline-block;
+  margin-top: 20px;
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+}
+
+.search-input {
+  width: 80%;
+  padding: 15px 20px;
+  border: 2px solid #ddd;
+  border-radius: 50px 0 0 50px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #008cba; /* Highlight color when focused */
+}
+
+/* Button styling */
+.search-button {
+  width: 20%;
+  padding: 15px 20px;
+  background-color: #008cba;
+  color: white;
+  border: none;
+  border-radius: 0 50px 50px 0;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #005f7f;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .search-input, .search-button {
+    width: 100%;
+    border-radius: 50px;
+    margin-bottom: 10px;
+  }
+
+  .search-button {
+    border-radius: 50px;
+  }
+}
+/* styles.css or your component's CSS file */
+
+form {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: center; /* Center form elements */
+  margin-top: 20px; /* Space above the form */
+}
+
+input[type="text"] {
+  padding: 10px; /* Padding inside the input */
+  border: 1px solid #ccc; /* Border styling */
+  border-radius: 5px; /* Rounded corners */
+  width: 300px; /* Set a width for the input */
+  margin-right: 10px; /* Space between input and button */
+  font-size: 16px; /* Font size */
+}
+
+
+.result {
+  margin-top: 20px; /* Space above the results */
+  padding: 15px; /* Padding inside the result box */
+  background-color: #f9f9f9; /* Light background for results */
+  border: 1px solid #ccc; /* Border around the results */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.result h3 {
+  margin: 0 0 10px; /* Space below headings */
+  color: #004d99; /* Heading color */
+}
+
+.result p {
+  margin: 5px 0; /* Space between paragraphs */
+}
+/* Navbar Styles */
+.navbar {
+  background-color: white;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+
+.navbar-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-user {
+  position: relative;
+}
+
+.navbar-user a {
+  text-decoration: none;
+  color: #004d99;
+}
+
+.navbar-menu {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.navbar-item {
+  margin: 0 10px;
+}
+
+.navbar-link {
+  color: #004d99;
+  text-decoration: none;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu li {
+  list-style: none;
+  padding: 8px 12px;
+}
+
+.dropdown-menu li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+  color: #004d99;
+}
+
+/* Welcome Hero Section */
+/* Welcome Hero Section */
+.welcome-hero {
+    padding: 120px 0;
+    text-align: center;
+    background-color: #004d99; /* Deep blue background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+ 
+  .description {
+    margin-top: 100px; /* Adjust this value to increase or decrease the space */
+} 
+  
+  
+  .welcome-hero-txt form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px; /* Increased margin for better spacing */
+  }
+  
+  .welcome-hero-txt input[type="text"] {
+    padding: 15px;
+    font-size: 1.1em;
+    border: 1px solid #ddd; /* Lighter border */
+    border-radius: 50px; /* Rounded input field */
+    width: 60%;
+    max-width: 450px;
+    margin-right: 15px; /* More space between input and button */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for input */
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .welcome-hero-txt input[type="text"]:focus {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More shadow on focus */
+    border-color: #ffffff; /* White border to match the theme */
+    outline: none; /* Remove default outline */
+  }
+  
+  .welcome-hero-txt button[type="submit"] {
+    padding: 15px 30px;
+    font-size: 1.1em;
+    background-color: #ffffff;
+    color: #004d99; 
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .welcome-hero-txt button[type="submit"]:hover {
+    background-color: #f0f0f0; 
+    transform: translateY(-3px); 
+  }
+  
+  .welcome-hero-txt button[type="submit"]:active {
+    background-color: #e0e0e0; /* Slightly darker grey on active */
+    transform: translateY(0); /* Return to original position */
+  }
+  
+
+.result {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.result h3 {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.result p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+
+
+.footer a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #f8f8f8;
+}
+
+/* Scroll to Top Button */
+#scroll-Top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.return-to-top {
+  background-color: #004d99;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.return-to-top:hover {
+  background-color: #003366;
+}
+.single-how-works-icon i {
+  display: block; 
+  margin-bottom: 20px; 
+}
+
+.single-how-works h2 {
+  margin-top: 30px; 
+}
+
+
+#navbar {
+  transition: top 0.3s;
+}
+
+.hidden {
+  top: -60px; 
+}
+
+
+.navbar {
+  background-color: white;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+
+.navbar-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+.navbar-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #004d99;
+  padding: 8px 16px;
+}
+
+.navbar-menu {
+  display: flex;
+  justify-content: center; 
+  flex-grow: 1; 
+}
+
+.navbar-item {
+  margin: 0 10px; 
+}
+
+.navbar-link {
+  display: block;
+  color: #004d99;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.works {
+  margin-top: 150px; 
+}
+
+
+.button-container {
+  margin-top: 20px; 
+}
+
+.button {
+  display: inline-block; 
+  padding: 10px 20px; 
+  background-color: #004d99; 
+  color: white; 
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s; 
+  margin-right: 10px; 
+}
+
+.button:hover {
+  background-color: #003366; 
+}
+
+/* Website List Section */
+.website-list-section {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.website-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.website-table th, .website-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.website-table th {
+  background-color: #0b4885; 
+  color: white;
+}
+
+.website-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+}
+td button {
+  margin-right: 10px; /* Adds space between the buttons */
+}
+.update-button {
+  background-color: #3498db; /* Blue background */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.update-button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+.online {
+  background-color: #8deec1; /* Light Blue */
+  color: black; /* Optional: change text color for better contrast */
+}
+
+.offline {
+  background-color: #FFCCCB; /* Light Red */
+  color: black; /* Optional: change text color for better contrast */
+}
+
+.ssl-valid {
+  background-color: #8deec1; /* Light Blue */
+  color: black; /* Optional: change text color for better contrast */
+}
+
+.ssl-invalid {
+  background-color: #FFCCCB; /* Light Red */
+  color: black; /* Optional: change text color for better contrast */
+}
+
+.expire-red {
+  background-color: #FFCCCB; /* Light Red */
+  color: black; /* Optional: change text color for better contrast */
+}
+
+.expire-yellow {
+  background-color: #FFFFE0; /* Light Yellow */
+  color: black; /* Optional: change text color for better contrast */
+}
+
+.expire-blue {
+  background-color: #8deec1; /* Light Blue */
+  color: black; /* Optional: change text color for better contrast */
+}
+
+.upload-button {
+  background-color: #3498db; /* Change this color to your desired button color */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  margin-top: 10px; /* Optional: Adds some space above the button */
+}
+
+.upload-button:hover {
+  background-color: #2980b9; /* Change this color to a darker shade for hover effect */
+}
+
+.update-all-button {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.update-all-button:hover {
+  background-color: #2980b9;
+}
+.url-bold {
+  font-weight: bold;
+  font-size: 1.1em; 
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: white;
+}
+
+.loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #3498db;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Align the button to the right */
+  margin-bottom: 20px; /* Add some spacing below the button */
+}
+
+  

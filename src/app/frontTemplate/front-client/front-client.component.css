@@ -1,0 +1,453 @@
+.single-how-works-icon i {
+    display: block; 
+    margin-bottom: 20px;
+}
+
+.single-how-works h2 {
+    margin-top: 30px; 
+}
+
+
+#navbar {
+    transition: top 0.3s;
+}
+
+.hidden {
+    top: -60px; 
+}
+
+/* app.component.css */
+.navbar {
+    background-color: white;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: top 0.3s;
+  }
+  
+  .navbar-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between; /* Space between title and menu */
+    align-items: center; /* Center items vertically */
+  }
+  
+  .navbar-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #004d99;
+    padding: 8px 16px;
+  }
+  
+  .navbar-menu {
+    display: flex;
+    justify-content: center; /* Center menu items */
+    flex-grow: 1; /* Take available space between title and right */
+  }
+  
+  .navbar-item {
+    margin: 0 10px; /* Space between items */
+  }
+  
+  .navbar-link {
+    display: block;
+    color: #004d99;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  .works {
+    margin-top: 150px; /* Optional: Reset any default margin-top on the heading */
+}
+
+/* General container styling */
+.welcome-hero {
+  background-color: #f5f5f5;
+  padding: 60px 0;
+  text-align: center;
+}
+
+/* Input field styling */
+.search-container {
+  display: inline-block;
+  margin-top: 20px;
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+}
+
+.search-input {
+  width: 80%;
+  padding: 15px 20px;
+  border: 2px solid #ddd;
+  border-radius: 50px 0 0 50px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #008cba; /* Highlight color when focused */
+}
+
+/* Button styling */
+.search-button {
+  width: 20%;
+  padding: 15px 20px;
+  background-color: #008cba;
+  color: white;
+  border: none;
+  border-radius: 0 50px 50px 0;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #005f7f;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .search-input, .search-button {
+    width: 100%;
+    border-radius: 50px;
+    margin-bottom: 10px;
+  }
+
+  .search-button {
+    border-radius: 50px;
+  }
+}
+/* styles.css or your component's CSS file */
+
+form {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: center; /* Center form elements */
+  margin-top: 20px; /* Space above the form */
+}
+
+input[type="text"] {
+  padding: 10px; /* Padding inside the input */
+  border: 1px solid #ccc; /* Border styling */
+  border-radius: 5px; /* Rounded corners */
+  width: 300px; /* Set a width for the input */
+  margin-right: 10px; /* Space between input and button */
+  font-size: 16px; /* Font size */
+}
+
+button[type="submit"] {
+  padding: 10px 20px; /* Padding for the button */
+  background-color: #004d99; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+button[type="submit"]:hover {
+  background-color: #003366; /* Darker shade on hover */
+}
+
+.result {
+  margin-top: 20px; /* Space above the results */
+  padding: 15px; /* Padding inside the result box */
+  background-color: #f9f9f9; /* Light background for results */
+  border: 1px solid #ccc; /* Border around the results */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.result h3 {
+  margin: 0 0 10px; /* Space below headings */
+  color: #004d99; /* Heading color */
+}
+
+.result p {
+  margin: 5px 0; /* Space between paragraphs */
+}
+/* Navbar Styles */
+.navbar {
+  background-color: white;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+
+.navbar-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-user {
+  position: relative;
+}
+
+.navbar-user a {
+  text-decoration: none;
+  color: #004d99;
+}
+
+.navbar-menu {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.navbar-item {
+  margin: 0 10px;
+}
+
+.navbar-link {
+  color: #004d99;
+  text-decoration: none;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu li {
+  list-style: none;
+  padding: 8px 12px;
+}
+
+.dropdown-menu li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+  color: #004d99;
+}
+
+/* Welcome Hero Section */
+/* Welcome Hero Section */
+.welcome-hero {
+  padding: 120px 0;
+  text-align: center;
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.welcome-hero-txt h2 {
+  font-size: 3em;
+  color: #ffffff; /* White text for contrast */
+  margin-bottom: 20px; /* Space below the heading */
+  font-weight: 700; /* Bolder font weight */
+  text-transform: uppercase; /* Uppercase for a bold statement */
+  letter-spacing: 1px; /* Slight letter spacing for better readability */
+}
+
+.welcome-hero-txt p {
+  font-size: 1.3em;
+  color: #f0f0f0; /* Light grey for a softer contrast */
+  margin-bottom: 30px; /* Space below the paragraph */
+  line-height: 1.6; /* Better line spacing for readability */
+  max-width: 700px; /* Limit the width for better text layout */
+  margin: 0 auto 30px; /* Center the text */
+}
+
+.welcome-hero-txt form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px; /* Increased margin for better spacing */
+}
+
+.welcome-hero-txt input[type="text"] {
+  padding: 15px;
+  font-size: 1.1em;
+  border: 1px solid #ddd; /* Lighter border */
+  border-radius: 50px; /* Rounded input field */
+  width: 60%;
+  max-width: 450px;
+  margin-right: 15px; /* More space between input and button */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for input */
+  transition: box-shadow 0.3s ease;
+}
+
+.welcome-hero-txt input[type="text"]:focus {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More shadow on focus */
+  border-color: #004d99; /* Border color matches button */
+  outline: none; /* Remove default outline */
+}
+
+.welcome-hero-txt button[type="submit"] {
+  padding: 15px 30px;
+  font-size: 1.1em;
+  background-color: #ffffff;
+  color: #004d99; 
+  border: none;
+  border-radius: 50px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  margin-right: 10px; 
+}
+
+.welcome-hero-txt button[type="submit"]:hover {
+  background-color: #f0f0f0; 
+  transform: translateY(-3px); 
+}
+
+.welcome-hero-txt button[type="submit"]:active {
+  background-color: #002244; /* Even darker blue on active */
+  transform: translateY(0); /* Return to original position */
+}
+
+
+.result {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.result h3 {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.result p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+
+
+.footer a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #f8f8f8;
+}
+
+/* Scroll to Top Button */
+#scroll-Top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.return-to-top {
+  background-color: #004d99;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.return-to-top:hover {
+  background-color: #003366;
+}
+.single-how-works-icon i {
+  display: block; 
+  margin-bottom: 20px; 
+}
+
+.single-how-works h2 {
+  margin-top: 30px; 
+}
+
+
+#navbar {
+  transition: top 0.3s;
+}
+
+.hidden {
+  top: -60px; 
+}
+
+
+.navbar {
+  background-color: white;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+
+.navbar-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+.navbar-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #004d99;
+  padding: 8px 16px;
+}
+
+.navbar-menu {
+  display: flex;
+  justify-content: center; 
+  flex-grow: 1; 
+}
+
+.navbar-item {
+  margin: 0 10px; 
+}
+
+.navbar-link {
+  display: block;
+  color: #004d99;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.works {
+  margin-top: 150px; 
+}
+
+
+.button-container {
+  margin-top: 20px; 
+}
+
+.button {
+  display: inline-block; 
+  padding: 10px 20px; 
+  background-color: #004d99; 
+  color: white; 
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s; 
+  margin-right: 10px; 
+}
+
+.button:hover {
+  background-color: #003366; 
+}

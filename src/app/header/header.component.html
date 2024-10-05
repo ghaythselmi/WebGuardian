@@ -1,0 +1,30 @@
+<nav id="navbar" *ngIf="navbarVisible" class="navbar">
+  <div class="navbar-container">
+      <!-- Logo Section -->
+      <div class="navbar-logo">
+          <img src="assets/img/logo.png" alt="Logo" class="logo-image" />
+      </div>
+
+      <ul class="navbar-list">
+          <!-- Navbar Menu in the Center -->
+          <div class="navbar-menu fade-in">
+              <li class="navbar-item"><a href="/frontClient/{{ user.id }}" class="navbar-link">Home</a></li>
+              <li class="navbar-item"><a href="/websites/{{ user.id }}" class="navbar-link">My Websites</a></li>
+              <li class="navbar-item"><a href="#services" class="navbar-link">Stats</a></li>
+          </div>
+
+          <!-- User Section -->
+          <li class="navbar-user">
+              <a (click)="toggleDropdown($event)" class="user-link fade-in">
+                  <!-- User icon -->
+                  <i class="fas fa-user"></i>
+                  {{ user.username || 'Loading...' }}
+              </a>
+              <ul class="dropdown-menu" *ngIf="dropdownVisible">
+                  <li><a href="/profile">Profile</a></li>
+                  <li><a href="#" (click)="logout()">Logout</a></li>
+              </ul>
+          </li>
+      </ul>
+  </div>
+</nav>
