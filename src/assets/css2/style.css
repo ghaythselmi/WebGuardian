@@ -15,7 +15,7 @@ font-family: 'Roboto', sans-serif;
 3.  Top-area
 4.  Welcome-hero
 5.  List-topics
-6.  Works  
+6.  Works
 7.  Explore
 8.  Reviews
 9.  Counter
@@ -58,7 +58,7 @@ a,a:hover,a:active,a:focus {
     font-weight: 500;
     text-transform: capitalize;
 }
-h1,h2,h3,h4,h5,h6 { 
+h1,h2,h3,h4,h5,h6 {
 	margin: 0;
 	color:#343a3f;
     font-size: 18px;
@@ -80,7 +80,7 @@ ul{
 }
 ul li {
 	list-style: none;
-	
+
 }
 select,input,textarea,button{box-shadow:none;outline:0!important;}
 button {background: transparent;border: 0;font-size: 12px;}
@@ -88,11 +88,11 @@ button {background: transparent;border: 0;font-size: 12px;}
 html,body{height: 100%;}
 
 [placeholder]:focus::-webkit-input-placeholder {
-  -webkit-transition: opacity 0.3s 0.3s ease; 
-  -moz-transition: opacity 0.3s 0.3s ease; 
-  -ms-transition: opacity 0.3s 0.3s ease; 
-  -o-transition: opacity 0.3s 0.3s ease; 
-  transition: opacity 0.3s 0.3s ease; 
+  -webkit-transition: opacity 0.3s 0.3s ease;
+  -moz-transition: opacity 0.3s 0.3s ease;
+  -ms-transition: opacity 0.3s 0.3s ease;
+  -o-transition: opacity 0.3s 0.3s ease;
+  transition: opacity 0.3s 0.3s ease;
   opacity: 0;
 }
 
@@ -194,10 +194,10 @@ nav.navbar.bootsnav ul.nav > li > a {
     font-size: 14px;
     font-weight: 500;
     text-transform:uppercase;
-    -webkit-transition: 0.3s linear; 
-    -moz-transition: 0.3s linear; 
-    -ms-transition: 0.3s linear; 
-    -o-transition: 0.3s linear; 
+    -webkit-transition: 0.3s linear;
+    -moz-transition: 0.3s linear;
+    -ms-transition: 0.3s linear;
+    -o-transition: 0.3s linear;
     transition: 0.3s linear;
 }
 nav.navbar.bootsnav ul.nav > li > a {padding:34px 21px;}
@@ -324,10 +324,10 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     text-transform:  capitalize;
     margin-left:  30px;
     border-radius: 3px;
-    -webkit-transition: 0.3s linear; 
-    -moz-transition: 0.3s linear; 
-    -ms-transition: 0.3s linear; 
-    -o-transition: 0.3s linear; 
+    -webkit-transition: 0.3s linear;
+    -moz-transition: 0.3s linear;
+    -ms-transition: 0.3s linear;
+    -o-transition: 0.3s linear;
     transition: 0.3s linear;
 }
 .welcome-hero-btn:hover{/*background: #fd4043;*/background: #f43032;}
@@ -360,9 +360,9 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     margin-right: 20px;
     margin-bottom: 20px;
     box-shadow: 0 0px 10px rgba(71,71,71,.2);
-    -webkit-transition: .3s linear; 
-    -moz-transition:.3s linear; 
-    -ms-transition:.3s linear; 
+    -webkit-transition: .3s linear;
+    -moz-transition:.3s linear;
+    -ms-transition:.3s linear;
     -o-transition:.3s linear;
     transition: .3s linear;
 }
@@ -380,7 +380,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 }
 
 /*-------------------------------------
-        6. Works 
+        6. Works
 --------------------------------------*/
 .works{padding: 0 0 90px;}
 .works-content {margin-top: 73px;}
@@ -391,9 +391,9 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     border-radius: 3px;
     box-shadow: 0 0px 5px rgba(71,71,71,.2);
     margin-bottom: 30px;
-    -webkit-transition: .3s linear; 
-    -moz-transition:.3s linear; 
-    -ms-transition:.3s linear; 
+    -webkit-transition: .3s linear;
+    -moz-transition:.3s linear;
+    -ms-transition:.3s linear;
     -o-transition:.3s linear;
     transition: .3s linear;
 }
@@ -448,9 +448,9 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     border: 1px solid #edeff1;
     border-radius: 3px;
     margin-bottom: 25px;
-    -webkit-transition: .3s linear; 
-    -moz-transition:.3s linear; 
-    -ms-transition:.3s linear; 
+    -webkit-transition: .3s linear;
+    -moz-transition:.3s linear;
+    -ms-transition:.3s linear;
     -o-transition:.3s linear;
     transition: .3s linear;
 }
@@ -588,11 +588,11 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 /*single-testimonial-box */
 .single-testimonial-box  {
     padding: 50px 30px;
-    box-shadow: 0 0px 5px rgba(71,71,71,.2); 
+    box-shadow: 0 0px 5px rgba(71,71,71,.2);
     overflow-x:hidden;
-    -webkit-transition: .3s; 
-    -moz-transition:.3s; 
-    -ms-transition:.3s; 
+    -webkit-transition: .3s;
+    -moz-transition:.3s;
+    -ms-transition:.3s;
     -o-transition:.3s;
     transition: .3s;
 }
@@ -614,9 +614,9 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     top: 11px;
     margin-right: 5px;
     border-radius:50%;
-    -webkit-transition: .3s; 
-    -moz-transition:.3s; 
-    -ms-transition:.3s; 
+    -webkit-transition: .3s;
+    -moz-transition:.3s;
+    -ms-transition:.3s;
     -o-transition:.3s;
     transition: .3s;
 }
@@ -672,7 +672,7 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 }
 /*.slick-slide*/
 
-/*-------------------------------------       
+/*-------------------------------------
         9.  Counter
 --------------------------------------*/
 .statistics{
@@ -725,9 +725,9 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
 .single-blog-item{
     margin-bottom: 30px;
     box-shadow: 0 0px 5px rgba(71,71,71,.2);
-    -webkit-transition: .3s; 
-    -moz-transition:.3s; 
-    -ms-transition:.3s; 
+    -webkit-transition: .3s;
+    -moz-transition:.3s;
+    -ms-transition:.3s;
     -o-transition:.3s;
     transition: .3s;
 }
@@ -883,9 +883,9 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     color: #afb4bf;
     font-size: 14px;
     margin-left: 15px;
-    -webkit-transition: .3s; 
-    -moz-transition:.3s; 
-    -ms-transition:.3s; 
+    -webkit-transition: .3s;
+    -moz-transition:.3s;
+    -ms-transition:.3s;
     -o-transition:.3s;
     transition: .3s;
 }
@@ -919,9 +919,9 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     background:#004d99;
 	border:1px solid #2977c5;
 	border-radius:50%;
-	-webkit-transition: .5s; 
-	-moz-transition:.5s; 
-	-ms-transition:.5s; 
+	-webkit-transition: .5s;
+	-moz-transition:.5s;
+	-ms-transition:.5s;
 	-o-transition:.5s;
     transition: .5s;
 	z-index: 2;
@@ -948,4 +948,3 @@ nav.navbar.bootsnav .navbar-toggle i{color: #ff545a;}
     0%   {bottom:0px;}
     100%  {bottom:7px;}
 }
-/*========================Thank you=================
