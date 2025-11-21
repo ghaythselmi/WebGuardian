@@ -24,7 +24,7 @@ RUN rm -rf /usr/share/nginx/html/*
 
 # Copy built Angular dist folder
 COPY --from=build /app/dist/webguardianf/ /usr/share/nginx/html/
-
+COPY default.conf /etc/nginx/conf.d/default.conf
 # Expose port
 EXPOSE 80
 
