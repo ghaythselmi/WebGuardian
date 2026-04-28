@@ -1,4 +1,4 @@
-import { Component,HostListener } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -10,22 +10,21 @@ export class HomeComponent {
   navbarVisible = true;
   scrollThreshold = 120; 
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll', [])
   onWindowScroll() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
 
     if (scrollTop > this.scrollThreshold) {
       if (scrollTop > this.lastScrollTop) {
-        
+        // scrolling down
         this.navbarVisible = false;
       } else {
-        
-        if (scrollTop <= this.scrollThreshold) {
-          this.navbarVisible = true;
-        }
+        // scrolling up
+        this.navbarVisible = true;
       }
     } else {
-      this.navbarVisible = true; 
+      // always show navbar near the top
+      this.navbarVisible = true;
     }
 
     this.lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
