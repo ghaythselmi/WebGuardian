@@ -1,124 +1,169 @@
-/* Navbar Styles */
+/* ============================================================
+   FIXED NAVBAR - Clean Dark Theme
+   ============================================================ */
+
+/* Main Navbar */
 .navbar {
-  background-color: white;
-  padding: 10px;
   position: fixed;
   top: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(10, 12, 21, 0.98);
+  backdrop-filter: blur(12px);
   z-index: 1000;
-  display: flex;
-  justify-content: space-between; /* Space between logo/menu and user */
-  align-items: center;
-  transition: top 0.3s;
+  border-bottom: 1px solid rgba(0, 204, 255, 0.15);
+  padding: 0 5%;
 }
 
 .navbar-container {
-  display: flex; /* Use flexbox to align items */
-  align-items: center; /* Center items vertically */
-  width: 100%; /* Ensure the container takes the full width */
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
 }
 
+/* Logo */
 .navbar-logo {
-  margin-right: 200px;
-  margin-left: 200px;
+  flex-shrink: 0;
 }
 
 .logo-image {
-  height: 40px; /* Set desired height for the logo */
-  width: auto; /* Maintain aspect ratio */
+  height: 40px;
+  width: auto;
+  filter: brightness(0) invert(1);
 }
 
+/* Navigation List */
 .navbar-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  flex-grow: 1; /* Allow this section to grow and take remaining space */
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-/* Navbar menu is aligned in the center */
+/* Menu Items Container */
 .navbar-menu {
   display: flex;
-  justify-content: center;
+  gap: 8px;
+  align-items: center;
 }
 
 .navbar-item {
-  margin: 0 10px;
+  list-style: none;
 }
 
 .navbar-link {
-  display: block;
-  color: #004d99;
-  text-align: center;
-  padding: 14px 16px;
+  color: #a0aec0;
   text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-link i {
+  font-size: 16px;
 }
 
 .navbar-link:hover {
-  color: #006bb3;
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-/* User Section - Positioned to the right but not too far */
+.navbar-link.active {
+  color: #00ccff;
+  background: rgba(0, 204, 255, 0.1);
+}
+
+/* User Section */
 .navbar-user {
   position: relative;
-  display: flex;
-  align-items: center;
-  margin-right: 20px; /* Adjusted right margin */
+  list-style: none;
 }
 
 .user-link {
   display: flex;
   align-items: center;
-  color: #004d99;
+  gap: 10px;
+  color: #a0aec0;
   text-decoration: none;
-  cursor: pointer; /* Show hand pointer when hovering over the user */
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: rgba(0, 204, 255, 0.05);
+  border: 1px solid rgba(0, 204, 255, 0.1);
 }
 
-.user-link i {
-  margin-right: 8px; /* Space between icon and username */
+.user-link i:first-child {
   font-size: 18px;
+  color: #00ccff;
 }
 
 .user-link:hover {
-  color: #006bb3;
+  color: white;
+  background: rgba(0, 204, 255, 0.1);
 }
 
-/* Dropdown Menu Styles */
+/* Dropdown */
 .dropdown-menu {
-  display: block;
   position: absolute;
   top: 100%;
-  left: 0;
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown-menu li {
+  right: 0;
+  margin-top: 8px;
+  background: #0f1222;
+  border: 1px solid rgba(0, 204, 255, 0.15);
+  border-radius: 12px;
+  padding: 8px;
+  min-width: 160px;
   list-style: none;
-  padding: 8px 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
 }
 
 .dropdown-menu li a {
-  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  color: #a0aec0;
   text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s;
 }
 
 .dropdown-menu li a:hover {
-  color: #004d99;
+  background: rgba(0, 204, 255, 0.1);
+  color: #00ccff;
 }
 
-/* Fade-in effect */
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 0.5s forwards;
-}
-
-@keyframes fadeIn {
-  to {
-      opacity: 1;
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    height: auto;
+    padding: 12px 0;
+    gap: 12px;
+  }
+  
+  .navbar-list {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .navbar-menu {
+    order: 1;
+  }
+  
+  .navbar-user {
+    order: 2;
   }
 }
