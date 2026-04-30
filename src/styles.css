@@ -1,0 +1,55 @@
+/* ============================================================
+   WEB GUARDIAN — GLOBAL STYLES
+   Overrides Bootstrap and sets the dark base for all pages.
+   ============================================================ */
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap');
+
+/* ── Reset & Dark Base ────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #0a0c15 !important;
+  color: #ffffff !important;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0a0c15 !important;
+  color: #ffffff !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Nuke Bootstrap white overrides ──────────────────────── */
+.container,
+.container-fluid,
+.row,
+.col,
+[class*="col-"] {
+  background: transparent !important;
+}
+
+/* Bootstrap sets these — override globally */
+a { color: #00e5ff; }
+a:hover { color: #00ccff; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0c15; }
+::-webkit-scrollbar-thumb { background: #00ccff; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #0077ff; }
+
+/* Selection */
+::selection {
+  background: rgba(0, 229, 255, 0.25);
+  color: #ffffff;
+}

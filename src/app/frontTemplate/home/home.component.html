@@ -1,349 +1,190 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
+<!-- Animated Background Elements -->
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Web Guardian | Monitor Website Health & SSL</title>
-    
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="./home.component.css">
-</head>
-
-<body>
-    <!-- Animated Background Elements -->
-    <div class="bg-grid"></div>
-    <div class="bg-glow"></div>
-
-    <!-- Navigation Bar -->
-    <nav id="navbar" class="navbar">
-        <div class="navbar-inner">
-            <div class="navbar-brand">
-                <div class="brand-icon">
-                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                        <path d="M14 2L3 7v8c0 6.5 4.7 12.6 11 14 6.3-1.4 11-7.5 11-14V7L14 2z" stroke="#00e5ff" stroke-width="1.5" fill="none"/>
-                        <path d="M14 2L3 7v8c0 6.5 4.7 12.6 11 14" stroke="#0077ff" stroke-width="1.5" fill="none"/>
-                        <circle cx="14" cy="13" r="3" fill="#00e5ff" opacity="0.8"/>
-                    </svg>
-                </div>
-                <span class="brand-name">Web<span>Guardian</span></span>
+<!-- Navigation Bar -->
+<nav class="navbar" [class.hidden]="!navbarVisible">
+    <div class="navbar-container">
+        <a href="#home" class="navbar-brand">
+            <div class="brand-icon">
+                <i class="fas fa-shield-alt"></i>
             </div>
-            <div class="navbar-actions">
-                <a href="login" class="nav-link">Login</a>
-                <a href="register" class="nav-cta">Get Started</a>
-            </div>
+            <span class="brand-name">Web<span>Guardian</span></span>
+        </a>
+        <div class="navbar-links">
+            <a href="#home"  class="nav-link">Home</a>
+            <a href="#works" class="nav-link">Features</a>
+            <a href="#contact" class="nav-link">Contact</a>
         </div>
-    </nav>
-
-    <!-- Hero / Checker Section -->
-    <section id="home" class="welcome-hero">
-        <div class="container">
-            <div class="hero-header">
-                <div class="hero-badge">
-                    <span class="badge-dot"></span>
-                    Real-time monitoring · SSL · Uptime
-                </div>
-                <h1 class="hero-title">
-                    Best place to test your <span class="title-accent">website's health</span>
-                </h1>
-                <p class="hero-subtitle">All you have to do is to put your URL — instant availability & SSL insights.</p>
-            </div>
-
-            <div class="checker-panel">
-                <div class="checker-form">
-                    <div class="input-wrap">
-                        <div class="input-icon">
-                            <i class="fas fa-link"></i>
-                        </div>
-                        <input type="text" id="websiteUrl" class="url-input" placeholder="https://example.com" value="https://google.com">
-                        <button id="checkBtn" class="check-btn">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Check Now</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div id="resultContainer"></div>
-
-                <div class="hero-buttons">
-                    <a href="login" class="btn btn-primary">Login</a>
-                    <a href="register" class="btn btn-ghost">Sign Up</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="works" class="works">
-        <div class="container">
-            <div class="section-header">
-                <p class="section-label">— How It Works</p>
-                <h2>Three steps to <span>full visibility</span></h2>
-                <p class="section-desc">Learn more about how our website monitors other websites</p>
-            </div>
-
-            <div class="works-grid">
-                <div class="work-card">
-                    <div class="work-number">01</div>
-                    <div class="work-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3>Choose <span>a Website</span></h3>
-                    <p>Select any website you want to monitor. Our tool allows you to check the status and security of any site you care about.</p>
-                    <div class="card-line"></div>
-                </div>
-
-                <div class="work-card">
-                    <div class="work-number">02</div>
-                    <div class="work-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Monitor <span>Availability</span></h3>
-                    <p>Our service checks whether the website is online or offline. We provide instant feedback on the website's status.</p>
-                    <div class="card-line"></div>
-                </div>
-
-                <div class="work-card">
-                    <div class="work-number">03</div>
-                    <div class="work-icon">
-                        <i class="fas fa-shield-halved"></i>
-                    </div>
-                    <h3>Check <span>SSL Security</span></h3>
-                    <p>We inspect the SSL certificate of the website, letting you know if it's secure and when the certificate will expire.</p>
-                    <div class="card-line"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="footer" class="footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <div class="brand-icon small">
-                    <svg width="20" height="20" viewBox="0 0 28 28" fill="none">
-                        <path d="M14 2L3 7v8c0 6.5 4.7 12.6 11 14 6.3-1.4 11-7.5 11-14V7L14 2z" stroke="#00e5ff" stroke-width="1.5" fill="none"/>
-                    </svg>
-                </div>
-                <span>WebGuardian</span>
-            </div>
-            <p class="footer-copy">
-                &copy; 2024 designed and developed by <a href="#">ShyrineProd Team</a>. All rights reserved.
-            </p>
-            <div class="footer-social">
-                <span class="footer-phone"><i class="fas fa-phone"></i> +1 (222) 777 8888</span>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-google-plus-g"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <div id="scroll-Top">
-        <div class="return-to-top">
-            <i class="fas fa-angle-up"></i>
+        <div class="navbar-actions">
+            <a href="login"    class="nav-link btn-outline">Login</a>
+            <a href="register" class="nav-link btn-primary">Sign Up</a>
         </div>
     </div>
+</nav>
 
-    <script>
-        (function() {
-            // Navbar scroll hide/show
-            let lastScroll = 0;
-            const navbar = document.getElementById('navbar');
-            const scrollBtn = document.getElementById('scroll-Top');
-            
-            window.addEventListener('scroll', function() {
-                const currentScroll = window.pageYOffset;
-                if (currentScroll > lastScroll && currentScroll > 80) {
-                    navbar.classList.add('hidden');
-                } else {
-                    navbar.classList.remove('hidden');
-                }
-                lastScroll = currentScroll;
-                
-                if (scrollBtn) {
-                    scrollBtn.style.opacity = currentScroll > 300 ? '1' : '0';
-                }
-            });
-            
-            // Scroll to top
-            if (scrollBtn) {
-                scrollBtn.addEventListener('click', function() {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-            
-            // Website Check Functionality
-            const checkBtn = document.getElementById('checkBtn');
-            const urlInput = document.getElementById('websiteUrl');
-            const resultContainer = document.getElementById('resultContainer');
-            
-            async function checkWebsite() {
-                let url = urlInput.value.trim();
-                if (!url) {
-                    showError('Please enter a valid URL');
-                    return;
-                }
-                
-                if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                    url = 'https://' + url;
-                }
-                
-                // Show loading state
-                resultContainer.innerHTML = `
-                    <div class="loading-state">
-                        <div class="loader-ring"></div>
-                        <span>Scanning website & SSL certificate...</span>
-                    </div>
-                `;
-                
-                try {
-                    // Simulate API call with realistic data
-                    const result = await simulateWebsiteCheck(url);
-                    displayResults(result);
-                } catch (error) {
-                    showError('Unable to check website. Please try again.');
-                }
-            }
-            
-            async function simulateWebsiteCheck(url) {
-                // Simulate network delay
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                // Generate deterministic but realistic results
-                const isOnline = Math.random() > 0.1; // 90% online rate
-                const statusCode = isOnline ? 200 : [404, 500, 503][Math.floor(Math.random() * 3)];
-                const sslDays = url.includes('https') ? Math.floor(Math.random() * 365) + 1 : 0;
-                const latency = Math.floor(Math.random() * 300) + 50;
-                
-                return {
-                    url: url,
-                    isOnline: isOnline,
-                    statusCode: statusCode,
-                    sslDaysLeft: sslDays,
-                    latency: latency,
-                    hasSSL: url.includes('https')
-                };
-            }
-            
-            function displayResults(result) {
-                const onlineClass = result.isOnline ? 'online' : 'offline';
-                const onlineText = result.isOnline ? '● ONLINE' : '● OFFLINE';
-                const statusColor = result.isOnline ? '#4ade80' : '#f87171';
-                
-                let sslStatus = '';
-                let sslClass = '';
-                let sslPercent = 0;
-                
-                if (result.hasSSL && result.sslDaysLeft > 0) {
-                    if (result.sslDaysLeft < 30) {
-                        sslStatus = `⚠️ Expires in ${result.sslDaysLeft} days`;
-                        sslClass = 'warn';
-                    } else {
-                        sslStatus = `✅ Valid — ${result.sslDaysLeft} days left`;
-                        sslClass = 'safe';
-                    }
-                    sslPercent = Math.min(100, (result.sslDaysLeft / 365) * 100);
-                } else if (result.hasSSL && result.sslDaysLeft === 0) {
-                    sslStatus = '❌ Expired / Invalid';
-                    sslClass = 'warn';
-                    sslPercent = 0;
-                } else {
-                    sslStatus = '⚠️ No SSL Certificate';
-                    sslClass = 'warn';
-                    sslPercent = 0;
-                }
-                
-                resultContainer.innerHTML = `
-                    <div class="results-grid">
-                        <div class="result-card">
-                            <div class="result-card-header">
-                                <div class="result-icon">
-                                    <i class="fas fa-globe"></i>
-                                </div>
-                                <span class="result-label">Availability Status</span>
-                                <span class="status-badge ${onlineClass}">${onlineText}</span>
-                            </div>
-                            <div class="result-body">
-                                <div class="metric">
-                                    <span class="metric-key">HTTP Status</span>
-                                    <span class="metric-val code">${result.statusCode}</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-key">Response Time</span>
-                                    <span class="metric-val accent">${result.latency}ms</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-key">Target URL</span>
-                                    <span class="metric-val" style="font-size:0.75rem;">${result.url}</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="result-card">
-                            <div class="result-card-header">
-                                <div class="result-icon ssl">
-                                    <i class="fas fa-lock"></i>
-                                </div>
-                                <span class="result-label">SSL Certificate</span>
-                                <span class="ssl-badge ${sslClass}">${result.hasSSL ? (result.sslDaysLeft > 0 ? 'SECURE' : 'INSECURE') : 'MISSING'}</span>
-                            </div>
-                            <div class="result-body">
-                                <div class="metric">
-                                    <span class="metric-key">Certificate Status</span>
-                                    <span class="metric-val">${sslStatus}</span>
-                                </div>
-                                ${result.hasSSL && result.sslDaysLeft > 0 ? `
-                                <div class="ssl-bar-wrap">
-                                    <div class="ssl-bar">
-                                        <div class="ssl-bar-fill" style="width: ${sslPercent}%;"></div>
-                                    </div>
-                                    <div class="ssl-bar-label">${Math.round(sslPercent)}% of validity period remaining</div>
-                                </div>
-                                ` : ''}
-                                <div class="metric">
-                                    <span class="metric-key">Encryption</span>
-                                    <span class="metric-val">${result.hasSSL ? 'TLS 1.3 / AES-256' : 'None'}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            function showError(message) {
-                resultContainer.innerHTML = `
-                    <div class="loading-state" style="color: #f87171;">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <span>${message}</span>
-                    </div>
-                `;
-            }
-            
-            if (checkBtn) {
-                checkBtn.addEventListener('click', checkWebsite);
-            }
-            if (urlInput) {
-                urlInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') checkWebsite();
-                });
-            }
-            
-            // Initial demo result
-            setTimeout(() => {
-                if (resultContainer && resultContainer.children.length === 0) {
-                    simulateWebsiteCheck('https://example.com').then(displayResults);
-                }
-            }, 500);
-        })();
-    </script>
-</body>
-</html>
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-container">
+
+        <!-- Left -->
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span class="badge-text">Real-time monitoring · SSL · Uptime</span>
+            </div>
+
+            <h1 class="hero-title">
+                Best place to test your<br>
+                <span class="gradient-text">website's health</span>
+            </h1>
+
+            <p class="hero-description">
+                Enterprise-grade website monitoring. Instant availability checks,
+                SSL certificate tracking — all in one dashboard.
+            </p>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">99.9%</div>
+                    <div class="stat-label">Uptime SLA</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-value">&lt;1s</div>
+                    <div class="stat-label">Check Speed</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-value">SSL+</div>
+                    <div class="stat-label">Certificate Tracking</div>
+                </div>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="register" class="btn btn-primary">
+                    Get Started <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#works" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Right — Terminal -->
+        <div class="hero-terminal">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">guardian&#64;security:~/monitor</div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line">
+                    <span class="prompt">$</span>
+                    <span class="command">./guardian --scan --all</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">→</span>
+                    <span class="info">[INFO] Initializing security protocols...</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">→</span>
+                    <span class="success">[✓] System active</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">→</span>
+                    <span class="info">[SSL] Certificate validation engine ready</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">→</span>
+                    <span>Tracking <span class="highlight">0</span> monitored websites</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">→</span>
+                    <span>Last scan: <span class="time">pending...</span></span>
+                </div>
+                <div class="terminal-line cursor-line">
+                    <span class="prompt">$</span>
+                    <span class="command">live_monitor --interval=30s</span>
+                    <span class="cursor"></span>
+                </div>
+                <div class="terminal-art">
+                    ╔═══════════════════════════════════════╗<br>
+                    ║&nbsp;&nbsp;🔒 SECURE CONNECTION ESTABLISHED&nbsp;&nbsp;🔒<br>
+                    ╚═══════════════════════════════════════╝
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="works" class="works">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">— How It Works</span>
+            <h2>Three steps to <span class="gradient-text">full visibility</span></h2>
+            <p class="section-subtitle">Learn how Web Guardian keeps your websites in check</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-number">01</div>
+                <div class="feature-icon"><i class="fas fa-globe"></i></div>
+                <h3>Choose <span>a Website</span></h3>
+                <p>Select any website you want to monitor. Our tool checks the status and security of any site instantly.</p>
+                <div class="card-hover-line"></div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-number">02</div>
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Monitor <span>Availability</span></h3>
+                <p>We check whether the website is online or offline and provide instant feedback on its current status.</p>
+                <div class="card-hover-line"></div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-number">03</div>
+                <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+                <h3>Check <span>SSL Security</span></h3>
+                <p>We inspect SSL certificates, revealing validity and exact expiry dates so you're never caught off guard.</p>
+                <div class="card-hover-line"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <div class="brand-icon small">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <span>Web<span>Guardian</span></span>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2024 designed and developed by
+                <a href="https://www.shyrineprod.com">ShyrineProd Team</a>.
+                All rights reserved.
+            </p>
+        </div>
+        <div class="footer-social">
+            <span class="footer-phone"><i class="fas fa-phone"></i> +1 (222) 777 8888</span>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to Top Button -->
+<div class="scroll-top" [class.visible]="showScrollTop" (click)="scrollToTop()">
+    <div class="scroll-top-inner">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+</div>
