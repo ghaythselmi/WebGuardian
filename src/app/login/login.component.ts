@@ -8,28 +8,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
-  errorMessage: string = '';
-  userId! : number ;
+  email       = '';
+  password    = '';
+  errorMessage = '';
+  isLoading   = false;
+  showPassword = false;
+
   constructor(private userService: UserService, private router: Router) {}
 
   login() {
+    if (!this.email || !this.password) return;
+    this.isLoading = true;
+    this.errorMessage = '';
+
     this.userService.login(this.email, this.password).subscribe(
       (response: any) => {
-        console.log(response);
-        console.log(response.userId);
-        this.userId =response.userId ;
-          this.router.navigate(['frontClient', this.userId]);
-        
+        this.isLoading = false;
+        this.router.navigate(['frontClient', response.userId]);
       },
-      (error) => {
-        console.error('Login failed', error);
+      () => {
+        this.isLoading = false;
         this.errorMessage = 'Invalid credentials. Please try again.';
       }
     );
   }
-
-  
-
 }

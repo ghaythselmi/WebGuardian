@@ -36,3 +36,62 @@ body {
   background: rgba(0, 229, 255, 0.25);
   color: #ffffff;
 }
+
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.footer-logo i { font-size: 1.2rem; color: #00ccff; }
+.footer-logo span span { color: #00ccff; }
+
+.footer-copyright { color: #5a6e8a; font-size: 0.8rem; }
+
+.footer-social { display: flex; gap: 12px; }
+
+.footer-social a {
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a9bb5;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.footer-social a:hover { background: #00ccff; color: #0a0c15; }
+
+/* Scroll Top */
+.scroll-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #00ccff, #0066ff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  z-index: 100;
+}
+
+.scroll-top.visible { opacity: 1; visibility: visible; }
+.scroll-top:hover   { transform: translateY(-2px); }
+.footer {
+  border-top: 1px solid rgba(0, 200, 255, 0.1);
+  padding: 40px 0;
+  background: #0a0c15;
+}

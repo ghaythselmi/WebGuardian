@@ -1,51 +1,119 @@
-<div class="container d-flex align-items-center min-vh-100">
-  <div class="row justify-content-center w-100">
-    <div class="col-xl-10 col-lg-12 col-md-9">
-      <div class="card o-hidden border-0 shadow-lg">
-        <div class="card-body p-0">
-          <div class="row h-100">
-            <!-- Left Image Section -->
-            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-            <div>
-              <div class="p-5">
-                <div class="text-center">
-                  <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                </div>
+<!-- Background -->
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
 
-                <!-- Error Message -->
-                <div *ngIf="errorMessage" class="alert alert-danger mb-4" role="alert">
-                  {{ errorMessage }}
-                </div>
+<!-- Page -->
+<div class="auth-page">
 
-                <!-- Login Form -->
-                <form (submit)="login()">
-                  <div class="form-group">
-                    <input type="email" [(ngModel)]="email" name="email" class="form-control form-control-user"
-                           placeholder="Enter Email Address..." required>
-                  </div>
-                  <div class="form-group">
-                    <input type="password" [(ngModel)]="password" name="password" class="form-control form-control-user"
-                           placeholder="Password" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary btn-user btn-block">
-                    Login
-                  </button>
-                </form>
+  <!-- Brand -->
+  <a href="/h" class="auth-brand">
+    <div class="brand-icon">
+      <i class="fas fa-shield-alt"></i>
+    </div>
+    <span class="brand-name">Web<span>Guardian</span></span>
+  </a>
 
-                <hr class="my-4">
-                
-                <!-- Additional Links -->
-                <div class="text-center mb-2">
-                  <a class="small" href="forgot-password.html">Forgot Password?</a>
-                </div>
-                <div class="text-center">
-                  <a class="small" href="/register">Create an Account!</a>
-                </div>
-              </div>
-            </div>
+  <!-- Card -->
+  <div class="auth-card">
+
+    <!-- Left panel -->
+    <div class="auth-panel">
+      <div class="panel-content">
+        <div class="panel-badge">
+          <span class="badge-dot"></span> Secure Login
+        </div>
+        <h2 class="panel-title">Monitor your<br><span>websites 24/7</span></h2>
+        <p class="panel-sub">Real-time uptime checks, SSL tracking and instant alerts — all in one dashboard.</p>
+
+        <div class="panel-stats">
+          <div class="pstat">
+            <div class="pstat-val">99.9%</div>
+            <div class="pstat-lbl">Uptime SLA</div>
+          </div>
+          <div class="pstat-div"></div>
+          <div class="pstat">
+            <div class="pstat-val">&lt;1s</div>
+            <div class="pstat-lbl">Check Speed</div>
+          </div>
+          <div class="pstat-div"></div>
+          <div class="pstat">
+            <div class="pstat-val">SSL+</div>
+            <div class="pstat-lbl">Cert Tracking</div>
+          </div>
+        </div>
+
+        <!-- Mini terminal -->
+        <div class="panel-terminal">
+          <div class="pt-bar">
+            <span class="ptd r"></span><span class="ptd y"></span><span class="ptd g"></span>
+            <span class="pt-title">guardian@security:~</span>
+          </div>
+          <div class="pt-body">
+            <p><span class="ptc-p">$</span> ./guardian --scan</p>
+            <p><span class="ptc-p">→</span> <span class="ptc-ok">[✓] System active</span></p>
+            <p><span class="ptc-p">→</span> <span class="ptc-i">[SSL] Validator ready</span></p>
+            <p><span class="ptc-p">→</span> <span class="ptc-ok">[✓] All endpoints online</span></p>
+            <p><span class="ptc-p">$</span> <span class="ptc-cmd">live_monitor --interval=30s</span><span class="ptc-cur">▌</span></p>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Right form -->
+    <div class="auth-form-wrap">
+      <div class="form-header">
+        <h1 class="form-title">Welcome back</h1>
+        <p class="form-sub">Sign in to your WebGuardian account</p>
+      </div>
+
+      <!-- Error -->
+      <div *ngIf="errorMessage" class="auth-error">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ errorMessage }}
+      </div>
+
+      <form (submit)="login()" class="auth-form">
+        <div class="field-group">
+          <label class="field-label">Email address</label>
+          <div class="field-wrap">
+            <i class="fas fa-envelope field-icon"></i>
+            <input type="email" [(ngModel)]="email" name="email"
+                   placeholder="you@example.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Password</label>
+          <div class="field-wrap">
+            <i class="fas fa-lock field-icon"></i>
+            <input [type]="showPassword ? 'text' : 'password'"
+                   [(ngModel)]="password" name="password"
+                   placeholder="Enter your password" required autocomplete="current-password">
+            <button type="button" class="field-toggle" (click)="showPassword = !showPassword">
+              <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-meta">
+          <label class="remember-check">
+            <input type="checkbox"> <span>Remember me</span>
+          </label>
+          <a href="#" class="form-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="auth-btn" [class.loading]="isLoading" [disabled]="isLoading">
+          <span *ngIf="!isLoading"><i class="fas fa-sign-in-alt"></i> Sign In</span>
+          <span *ngIf="isLoading"><i class="fas fa-spinner fa-spin"></i> Signing in...</span>
+        </button>
+      </form>
+
+      <div class="auth-divider"><span>or</span></div>
+
+      <p class="auth-switch">
+        Don't have an account? <a href="/register">Create one for free</a>
+      </p>
+    </div>
+
   </div>
 </div>

@@ -1,29 +1,53 @@
-<nav id="navbar" *ngIf="navbarVisible" class="navbar">
+<nav class="navbar" [class.hidden]="!navbarVisible">
   <div class="navbar-container">
-      <!-- Logo Section -->
-      <div class="navbar-logo">
-          <img src="assets/img/logo.png" alt="Logo" class="logo-image" />
+
+    <!-- ── Logo / Brand ─────────────────────────────────── -->
+    <a [href]="mode === 'client' ? '/frontClient/' + userId : '#home'" class="navbar-brand">
+      <div class="brand-icon">
+        <i class="fas fa-shield-alt"></i>
       </div>
+      <span class="brand-name">Web<span>Guardian</span></span>
+    </a>
 
-      <ul class="navbar-list">
-          <!-- Navbar Menu in the Center -->
-          <div class="navbar-menu fade-in">
-              <li class="navbar-item"><a href="/frontClient/{{ user.id }}" class="navbar-link">Home</a></li>
-              <li class="navbar-item"><a href="/websites/{{ user.id }}" class="navbar-link">My Websites</a></li>
-              <li class="navbar-item"><a href="#services" class="navbar-link">Stats</a></li>
-          </div>
+    <!-- ── PUBLIC mode  (Home page) ─────────────────────── -->
+    <ng-container *ngIf="mode === 'public'">
+      <div class="navbar-links">
+        <a href="#home"   class="nav-link">Home</a>
+        <a href="#works"  class="nav-link">Features</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <div class="navbar-actions">
+        <a href="login"    class="nav-link btn-outline">Login</a>
+        <a href="register" class="nav-link btn-filled">Sign Up</a>
+      </div>
+    </ng-container>
 
-          <!-- User Section -->
-          <li class="navbar-user">
-              <a (click)="toggleDropdown($event)" class="user-link fade-in">
-                  <!-- User icon -->
-                  <i class="fas fa-user"></i>
-                  {{ user.username || 'Loading...' }}
-              </a>
-              <ul class="dropdown-menu" *ngIf="dropdownVisible">
-                  <li><a href="/profile">Profile</a></li>
-                  <li><a href="#" (click)="logout()">Logout</a></li>
-              </ul>
-          </li>
-      </ul>
+    <!-- ── CLIENT mode  (Front-client page) ─────────────── -->
+    <ng-container *ngIf="mode === 'client'">
+      <div class="navbar-links">
+        <a href="/frontClient/{{ userId }}" class="nav-link">
+          <i class="fas fa-home"></i> Home
+        </a>
+        <a href="/websites/{{ userId }}" class="nav-link">
+          <i class="fas fa-globe"></i> My Websites
+        </a>
+        <a href="#services" class="nav-link">
+          <i class="fas fa-chart-bar"></i> Stats
+        </a>
+      </div>
+      <div class="navbar-actions">
+        <div class="user-menu" (click)="toggleDropdown($event)">
+          <i class="fas fa-user-circle user-icon"></i>
+          <span class="user-name">{{ user?.username || 'Loading...' }}</span>
+          <i class="fas fa-chevron-down chevron" [class.open]="dropdownVisible"></i>
+        </div>
+        <ul class="dropdown-menu" *ngIf="dropdownVisible">
+          <li><a href="/profile"><i class="fas fa-user"></i> Profile</a></li>
+          <li class="divider"></li>
+          <li><a href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </div>
+    </ng-container>
+
   </div>
+</nav>

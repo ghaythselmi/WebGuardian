@@ -11,6 +11,11 @@ import { User } from '../entity/user';
 })
 export class SignupComponent {
   signupForm: FormGroup;
+  isLoading     = false;
+  showPassword  = false;
+  showConfirm   = false;
+  errorMessage  = '';
+  successMessage = '';
 
   constructor(
     private fb: FormBuilder,
@@ -18,39 +23,38 @@ export class SignupComponent {
     private router: Router
   ) {
     this.signupForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      username:        ['', Validators.required],
+      email:           ['', [Validators.required, Validators.email]],
+      password:        ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
-      
+      terms:           [false, Validators.requiredTrue]
     });
   }
 
- 
+  get passwordMismatch(): boolean {
+    const p = this.signupForm.get('password')?.value;
+    const c = this.signupForm.get('confirmPassword')?.value;
+    return !!(c && p !== c);
+  }
 
   onSubmit() {
-    if (this.signupForm.valid) {
-      const { username, email, password, imageUrl } = this.signupForm.value;
-      
-      // Ensure passwords match
-      if (this.signupForm.value.password !== this.signupForm.value.confirmPassword) {
-        alert('Passwords do not match!');
-        return;
-      }
+    this.errorMessage = '';
+    if (this.signupForm.invalid || this.passwordMismatch) return;
 
-      const user: User = { username, email, password, imageUrl };
-      console.log(user)
-      this.userService.createUser(user).subscribe(
-        (response) => {
-          
-          console.log('User registered successfully:', response);
-          this.router.navigate(['/login']);
-        },
-        (error) => {
-          // Handle error
-          console.error('Registration error:', error);
-        }
-      );
-    }
+    this.isLoading = true;
+    const { username, email, password } = this.signupForm.value;
+    const user: User = { username, email, password };
+
+    this.userService.createUser(user).subscribe(
+      () => {
+        this.isLoading = false;
+        this.successMessage = 'Account created! Redirecting to login…';
+        setTimeout(() => this.router.navigate(['/login']), 1500);
+      },
+      () => {
+        this.isLoading = false;
+        this.errorMessage = 'Registration failed. Email may already be in use.';
+      }
+    );
   }
 }

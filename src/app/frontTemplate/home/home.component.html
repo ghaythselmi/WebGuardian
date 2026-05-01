@@ -1,190 +1,176 @@
-<!-- Animated Background Elements -->
+<!-- Animated Background -->
 <div class="bg-grid"></div>
 <div class="bg-glow"></div>
 
-<!-- Navigation Bar -->
-<nav class="navbar" [class.hidden]="!navbarVisible">
-    <div class="navbar-container">
-        <a href="#home" class="navbar-brand">
-            <div class="brand-icon">
-                <i class="fas fa-shield-alt"></i>
-            </div>
-            <span class="brand-name">Web<span>Guardian</span></span>
-        </a>
-        <div class="navbar-links">
-            <a href="#home"  class="nav-link">Home</a>
-            <a href="#works" class="nav-link">Features</a>
-            <a href="#contact" class="nav-link">Contact</a>
-        </div>
-        <div class="navbar-actions">
-            <a href="login"    class="nav-link btn-outline">Login</a>
-            <a href="register" class="nav-link btn-primary">Sign Up</a>
-        </div>
-    </div>
-</nav>
+<!-- Shared Navbar -->
+<app-header mode="public"></app-header>
 
 <!-- Hero Section -->
 <section id="home" class="hero">
-    <div class="hero-container">
+  <div class="hero-container">
 
-        <!-- Left -->
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="badge-dot"></span>
-                <span class="badge-text">Real-time monitoring · SSL · Uptime</span>
-            </div>
+    <!-- Left -->
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span class="badge-text">Real-time monitoring · SSL · Uptime</span>
+      </div>
 
-            <h1 class="hero-title">
-                Best place to test your<br>
-                <span class="gradient-text">website's health</span>
-            </h1>
+      <h1 class="hero-title">
+        Best place to test your<br>
+        <span class="gradient-text">website's health</span>
+      </h1>
 
-            <p class="hero-description">
-                Enterprise-grade website monitoring. Instant availability checks,
-                SSL certificate tracking — all in one dashboard.
-            </p>
+      <p class="hero-description">
+        Enterprise-grade website monitoring. Instant availability checks,
+        SSL certificate tracking — all in one dashboard.
+      </p>
 
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-value">99.9%</div>
-                    <div class="stat-label">Uptime SLA</div>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <div class="stat-value">&lt;1s</div>
-                    <div class="stat-label">Check Speed</div>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat">
-                    <div class="stat-value">SSL+</div>
-                    <div class="stat-label">Certificate Tracking</div>
-                </div>
-            </div>
-
-            <div class="hero-buttons">
-                <a href="register" class="btn btn-primary">
-                    Get Started <i class="fas fa-arrow-right"></i>
-                </a>
-                <a href="#works" class="btn btn-secondary">Learn More</a>
-            </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-value">99.9%</div>
+          <div class="stat-label">Uptime SLA</div>
         </div>
-
-        <!-- Right — Terminal -->
-        <div class="hero-terminal">
-            <div class="terminal-header">
-                <div class="terminal-dots">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                </div>
-                <div class="terminal-title">guardian&#64;security:~/monitor</div>
-            </div>
-            <div class="terminal-body">
-                <div class="terminal-line">
-                    <span class="prompt">$</span>
-                    <span class="command">./guardian --scan --all</span>
-                </div>
-                <div class="terminal-line">
-                    <span class="prompt">→</span>
-                    <span class="info">[INFO] Initializing security protocols...</span>
-                </div>
-                <div class="terminal-line">
-                    <span class="prompt">→</span>
-                    <span class="success">[✓] System active</span>
-                </div>
-                <div class="terminal-line">
-                    <span class="prompt">→</span>
-                    <span class="info">[SSL] Certificate validation engine ready</span>
-                </div>
-                <div class="terminal-line">
-                    <span class="prompt">→</span>
-                    <span>Tracking <span class="highlight">0</span> monitored websites</span>
-                </div>
-                <div class="terminal-line">
-                    <span class="prompt">→</span>
-                    <span>Last scan: <span class="time">pending...</span></span>
-                </div>
-                <div class="terminal-line cursor-line">
-                    <span class="prompt">$</span>
-                    <span class="command">live_monitor --interval=30s</span>
-                    <span class="cursor"></span>
-                </div>
-                <div class="terminal-art">
-                    ╔═══════════════════════════════════════╗<br>
-                    ║&nbsp;&nbsp;🔒 SECURE CONNECTION ESTABLISHED&nbsp;&nbsp;🔒<br>
-                    ╚═══════════════════════════════════════╝
-                </div>
-            </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-value">&lt;1s</div>
+          <div class="stat-label">Check Speed</div>
         </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-value">SSL+</div>
+          <div class="stat-label">Certificate Tracking</div>
+        </div>
+      </div>
 
+      <div class="hero-buttons">
+        <a href="register" class="btn btn-primary">
+          Get Started <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="#works" class="btn btn-secondary">Learn More</a>
+      </div>
     </div>
+
+    <!-- Right — Animated Terminal -->
+    <div class="hero-terminal">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="terminal-title">guardian&#64;security:~/monitor</div>
+        <div class="terminal-status">
+          <span class="status-dot"></span> LIVE
+        </div>
+      </div>
+
+      <!-- Scrolling viewport -->
+      <div class="terminal-viewport">
+        <div class="terminal-scroll-track">
+
+          <div class="tl"><span class="p">$</span><span class="cmd"> ./guardian --start --mode=full</span></div>
+          <div class="tl"><span class="p">→</span><span class="inf"> [INFO] Booting WebGuardian v2.4.1...</span></div>
+          <div class="tl"><span class="p">→</span><span class="ok"> [✓] Security engine loaded</span></div>
+          <div class="tl"><span class="p">→</span><span class="inf"> [SSL] Certificate validator ready</span></div>
+          <div class="tl"><span class="p">→</span><span class="inf"> [HTTP] Uptime monitor active</span></div>
+          <div class="tl sep"></div>
+          <div class="tl"><span class="p">→</span> Scanning <span class="hl">example.com</span>...</div>
+          <div class="tl"><span class="p">→</span><span class="ok"> [✓] 200 OK · 134ms · SSL valid (83d)</span></div>
+          <div class="tl"><span class="p">→</span> Scanning <span class="hl">github.com</span>...</div>
+          <div class="tl"><span class="p">→</span><span class="ok"> [✓] 200 OK · 47ms · SSL valid (201d)</span></div>
+          <div class="tl"><span class="p">→</span> Scanning <span class="hl">openssl.org</span>...</div>
+          <div class="tl"><span class="p">→</span><span class="ok"> [✓] 200 OK · 98ms · SSL valid (312d)</span></div>
+          <div class="tl"><span class="p">→</span> Scanning <span class="hl">my-api.io</span>...</div>
+          <div class="tl"><span class="p">→</span><span class="wrn"> [WARN] 503 Service Unavailable · 2100ms</span></div>
+          <div class="tl"><span class="p">→</span> Scanning <span class="hl">old-site.net</span>...</div>
+          <div class="tl"><span class="p">→</span><span class="err"> [ALERT] SSL certificate expired 14 days ago!</span></div>
+          <div class="tl sep"></div>
+          <div class="tl"><span class="p">→</span><span class="inf"> [REPORT] 4/5 sites online · 1 SSL critical</span></div>
+          <div class="tl"><span class="p">→</span><span class="inf"> [INFO] Alerts dispatched via email</span></div>
+          <div class="tl"><span class="p">→</span><span class="ok"> [✓] Dashboard updated</span></div>
+          <div class="tl"><span class="p">→</span><span class="inf"> [INFO] Next scan in 30s...</span></div>
+          <div class="tl"><span class="p">$</span><span class="cmd"> live_monitor --interval=30s</span><span class="cur">▌</span></div>
+          <div class="tl sep"></div>
+          <div class="tl"><span class="p">→</span><span class="inf"> [CYCLE 2] Re-scanning all endpoints...</span></div>
+          <div class="tl"><span class="p">→</span> Scanning <span class="hl">example.com</span>...</div>
+          <div class="tl"><span class="p">→</span><span class="ok"> [✓] 200 OK · 121ms</span></div>
+          <div class="tl"><span class="p">→</span> Scanning <span class="hl">my-api.io</span>...</div>
+          <div class="tl"><span class="p">→</span><span class="ok"> [✓] 200 OK · 88ms — recovered</span></div>
+          <div class="tl"><span class="p">→</span><span class="inf"> [INFO] All systems nominal</span></div>
+          <div class="tl"><span class="p">→</span><span class="ok"> [✓] Uptime: 99.96% (last 30 days)</span></div>
+
+        </div>
+      </div>
+
+      <div class="terminal-footer">
+        <span class="tf-item"><span class="tf-dot ok"></span>4 online</span>
+        <span class="tf-item"><span class="tf-dot err"></span>1 SSL issue</span>
+        <span class="tf-item"><span class="tf-dot warn"></span>0 offline</span>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- How It Works Section -->
 <section id="works" class="works">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-tag">— How It Works</span>
-            <h2>Three steps to <span class="gradient-text">full visibility</span></h2>
-            <p class="section-subtitle">Learn how Web Guardian keeps your websites in check</p>
-        </div>
-
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-number">01</div>
-                <div class="feature-icon"><i class="fas fa-globe"></i></div>
-                <h3>Choose <span>a Website</span></h3>
-                <p>Select any website you want to monitor. Our tool checks the status and security of any site instantly.</p>
-                <div class="card-hover-line"></div>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-number">02</div>
-                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                <h3>Monitor <span>Availability</span></h3>
-                <p>We check whether the website is online or offline and provide instant feedback on its current status.</p>
-                <div class="card-hover-line"></div>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-number">03</div>
-                <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
-                <h3>Check <span>SSL Security</span></h3>
-                <p>We inspect SSL certificates, revealing validity and exact expiry dates so you're never caught off guard.</p>
-                <div class="card-hover-line"></div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">— How It Works</span>
+      <h2>Three steps to <span class="gradient-text">full visibility</span></h2>
+      <p class="section-subtitle">Learn how Web Guardian keeps your websites in check</p>
     </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-number">01</div>
+        <div class="feature-icon"><i class="fas fa-globe"></i></div>
+        <h3>Choose <span>a Website</span></h3>
+        <p>Select any website you want to monitor. Our tool checks the status and security of any site instantly.</p>
+        <div class="card-hover-line"></div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-number">02</div>
+        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Monitor <span>Availability</span></h3>
+        <p>We check whether the website is online or offline and provide instant feedback on its current status.</p>
+        <div class="card-hover-line"></div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-number">03</div>
+        <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+        <h3>Check <span>SSL Security</span></h3>
+        <p>We inspect SSL certificates, revealing validity and exact expiry dates so you're never caught off guard.</p>
+        <div class="card-hover-line"></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Footer -->
 <footer class="footer">
-    <div class="footer-container">
-        <div class="footer-brand">
-            <div class="brand-icon small">
-                <i class="fas fa-shield-alt"></i>
-            </div>
-            <span>Web<span>Guardian</span></span>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <i class="fas fa-shield-alt"></i>
+          <span>Web<span>Guardian</span></span>
         </div>
         <div class="footer-copyright">
-            <p>&copy; 2024 designed and developed by
-                <a href="https://www.shyrineprod.com">ShyrineProd Team</a>.
-                All rights reserved.
-            </p>
+          © 2024 designed and developed by ShyrineProd Team
         </div>
         <div class="footer-social">
-            <span class="footer-phone"><i class="fas fa-phone"></i> +1 (222) 777 8888</span>
-            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
         </div>
+      </div>
     </div>
-</footer>
-
-<!-- Scroll to Top Button -->
-<div class="scroll-top" [class.visible]="showScrollTop" (click)="scrollToTop()">
-    <div class="scroll-top-inner">
-        <i class="fas fa-arrow-up"></i>
-    </div>
-</div>
+  </footer>
+  
+  <!-- Scroll Top -->
+  <div id="scrollTop" class="scroll-top" [class.visible]="showScrollTop" (click)="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </div>

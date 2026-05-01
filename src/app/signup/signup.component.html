@@ -1,39 +1,151 @@
-<body class="bg-gradient-primary">
-    <div class="container d-flex align-items-center justify-content-center min-vh-100">
-      <div class="card o-hidden border-0 shadow-lg my-5">
-        <div class="row">
-          <!-- Left Image Section -->
-          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-          <div class="col-lg-7">
-            <div class="p-5">
-              <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-              </div>
-              <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                  <input type="text" formControlName="username" class="form-control form-control-user" placeholder="Username">
-                </div>
-                <div class="form-group">
-                  <input type="email" formControlName="email" class="form-control form-control-user" placeholder="Email Address">
-                </div>
-               
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" formControlName="password" class="form-control form-control-user" placeholder="Password">
-                  </div>
-                  <div class="col-sm-6">
-                    <input type="password" formControlName="confirmPassword" class="form-control form-control-user" placeholder="Repeat Password">
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary btn-user btn-block" [disabled]="signupForm.invalid">
-                  Register Account
-                </button>
-              </form>
-              
-              <hr>
-              <div class="text-center">
-                <a class="small" href="forgot-password.html">Forgot Password?</a>
-              </div>
-              <div class="text-center">
-                <a class="small" href="/login">Already have
-  
+<!-- Background -->
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<div class="auth-page">
+
+  <!-- Brand -->
+  <a href="/h" class="auth-brand">
+    <div class="brand-icon">
+      <i class="fas fa-shield-alt"></i>
+    </div>
+    <span class="brand-name">Web<span>Guardian</span></span>
+  </a>
+
+  <!-- Card -->
+  <div class="auth-card">
+
+    <!-- Left panel -->
+    <div class="auth-panel">
+      <div class="panel-content">
+        <div class="panel-badge">
+          <span class="badge-dot"></span> Join WebGuardian
+        </div>
+        <h2 class="panel-title">Start monitoring<br><span>in seconds</span></h2>
+        <p class="panel-sub">Create your free account and get instant access to uptime tracking, SSL monitoring, and real-time alerts.</p>
+
+        <ul class="panel-perks">
+          <li><span class="perk-icon"><i class="fas fa-check"></i></span> Free forever plan included</li>
+          <li><span class="perk-icon"><i class="fas fa-check"></i></span> No credit card required</li>
+          <li><span class="perk-icon"><i class="fas fa-check"></i></span> SSL certificate tracking</li>
+          <li><span class="perk-icon"><i class="fas fa-check"></i></span> Real-time uptime alerts</li>
+          <li><span class="perk-icon"><i class="fas fa-check"></i></span> CSV bulk import support</li>
+        </ul>
+
+        <!-- Mini terminal -->
+        <div class="panel-terminal">
+          <div class="pt-bar">
+            <span class="ptd r"></span><span class="ptd y"></span><span class="ptd g"></span>
+            <span class="pt-title">guardian@security:~</span>
+          </div>
+          <div class="pt-body">
+            <p><span class="ptc-p">$</span> register --new-user</p>
+            <p><span class="ptc-p">→</span> <span class="ptc-i">[INFO] Creating account...</span></p>
+            <p><span class="ptc-p">→</span> <span class="ptc-ok">[✓] Account ready</span></p>
+            <p><span class="ptc-p">→</span> <span class="ptc-ok">[✓] Dashboard activated</span></p>
+            <p><span class="ptc-p">$</span> <span class="ptc-cmd">start --monitoring</span><span class="ptc-cur">▌</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right form -->
+    <div class="auth-form-wrap">
+      <div class="form-header">
+        <h1 class="form-title">Create account</h1>
+        <p class="form-sub">Join thousands of developers monitoring their websites</p>
+      </div>
+
+      <!-- Error -->
+      <div *ngIf="errorMessage" class="auth-error">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ errorMessage }}
+      </div>
+
+      <!-- Success -->
+      <div *ngIf="successMessage" class="auth-success">
+        <i class="fas fa-check-circle"></i>
+        {{ successMessage }}
+      </div>
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="auth-form">
+
+        <div class="field-group">
+          <label class="field-label">Username</label>
+          <div class="field-wrap">
+            <i class="fas fa-user field-icon"></i>
+            <input type="text" formControlName="username"
+                   placeholder="Choose a username" autocomplete="username">
+          </div>
+          <span class="field-hint" *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched">
+            Username is required
+          </span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Email address</label>
+          <div class="field-wrap">
+            <i class="fas fa-envelope field-icon"></i>
+            <input type="email" formControlName="email"
+                   placeholder="you@example.com" autocomplete="email">
+          </div>
+          <span class="field-hint" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+            Enter a valid email address
+          </span>
+        </div>
+
+        <div class="fields-row">
+          <div class="field-group">
+            <label class="field-label">Password</label>
+            <div class="field-wrap">
+              <i class="fas fa-lock field-icon"></i>
+              <input [type]="showPassword ? 'text' : 'password'"
+                     formControlName="password"
+                     placeholder="Min. 6 characters" autocomplete="new-password">
+              <button type="button" class="field-toggle" (click)="showPassword = !showPassword">
+                <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Confirm password</label>
+            <div class="field-wrap">
+              <i class="fas fa-lock field-icon"></i>
+              <input [type]="showConfirm ? 'text' : 'password'"
+                     formControlName="confirmPassword"
+                     placeholder="Repeat password" autocomplete="new-password">
+              <button type="button" class="field-toggle" (click)="showConfirm = !showConfirm">
+                <i class="fas" [class.fa-eye]="!showConfirm" [class.fa-eye-slash]="showConfirm"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <span class="field-hint" *ngIf="passwordMismatch">Passwords do not match</span>
+
+        <div class="terms-row">
+          <label class="remember-check">
+            <input type="checkbox" formControlName="terms">
+            <span>I agree to the <a href="#" class="form-link">Terms of Service</a></span>
+          </label>
+        </div>
+
+        <button type="submit" class="auth-btn"
+                [class.loading]="isLoading"
+                [disabled]="signupForm.invalid || isLoading">
+          <span *ngIf="!isLoading"><i class="fas fa-user-plus"></i> Create Account</span>
+          <span *ngIf="isLoading"><i class="fas fa-spinner fa-spin"></i> Creating account...</span>
+        </button>
+
+      </form>
+
+      <div class="auth-divider"><span>or</span></div>
+
+      <p class="auth-switch">
+        Already have an account? <a href="/login">Sign in</a>
+      </p>
+    </div>
+
+  </div>
+</div>

@@ -1,242 +1,241 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Guardian | Monitor Website & SSL Security</title>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-   
-</head>
-<body>
+<!-- Shared Navbar (client mode: no login/signup, shows user dropdown) -->
+<app-header mode="client" [userId]="userId"></app-header>
 
 <!-- Hero Section -->
 <section id="home" class="welcome-hero">
   <div class="container">
-      <div class="hero-grid">
-          <!-- Left Column -->
-          <div class="hero-left">
-              <div class="hero-badge">
-                  <span class="badge-dot"></span>
-                  Real-time monitoring · SSL · Uptime
-              </div>
-              <h1>Best place to test your <span class="gradient-text">websites Availability</span></h1>
-              <p class="hero-text">All you have to do is to put your URL</p>
+    <div class="hero-grid">
 
-              <!-- URL Form -->
-              <form (ngSubmit)="checkWebsite()" class="url-form">
-                  <div class="input-wrapper">
-                      <i class="fas fa-link input-icon"></i>
-                      <input type="text" 
-                             [(ngModel)]="url" 
-                             name="url" 
-                             placeholder="Enter website URL" 
-                             required>
-                      <button type="submit" class="check-btn">
-                          <i class="fas fa-shield-alt"></i> Check
-                      </button>
-                  </div>
-              </form>
+      <!-- Left Column -->
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Real-time monitoring · SSL · Uptime
+        </div>
+        <h1>Best place to test your <span class="gradient-text">websites Availability</span></h1>
+        <p class="hero-text">All you have to do is to put your URL</p>
 
-              <!-- Result Card -->
-              <div *ngIf="result" class="result-card">
-                  <div class="result-header">
-                      <i class="fas fa-chart-line"></i>
-                      <h3>Website Status</h3>
-                      <span class="status" [class.online]="result.availability?.status === 'Online'">
-                          {{ result.availability?.status || 'Unknown' }}
-                      </span>
-                  </div>
-                  <div class="result-details">
-                      <div class="detail-row">
-                          <span>HTTP Status:</span>
-                          <strong>{{ result.availability?.statusCode || 'N/A' }}</strong>
-                      </div>
-                      <div class="detail-row">
-                          <span>SSL Expires:</span>
-                          <strong [class.warning]="(result.ssl?.expires_in_days || 0) < 30">
-                              {{ result.ssl?.expires_in_days || 0 }} days
-                          </strong>
-                      </div>
-                  </div>
-              </div>
-
-              <!-- Action Buttons -->
-              <div class="action-buttons">
-                  <a href="register" class="btn btn-primary">Get Started</a>
-                  <a href="#website-list" class="btn btn-secondary">My Websites</a>
-              </div>
+        <!-- URL Form -->
+        <form (ngSubmit)="checkWebsite()" class="url-form">
+          <div class="input-wrapper">
+            <i class="fas fa-link input-icon"></i>
+            <input type="text"
+                   [(ngModel)]="url"
+                   name="url"
+                   placeholder="Enter website URL"
+                   required>
+            <button type="submit" class="check-btn">
+              <i class="fas fa-shield-alt"></i> Check
+            </button>
           </div>
+        </form>
 
-          <!-- Right Column - Terminal -->
-          <div class="hero-right">
-              <div class="terminal">
-                  <div class="terminal-bar">
-                      <div class="terminal-dots">
-                          <span></span><span></span><span></span>
-                      </div>
-                      <span>guardian@security:~</span>
-                  </div>
-                  <div class="terminal-content">
-                      <p><span class="prompt">$</span> ./guardian --scan --all</p>
-                      <p><span class="prompt">→</span> <span class="info">[INFO] Initializing security protocols...</span></p>
-                      <p><span class="prompt">→</span> <span class="success">[✓] System active</span></p>
-                      <p><span class="prompt">→</span> <span class="info">[SSL] Certificate validation engine ready</span></p>
-                      <p><span class="prompt">→</span> Tracking <span class="count">{{ websites?.length || 0 }}</span> monitored websites</p>
-                      <p><span class="prompt">→</span> Last scan: <span class="time">{{ (websites && websites.length > 0 && websites[0]?.last_check) ? (websites[0].last_check | date:'short') : 'pending...' }}</span></p>
-                      <p><span class="prompt">$</span> live_monitor --interval=30s<span class="cursor"></span></p>
-                      <div class="terminal-art">
-                          ╔═══════════════════════════════════════╗<br>
-                          ║   🔒 SECURE CONNECTION ESTABLISHED   🔒<br>
-                          ╚═══════════════════════════════════════╝
-                      </div>
-                      <div class="terminal-progress">
-                          <span>System health:</span>
-                          <div class="progress"><div class="progress-fill"></div></div>
-                          <span>100%</span>
-                      </div>
-                  </div>
-              </div>
+        <!-- Result Card -->
+        <div *ngIf="result" class="result-card">
+          <div class="result-header">
+            <i class="fas fa-chart-line"></i>
+            <h3>Website Status</h3>
+            <span class="status" [class.online]="result.availability?.status === 'Online'">
+              {{ result.availability?.status || 'Unknown' }}
+            </span>
           </div>
+          <div class="result-details">
+            <div class="detail-row">
+              <span>HTTP Status:</span>
+              <strong>{{ result.availability?.statusCode || 'N/A' }}</strong>
+            </div>
+            <div class="detail-row">
+              <span>SSL Expires:</span>
+              <strong [class.warning]="(result.ssl?.expires_in_days || 0) < 30">
+                {{ result.ssl?.expires_in_days || 0 }} days
+              </strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <a href="register" class="btn btn-primary">Get Started</a>
+          <a href="#website-list" class="btn btn-secondary">My Websites</a>
+        </div>
       </div>
+
+      <!-- Right Column — Animated Terminal -->
+      <div class="hero-right">
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="terminal-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="terminal-bar-title">guardian&#64;security:~/monitor</span>
+            <span class="terminal-live"><span class="live-dot"></span>LIVE</span>
+          </div>
+
+          <!-- Scrolling viewport -->
+          <div class="terminal-viewport">
+            <div class="terminal-scroll-track">
+
+              <p><span class="prompt">$</span> ./guardian --scan --all</p>
+              <p><span class="prompt">→</span> <span class="info">[INFO] Initializing security protocols...</span></p>
+              <p><span class="prompt">→</span> <span class="success">[✓] System active</span></p>
+              <p><span class="prompt">→</span> <span class="info">[SSL] Certificate validation engine ready</span></p>
+              <p><span class="prompt">→</span> <span class="info">[HTTP] Uptime monitor started</span></p>
+              <p class="t-sep"></p>
+              <p><span class="prompt">→</span> Scanning <span class="count">{{ websites?.length || 0 }}</span> monitored websites</p>
+              <p><span class="prompt">→</span> Last scan: <span class="time">{{ (websites && websites.length > 0 && websites[0]?.last_check) ? (websites[0].last_check | date:'short') : 'pending...' }}</span></p>
+              <p><span class="prompt">→</span> <span class="info">[SSL] Checking certificates...</span></p>
+              <p><span class="prompt">→</span> <span class="success">[✓] All active endpoints reachable</span></p>
+              <p><span class="prompt">→</span> <span class="info">[INFO] Uptime: 99.96% (last 30d)</span></p>
+              <p class="t-sep"></p>
+              <p><span class="prompt">→</span> <span class="info">[INFO] Auto-refresh every 5 minutes</span></p>
+              <p><span class="prompt">→</span> <span class="info">[INFO] Email alerts configured</span></p>
+              <p><span class="prompt">→</span> <span class="success">[✓] Dashboard synced</span></p>
+              <p><span class="prompt">$</span> live_monitor --interval=30s<span class="cursor"></span></p>
+
+            </div>
+          </div>
+
+          <div class="terminal-progress-bar">
+            <span>System health:</span>
+            <div class="progress"><div class="progress-fill"></div></div>
+            <span>100%</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
 <!-- Website List Section -->
 <section id="website-list" class="website-list-section">
   <div class="container">
-      <div class="section-title">
-          <h2>Monitored <span class="gradient-text">Websites</span></h2>
-          <p>Track availability and SSL status of all your monitored websites</p>
-      </div>
+    <div class="section-title">
+      <h2>Monitored <span class="gradient-text">Websites</span></h2>
+      <p>Track availability and SSL status of all your monitored websites</p>
+    </div>
 
-      <div class="table-actions">
-          <button (click)="updatedCheck()" class="update-all" [disabled]="loading">
-              <i class="fas fa-sync-alt" [class.spin]="loading"></i>
-              {{ loading ? 'Updating...' : 'Update All' }}
-          </button>
-          <input type="file" #csvFileInput (change)="onFileChange($event)" accept=".csv" style="display: none;">
-          <button (click)="csvFileInput.click()" class="upload-csv">
-              <i class="fas fa-upload"></i> Upload CSV
-          </button>
-      </div>
+    <div class="table-actions">
+      <button (click)="updatedCheck()" class="update-all" [disabled]="loading">
+        <i class="fas fa-sync-alt" [class.spin]="loading"></i>
+        {{ loading ? 'Updating...' : 'Update All' }}
+      </button>
+      <input type="file" #csvFileInput (change)="onFileChange($event)" accept=".csv" style="display: none;">
+      <button (click)="csvFileInput.click()" class="upload-csv">
+        <i class="fas fa-upload"></i> Upload CSV
+      </button>
+    </div>
 
-      <div class="table-container" *ngIf="!loading">
-          <table class="website-table">
-              <thead>
-                  <tr>
-                      <th>URL</th>
-                      <th>Availability</th>
-                      <th>SSL Status</th>
-                      <th>Expires In</th>
-                      <th>Last Check</th>
-                      <th>Actions</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let website of websites">
-                      <td class="url-cell">{{ website.url || 'N/A' }}</td>
-                      <td>
-                          <span class="status-badge" [class.online]="website.availability === 'Online'">
-                              {{ website.availability || 'Unknown' }}
-                          </span>
-                      </td>
-                      <td>
-                          <span class="ssl-badge" [class.valid]="website.ssl_status === 'Valid'">
-                              {{ website.ssl_status || 'Unknown' }}
-                          </span>
-                      </td>
-                      <td class="expiry" 
-                          [class.expired]="(website.expires_in || 0) <= 0" 
-                          [class.warning]="(website.expires_in || 0) > 0 && (website.expires_in || 0) < 30">
-                          {{ website.expires_in || 0 }} days
-                      </td>
-                      <td class="date-cell">
-                          <i class="far fa-calendar-alt"></i>
-                          {{ website.last_check | date:'short' }}
-                      </td>
-                      <td class="actions">
-                          <button (click)="updateWebsite(website)" class="btn-update" title="Update">
-                              <i class="fas fa-sync-alt"></i>
-                          </button>
-                          <button (click)="deleteWebsite(website.id!)" class="btn-delete" title="Delete">
-                              <i class="fas fa-trash-alt"></i>
-                          </button>
-                      </td>
-                  </tr>
-                  <tr *ngIf="!websites || websites.length === 0">
-                      <td colspan="6" class="empty-state">
-                          <i class="fas fa-globe"></i>
-                          <p>No websites added yet</p>
-                          <small>Add a URL above to get started</small>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
+    <div class="table-container" *ngIf="!loading">
+      <table class="website-table">
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th>Availability</th>
+            <th>SSL Status</th>
+            <th>Expires In</th>
+            <th>Last Check</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let website of websites">
+            <td class="url-cell">{{ website.url || 'N/A' }}</td>
+            <td>
+              <span class="status-badge" [class.online]="website.availability === 'Online'">
+                {{ website.availability || 'Unknown' }}
+              </span>
+            </td>
+            <td>
+              <span class="ssl-badge" [class.valid]="website.ssl_status === 'Valid'">
+                {{ website.ssl_status || 'Unknown' }}
+              </span>
+            </td>
+            <td class="expiry"
+                [class.expired]="(website.expires_in || 0) <= 0"
+                [class.warning]="(website.expires_in || 0) > 0 && (website.expires_in || 0) < 30">
+              {{ website.expires_in || 0 }} days
+            </td>
+            <td class="date-cell">
+              <i class="far fa-calendar-alt"></i>
+              {{ website.last_check | date:'short' }}
+            </td>
+            <td class="actions">
+              <button (click)="updateWebsite(website)" class="btn-update" title="Update">
+                <i class="fas fa-sync-alt"></i>
+              </button>
+              <button (click)="deleteWebsite(website.id!)" class="btn-delete" title="Delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="!websites || websites.length === 0">
+            <td colspan="6" class="empty-state">
+              <i class="fas fa-globe"></i>
+              <p>No websites added yet</p>
+              <small>Add a URL above to get started</small>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div *ngIf="loading" class="loading-state">
-          <div class="spinner"></div>
-          <p>Updating websites, please wait...</p>
-      </div>
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Updating websites, please wait...</p>
+    </div>
   </div>
 </section>
 
-<!-- How It Works Section -->
+<!-- How It Works -->
 <section class="how-it-works">
   <div class="container">
-      <div class="section-header">
-          <span class="section-tag">— How It Works</span>
-          <h2>Three steps to <span class="gradient-text">full visibility</span></h2>
+    <div class="section-header">
+      <span class="section-tag">— How It Works</span>
+      <h2>Three steps to <span class="gradient-text">full visibility</span></h2>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-globe"></i></div>
+        <h3>Choose <span>a Website</span></h3>
+        <p>Select any website you want to monitor. Our tool checks the status and security instantly.</p>
       </div>
-      <div class="features">
-          <div class="feature">
-              <div class="feature-icon"><i class="fas fa-globe"></i></div>
-              <h3>Choose <span>a Website</span></h3>
-              <p>Select any website you want to monitor. Our tool checks the status and security instantly.</p>
-          </div>
-          <div class="feature">
-              <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-              <h3>Monitor <span>Availability</span></h3>
-              <p>We check whether the website is online or offline and provide instant feedback.</p>
-          </div>
-          <div class="feature">
-              <div class="feature-icon"><i class="fas fa-lock"></i></div>
-              <h3>Check <span>SSL Security</span></h3>
-              <p>We inspect SSL certificates, revealing validity and exact expiry dates.</p>
-          </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Monitor <span>Availability</span></h3>
+        <p>We check whether the website is online or offline and provide instant feedback.</p>
       </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-lock"></i></div>
+        <h3>Check <span>SSL Security</span></h3>
+        <p>We inspect SSL certificates, revealing validity and exact expiry dates.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- Footer -->
 <footer class="footer">
   <div class="container">
-      <div class="footer-content">
-          <div class="footer-logo">
-              <i class="fas fa-shield-alt"></i>
-              <span>Web<span>Guardian</span></span>
-          </div>
-          <div class="footer-copyright">
-              © 2024 designed and developed by ShyrineProd Team
-          </div>
-          <div class="footer-social">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              <a href="#"><i class="fab fa-github"></i></a>
-          </div>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <i class="fas fa-shield-alt"></i>
+        <span>Web<span>Guardian</span></span>
       </div>
+      <div class="footer-copyright">
+        © 2024 designed and developed by ShyrineProd Team
+      </div>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
   </div>
 </footer>
 
-<!-- Scroll Top Button -->
+<!-- Scroll Top -->
 <div id="scrollTop" class="scroll-top" [class.visible]="showScrollTop" (click)="scrollToTop()">
   <i class="fas fa-arrow-up"></i>
 </div>
-  
-  </body>
-</html>
