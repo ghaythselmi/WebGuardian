@@ -1,11 +1,9 @@
-/* ============================================
-   WEB GUARDIAN - CLEAN DARK THEME (CLIENT)
-   ============================================ */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* CRITICAL: Ensure body can scroll properly */
+html, body {
+    height: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto !important;
 }
 
 body {
@@ -13,6 +11,140 @@ body {
     color: #ffffff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure main content has proper padding for navbar */
+main, .main-content, app-root, router-outlet + * {
+    display: block;
+    padding-top: 70px; /* Match navbar height */
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ========== FIX TERMINAL - Remove conflicting overflow ========== */
+.hero-right {
+    animation: fadeInUp 0.6s ease;
+}
+
+.terminal {
+    background: #0d1117;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 200, 255, 0.2);
+    overflow: visible; /* CHANGE from hidden to visible */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-viewport {
+    height: auto; /* CHANGE from fixed height */
+    max-height: 320px; /* Add max-height instead */
+    overflow-y: auto; /* Allow internal scroll if needed */
+    position: relative;
+}
+
+/* Remove the gradient overlays that were blocking clicks */
+.terminal-viewport::before,
+.terminal-viewport::after {
+    display: none; /* Remove these completely */
+}
+
+.terminal-scroll-track {
+    padding: 16px 20px;
+    animation: none; /* DISABLE the scrolling animation that was causing issues */
+}
+
+/* Keep terminal lines visible without animation */
+.terminal-scroll-track p {
+    margin-bottom: 9px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    color: #8a9bb5;
+    line-height: 1.4;
+    opacity: 1; /* Ensure visible */
+}
+
+/* Keep cursor blinking but don't animate position */
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 13px;
+    background: #00ccff;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+}
+
+/* Keep progress bar working */
+.terminal-progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: #1a1d2e;
+    border-top: 1px solid rgba(0, 200, 255, 0.1);
+    font-family: monospace;
+    font-size: 0.7rem;
+    color: #6b7a8a;
+    flex-shrink: 0;
+}
+
+.progress {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 100%; /* CHANGE from 0 to 100% */
+    height: 100%;
+    background: linear-gradient(90deg, #00ccff, #0066ff);
+    animation: none; /* Remove animation if causing issues */
+}
+
+/* Fix scroll top button positioning */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #00ccff, #0066ff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 200, 255, 0.3);
+}
+
+.scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 200, 255, 0.4);
+}
+
+.scroll-top i {
+    color: #0a0c15;
+    font-size: 1.2rem;
 }
 
 .container {
@@ -551,64 +683,9 @@ body {
 .feature p { color: #8a9bb5; font-size: 0.9rem; line-height: 1.6; }
 
 /* ========== FOOTER ========== */
-.footer {
-    border-top: 1px solid rgba(0, 200, 255, 0.1);
-    padding: 40px 0;
-    background: #0a0c15;
-}
 
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
 
-.footer-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; }
-.footer-logo i { font-size: 1.2rem; color: #00ccff; }
-.footer-logo span span { color: #00ccff; }
 
-.footer-copyright { color: #5a6e8a; font-size: 0.8rem; }
-
-.footer-social { display: flex; gap: 12px; }
-
-.footer-social a {
-    width: 34px;
-    height: 34px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8a9bb5;
-    text-decoration: none;
-    transition: all 0.2s;
-}
-
-.footer-social a:hover { background: #00ccff; color: #0a0c15; }
-
-/* Scroll Top */
-.scroll-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 45px;
-    height: 45px;
-    background: linear-gradient(135deg, #00ccff, #0066ff);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s;
-    z-index: 100;
-}
-
-.scroll-top.visible { opacity: 1; visibility: visible; }
-.scroll-top:hover   { transform: translateY(-2px); }
 
 /* ========== ANIMATIONS ========== */
 

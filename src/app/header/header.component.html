@@ -1,7 +1,7 @@
-<nav class="navbar" [class.hidden]="!navbarVisible">
+<nav class="navbar" [class.navbar-hidden]="!navbarVisible">
   <div class="navbar-container">
 
-    <!-- ── Logo / Brand ─────────────────────────────────── -->
+    <!-- Logo / Brand -->
     <a [href]="mode === 'client' ? '/frontClient/' + userId : '#home'" class="navbar-brand">
       <div class="brand-icon">
         <i class="fas fa-shield-alt"></i>
@@ -9,43 +9,50 @@
       <span class="brand-name">Web<span>Guardian</span></span>
     </a>
 
-    <!-- ── PUBLIC mode  (Home page) ─────────────────────── -->
+    <!-- PUBLIC mode -->
     <ng-container *ngIf="mode === 'public'">
       <div class="navbar-links">
-        <a href="#home"   class="nav-link">Home</a>
-        <a href="#works"  class="nav-link">Features</a>
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#works" class="nav-link">Features</a>
         <a href="#contact" class="nav-link">Contact</a>
       </div>
       <div class="navbar-actions">
-        <a href="login"    class="nav-link btn-outline">Login</a>
+        <a href="login" class="nav-link btn-outline">Login</a>
         <a href="register" class="nav-link btn-filled">Sign Up</a>
       </div>
     </ng-container>
 
-    <!-- ── CLIENT mode  (Front-client page) ─────────────── -->
+    <!-- CLIENT mode -->
     <ng-container *ngIf="mode === 'client'">
       <div class="navbar-links">
-        <a href="/frontClient/{{ userId }}" class="nav-link">
+        <a [routerLink]="['/frontClient', userId]" class="nav-link">
           <i class="fas fa-home"></i> Home
         </a>
-        <a href="/websites/{{ userId }}" class="nav-link">
+        <a [routerLink]="['/websites', userId]" class="nav-link">
           <i class="fas fa-globe"></i> My Websites
         </a>
-        <a href="#services" class="nav-link">
+        <a routerLink="/stats" class="nav-link">
           <i class="fas fa-chart-bar"></i> Stats
         </a>
       </div>
       <div class="navbar-actions">
+        <!-- User Menu Button -->
         <div class="user-menu" (click)="toggleDropdown($event)">
           <i class="fas fa-user-circle user-icon"></i>
-          <span class="user-name">{{ user?.username || 'Loading...' }}</span>
-          <i class="fas fa-chevron-down chevron" [class.open]="dropdownVisible"></i>
+          <span class="user-name">{{ (user && user.username) ? user.username : 'Loading...' }}</span>
+          <i class="fas fa-chevron-down chevron" [class.chevron-open]="dropdownVisible"></i>
         </div>
-        <ul class="dropdown-menu" *ngIf="dropdownVisible">
-          <li><a href="/profile"><i class="fas fa-user"></i> Profile</a></li>
-          <li class="divider"></li>
-          <li><a href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-        </ul>
+        
+        <!-- Dropdown Menu -->
+        <div class="user-dropdown-menu" *ngIf="dropdownVisible" (click)="$event.stopPropagation()">
+          <a [routerLink]="['/profile', userId]" class="user-dropdown-item" (click)="dropdownVisible = false">
+            <i class="fas fa-user"></i> Profile
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" (click)="logout(); $event.preventDefault(); dropdownVisible = false" class="user-dropdown-item">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </div>
       </div>
     </ng-container>
 

@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../entity/user';
@@ -8,58 +8,75 @@ import { User } from '../entity/user';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
-  /** Pass userId when mode = 'client' */
+export class HeaderComponent implements OnInit, OnDestroy {
   @Input() userId?: number;
-
-  /**
-   * 'public'  → Home page navbar  (Login + Sign Up, no user info)
-   * 'client'  → Front-client navbar (user links, profile dropdown, NO login/signup)
-   */
   @Input() mode: 'public' | 'client' = 'public';
 
-  lastScrollTop    = 0;
-  navbarVisible    = true;
-  dropdownVisible  = false;
-  user!: User;
+  navbarVisible = true;
+  dropdownVisible = false;
+  user: User = new User();
+  private lastScrollPosition = 0;
+  private scrollThreshold = 50;
 
   constructor(
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
     if (this.mode === 'client' && this.userId) {
-      this.user = new User();
       this.userService.getUser(this.userId).subscribe(
-        data  => { this.user = data; },
+        data => { 
+          this.user = data;
+        },
         error => console.error(error)
       );
     }
   }
 
-  toggleDropdown(event: Event) {
+  ngOnDestroy(): void {
+    // Clean up
+  }
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Don't hide navbar at the very top
+    if (currentScroll <= this.scrollThreshold) {
+      this.navbarVisible = true;
+      this.lastScrollPosition = currentScroll;
+      return;
+    }
+    
+    // Hide on scroll down, show on scroll up
+    if (currentScroll > this.lastScrollPosition) {
+      // Scrolling down
+      this.navbarVisible = false;
+    } else {
+      // Scrolling up
+      this.navbarVisible = true;
+    }
+    
+    this.lastScrollPosition = currentScroll;
+  }
+
+  toggleDropdown(event: Event): void {
     event.stopPropagation();
     this.dropdownVisible = !this.dropdownVisible;
   }
 
-  @HostListener('document:click')
-  closeDropdown() {
-    this.dropdownVisible = false;
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if (scrollTop > 120) {
-      this.navbarVisible = scrollTop <= this.lastScrollTop;
-    } else {
-      this.navbarVisible = true;
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event): void {
+    if (this.dropdownVisible && !this.elementRef.nativeElement.contains(event.target)) {
+      this.dropdownVisible = false;
     }
-    this.lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
   }
 
-  logout() {
+  logout(): void {
+    localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 }
