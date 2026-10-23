@@ -1,0 +1,50 @@
+<app-header mode="client" [userId]="userId"></app-header>
+
+<main class="profile-page">
+  <section class="profile-shell">
+    <button type="button" class="back-button" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i>
+      Back to dashboard
+    </button>
+
+    <div *ngIf="isLoading" class="profile-state">
+      <i class="fas fa-spinner fa-spin"></i>
+      <span>Loading profile...</span>
+    </div>
+
+    <div *ngIf="!isLoading && errorMessage" class="profile-state error">
+      <i class="fas fa-exclamation-circle"></i>
+      <span>{{ errorMessage }}</span>
+    </div>
+
+    <div *ngIf="!isLoading && !errorMessage" class="profile-layout">
+      <aside class="profile-summary">
+        <div class="avatar-wrap">
+          <img *ngIf="user.imageUrl" [src]="profileImageUrl" [alt]="user.username || 'User profile photo'">
+          <i *ngIf="!user.imageUrl" class="fas fa-user"></i>
+        </div>
+        <h1>{{ user.username || 'User profile' }}</h1>
+        <p>{{ user.email || 'No email provided' }}</p>
+        <span class="role-badge">{{ user.role || 'Member' }}</span>
+      </aside>
+
+      <section class="profile-details">
+        <div class="section-header">
+          <span>Account</span>
+          <h2>Profile details</h2>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span>Username</span>
+            <strong>{{ user.username || 'Not set' }}</strong>
+          </div>
+          <div class="detail-item">
+            <span>Email</span>
+            <strong>{{ user.email || 'Not set' }}</strong>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
