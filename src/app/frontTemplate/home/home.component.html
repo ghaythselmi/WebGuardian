@@ -1,176 +1,134 @@
-<!-- Animated Background -->
-<div class="bg-grid"></div>
-<div class="bg-glow"></div>
+<div class="ambient-grid" aria-hidden="true"></div>
+<div class="ambient-glow ambient-glow-one" aria-hidden="true"></div>
+<div class="ambient-glow ambient-glow-two" aria-hidden="true"></div>
 
-<!-- Shared Navbar -->
 <app-header mode="public"></app-header>
 
-<!-- Hero Section -->
-<section id="home" class="hero">
-  <div class="hero-container">
+<main>
+  <section id="home" class="hero-section">
+    <div class="hero-container">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse-dot"></span> WEBSITE HEALTH, AT A GLANCE</div>
+        <h1>Know your website is healthy <span class="gradient-text">before anyone asks.</span></h1>
+        <p class="hero-description">One clear view of uptime, SSL certificates, and response speed. WebGuardian watches the details so you can focus on what’s next.</p>
 
-    <!-- Left -->
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        <span class="badge-text">Real-time monitoring · SSL · Uptime</span>
-      </div>
-
-      <h1 class="hero-title">
-        Best place to test your<br>
-        <span class="gradient-text">website's health</span>
-      </h1>
-
-      <p class="hero-description">
-        Enterprise-grade website monitoring. Instant availability checks,
-        SSL certificate tracking — all in one dashboard.
-      </p>
-
-      <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-value">99.9%</div>
-          <div class="stat-label">Uptime SLA</div>
+        <div class="hero-actions">
+          <a routerLink="/register" class="button-primary">Start monitoring <i class="fas fa-arrow-right"></i></a>
+          <a href="#how-it-works" class="button-secondary"><i class="far fa-circle-play"></i> See how it works</a>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <div class="stat-value">&lt;1s</div>
-          <div class="stat-label">Check Speed</div>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <div class="stat-value">SSL+</div>
-          <div class="stat-label">Certificate Tracking</div>
+
+        <div class="hero-proof" aria-label="Monitoring features">
+          <span><i class="fas fa-check-circle"></i> Availability checks</span>
+          <span><i class="fas fa-check-circle"></i> SSL expiry tracking</span>
+          <span><i class="fas fa-check-circle"></i> Response history</span>
         </div>
       </div>
 
-      <div class="hero-buttons">
-        <a href="register" class="btn btn-primary">
-          Get Started <i class="fas fa-arrow-right"></i>
-        </a>
-        <a href="#works" class="btn btn-secondary">Learn More</a>
-      </div>
-    </div>
-
-    <!-- Right — Animated Terminal -->
-    <div class="hero-terminal">
-      <div class="terminal-header">
-        <div class="terminal-dots">
-          <span class="dot red"></span>
-          <span class="dot yellow"></span>
-          <span class="dot green"></span>
+      <div class="hero-visual" aria-label="Illustration of a website monitoring dashboard">
+        <div class="visual-orbit orbit-one"></div>
+        <div class="visual-orbit orbit-two"></div>
+        <div class="dashboard-window">
+          <div class="dashboard-topbar">
+            <div class="window-controls"><i></i><i></i><i></i></div>
+            <span>webguardian <b>/</b> overview</span>
+            <span class="live-pill"><i></i> LIVE</span>
+          </div>
+          <div class="dashboard-body">
+            <div class="dashboard-intro">
+              <div><small>YOUR MONITORING</small><h2>Good morning <span>👋</span></h2></div>
+              <div class="avatar-stack"><i class="fas fa-shield-alt"></i></div>
+            </div>
+            <div class="overview-grid">
+              <article class="overview-card uptime-card">
+                <div class="card-label"><span>Overall uptime</span><i class="fas fa-ellipsis-h"></i></div>
+                <strong>99.98<span>%</span></strong>
+                <div class="mini-chart" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                <small><i class="fas fa-arrow-trend-up"></i> Stable over the last 30 days</small>
+              </article>
+              <article class="overview-card monitored-card">
+                <div class="card-label"><span>Websites</span><i class="fas fa-globe"></i></div>
+                <strong>08</strong>
+                <small><b class="healthy-dot"></b> All checks running</small>
+              </article>
+            </div>
+            <div class="site-list-card">
+              <div class="site-list-heading"><span>Monitored websites</span><a href="#how-it-works">View all <i class="fas fa-arrow-right"></i></a></div>
+              <div class="site-row"><span class="site-symbol symbol-blue"><i class="fas fa-globe"></i></span><span class="site-name"><b>northstar.studio</b><small>Checked just now</small></span><span class="site-latency">142 ms</span><span class="site-status"><i></i> Operational</span></div>
+              <div class="site-row"><span class="site-symbol symbol-violet"><i class="fas fa-layer-group"></i></span><span class="site-name"><b>api.northstar.io</b><small>Checked 1 min ago</small></span><span class="site-latency">86 ms</span><span class="site-status"><i></i> Operational</span></div>
+              <div class="site-row"><span class="site-symbol symbol-cyan"><i class="fas fa-bag-shopping"></i></span><span class="site-name"><b>shop.northstar.io</b><small>Checked 2 min ago</small></span><span class="site-latency">201 ms</span><span class="site-status"><i></i> Operational</span></div>
+            </div>
+            <div class="ssl-toast"><span class="ssl-icon"><i class="fas fa-lock"></i></span><span><b>SSL certificate secure</b><small>Certificate is valid and up to date</small></span><i class="fas fa-check-circle ssl-check"></i></div>
+          </div>
         </div>
-        <div class="terminal-title">guardian&#64;security:~/monitor</div>
-        <div class="terminal-status">
-          <span class="status-dot"></span> LIVE
-        </div>
-      </div>
-
-      <!-- Scrolling viewport -->
-      <div class="terminal-viewport">
-        <div class="terminal-scroll-track">
-
-          <div class="tl"><span class="p">$</span><span class="cmd"> ./guardian --start --mode=full</span></div>
-          <div class="tl"><span class="p">→</span><span class="inf"> [INFO] Booting WebGuardian v2.4.1...</span></div>
-          <div class="tl"><span class="p">→</span><span class="ok"> [✓] Security engine loaded</span></div>
-          <div class="tl"><span class="p">→</span><span class="inf"> [SSL] Certificate validator ready</span></div>
-          <div class="tl"><span class="p">→</span><span class="inf"> [HTTP] Uptime monitor active</span></div>
-          <div class="tl sep"></div>
-          <div class="tl"><span class="p">→</span> Scanning <span class="hl">example.com</span>...</div>
-          <div class="tl"><span class="p">→</span><span class="ok"> [✓] 200 OK · 134ms · SSL valid (83d)</span></div>
-          <div class="tl"><span class="p">→</span> Scanning <span class="hl">github.com</span>...</div>
-          <div class="tl"><span class="p">→</span><span class="ok"> [✓] 200 OK · 47ms · SSL valid (201d)</span></div>
-          <div class="tl"><span class="p">→</span> Scanning <span class="hl">openssl.org</span>...</div>
-          <div class="tl"><span class="p">→</span><span class="ok"> [✓] 200 OK · 98ms · SSL valid (312d)</span></div>
-          <div class="tl"><span class="p">→</span> Scanning <span class="hl">my-api.io</span>...</div>
-          <div class="tl"><span class="p">→</span><span class="wrn"> [WARN] 503 Service Unavailable · 2100ms</span></div>
-          <div class="tl"><span class="p">→</span> Scanning <span class="hl">old-site.net</span>...</div>
-          <div class="tl"><span class="p">→</span><span class="err"> [ALERT] SSL certificate expired 14 days ago!</span></div>
-          <div class="tl sep"></div>
-          <div class="tl"><span class="p">→</span><span class="inf"> [REPORT] 4/5 sites online · 1 SSL critical</span></div>
-          <div class="tl"><span class="p">→</span><span class="inf"> [INFO] Alerts dispatched via email</span></div>
-          <div class="tl"><span class="p">→</span><span class="ok"> [✓] Dashboard updated</span></div>
-          <div class="tl"><span class="p">→</span><span class="inf"> [INFO] Next scan in 30s...</span></div>
-          <div class="tl"><span class="p">$</span><span class="cmd"> live_monitor --interval=30s</span><span class="cur">▌</span></div>
-          <div class="tl sep"></div>
-          <div class="tl"><span class="p">→</span><span class="inf"> [CYCLE 2] Re-scanning all endpoints...</span></div>
-          <div class="tl"><span class="p">→</span> Scanning <span class="hl">example.com</span>...</div>
-          <div class="tl"><span class="p">→</span><span class="ok"> [✓] 200 OK · 121ms</span></div>
-          <div class="tl"><span class="p">→</span> Scanning <span class="hl">my-api.io</span>...</div>
-          <div class="tl"><span class="p">→</span><span class="ok"> [✓] 200 OK · 88ms — recovered</span></div>
-          <div class="tl"><span class="p">→</span><span class="inf"> [INFO] All systems nominal</span></div>
-          <div class="tl"><span class="p">→</span><span class="ok"> [✓] Uptime: 99.96% (last 30 days)</span></div>
-
-        </div>
-      </div>
-
-      <div class="terminal-footer">
-        <span class="tf-item"><span class="tf-dot ok"></span>4 online</span>
-        <span class="tf-item"><span class="tf-dot err"></span>1 SSL issue</span>
-        <span class="tf-item"><span class="tf-dot warn"></span>0 offline</span>
+        <div class="floating-chip chip-response"><span class="chip-icon"><i class="fas fa-bolt"></i></span><span><small>AVG. RESPONSE</small><b>143 ms</b></span></div>
+        <div class="floating-chip chip-ssl"><span class="chip-icon"><i class="fas fa-lock"></i></span><span><small>SSL STATUS</small><b>All secure</b></span><i class="fas fa-check-circle"></i></div>
       </div>
     </div>
+    <a href="#how-it-works" class="scroll-cue"><span></span> Scroll to explore</a>
+  </section>
 
+  <section class="trust-strip" aria-label="WebGuardian monitoring capabilities">
+    <div class="trust-strip-inner"><span>YOUR ESSENTIALS, COVERED</span><div><i class="fas fa-signal"></i> Uptime monitoring</div><div><i class="fas fa-shield-halved"></i> SSL health</div><div><i class="fas fa-gauge-high"></i> Response insights</div><div><i class="fas fa-clock"></i> Check history</div></div>
+  </section>
+
+  <section id="how-it-works" class="how-section">
+    <div class="section-container">
+      <header class="section-heading">
+        <span class="section-kicker">A calmer way to stay informed</span>
+        <h2>From “is it up?” to <span class="gradient-text">already knowing.</span></h2>
+        <p>Everything you need to spot a problem early, with the detail to understand what’s happening.</p>
+      </header>
+
+      <div class="steps-grid">
+        <article class="step-card">
+          <div class="step-top"><span class="step-index">01</span><span class="step-icon"><i class="fas fa-link"></i></span></div>
+          <h3>Add your website</h3><p>Bring your domains into one focused dashboard. Add them individually or import your list.</p>
+          <div class="step-decoration decoration-link" aria-hidden="true"><span>https://</span><i class="fas fa-globe"></i><b>your-site.com</b><i class="fas fa-check"></i></div>
+        </article>
+        <article class="step-card">
+          <div class="step-top"><span class="step-index">02</span><span class="step-icon"><i class="fas fa-wave-square"></i></span></div>
+          <h3>See every signal</h3><p>Follow availability, response times, and SSL health from the latest check to the long-term trend.</p>
+          <div class="step-decoration decoration-pulse" aria-hidden="true"><span></span><svg viewBox="0 0 240 56"><path d="M0 38h42l13-24 18 34 16-20h35l15-17 18 31 16-14h67" /></svg><span></span></div>
+        </article>
+        <article class="step-card">
+          <div class="step-top"><span class="step-index">03</span><span class="step-icon"><i class="fas fa-bell"></i></span></div>
+          <h3>Act with confidence</h3><p>Catch certificate expiry and outages sooner, with clear status and history to guide your next step.</p>
+          <div class="step-decoration decoration-alert" aria-hidden="true"><i class="fas fa-shield-halved"></i><span><b>Everything looks good</b><small>Your sites are being monitored</small></span><i class="fas fa-check-circle"></i></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="feature-band">
+    <div class="feature-band-inner">
+      <div class="feature-copy">
+        <span class="section-kicker">Clarity when it matters</span>
+        <h2>Your websites.<br><span class="gradient-text">One steady pulse.</span></h2>
+        <p>WebGuardian brings the signals that matter into a single view—so you can catch changes early and spend less time checking manually.</p>
+        <a routerLink="/register" class="text-link">Get your dashboard <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="signal-stack" aria-label="Website health signals">
+        <article class="signal-card signal-uptime"><span class="signal-icon"><i class="fas fa-signal"></i></span><div><small>AVAILABILITY</small><b>Know when a site needs attention</b></div><span class="signal-indicator"><i></i> Online</span></article>
+        <article class="signal-card signal-certificate"><span class="signal-icon"><i class="fas fa-lock"></i></span><div><small>SSL CERTIFICATES</small><b>Keep certificate expiry in view</b></div><span class="signal-indicator"><i></i> Secure</span></article>
+        <article class="signal-card signal-speed"><span class="signal-icon"><i class="fas fa-gauge-high"></i></span><div><small>RESPONSE TIME</small><b>Understand how quickly sites respond</b></div><span class="signal-indicator">143 <small>ms</small></span></article>
+        <div class="signal-orb orb-a"></div><div class="signal-orb orb-b"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing-cta">
+    <div class="closing-glow" aria-hidden="true"></div>
+    <div class="closing-content"><span class="section-kicker">A clearer view starts here</span><h2>Give your websites<br><span class="gradient-text">a guardian.</span></h2><p>Bring your monitoring into one calm, clear workspace.</p><a routerLink="/register" class="button-primary">Create your account <i class="fas fa-arrow-right"></i></a></div>
+    <div class="closing-mark" aria-hidden="true"><i class="fas fa-shield-halved"></i><span></span><b></b></div>
+  </section>
+</main>
+
+<footer id="contact" class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand-block"><a routerLink="/h" class="footer-brand"><span class="footer-brand-icon"><i class="fas fa-shield-halved"></i></span><span>Web<span>Guardian</span></span></a><p>A clearer view of your website health. Monitor uptime, SSL, and response time from one place.</p><div class="footer-status"><i></i> Monitoring made simpler</div></div>
+    <div class="footer-links"><div><h3>Explore</h3><a href="#home">Home</a><a href="#how-it-works">How it works</a><a href="#features">Features</a></div><div><h3>Your account</h3><a routerLink="/login">Log in</a><a routerLink="/register">Create account</a></div><div><h3>What we monitor</h3><a href="#features">Website availability</a><a href="#features">SSL certificates</a><a href="#features">Response insights</a></div></div>
   </div>
-</section>
+  <div class="footer-bottom"><span>© {{ currentYear }} WebGuardian. Built for a healthier web.</span><a href="#home" class="back-to-top" (click)="scrollToTop()">Back to top <i class="fas fa-arrow-up"></i></a></div>
+</footer>
 
-<!-- How It Works Section -->
-<section id="works" class="works">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-tag">— How It Works</span>
-      <h2>Three steps to <span class="gradient-text">full visibility</span></h2>
-      <p class="section-subtitle">Learn how Web Guardian keeps your websites in check</p>
-    </div>
-
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-number">01</div>
-        <div class="feature-icon"><i class="fas fa-globe"></i></div>
-        <h3>Choose <span>a Website</span></h3>
-        <p>Select any website you want to monitor. Our tool checks the status and security of any site instantly.</p>
-        <div class="card-hover-line"></div>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-number">02</div>
-        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-        <h3>Monitor <span>Availability</span></h3>
-        <p>We check whether the website is online or offline and provide instant feedback on its current status.</p>
-        <div class="card-hover-line"></div>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-number">03</div>
-        <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
-        <h3>Check <span>SSL Security</span></h3>
-        <p>We inspect SSL certificates, revealing validity and exact expiry dates so you're never caught off guard.</p>
-        <div class="card-hover-line"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <i class="fas fa-shield-alt"></i>
-          <span>Web<span>Guardian</span></span>
-        </div>
-        <div class="footer-copyright">
-          © 2024 designed and developed by ShyrineProd Team
-        </div>
-        <div class="footer-social">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
-    </div>
-  </footer>
-  
-  <!-- Scroll Top -->
-  <div id="scrollTop" class="scroll-top" [class.visible]="showScrollTop" (click)="scrollToTop()">
-    <i class="fas fa-arrow-up"></i>
-  </div>
+<button type="button" class="scroll-top" [class.visible]="showScrollTop" (click)="scrollToTop()" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>

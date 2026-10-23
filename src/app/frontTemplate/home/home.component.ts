@@ -7,6 +7,7 @@ import { Component, HostListener } from '@angular/core';
 })
 export class HomeComponent {
   showScrollTop = false;
+  readonly currentYear = new Date().getFullYear();
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
