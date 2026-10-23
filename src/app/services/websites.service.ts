@@ -18,6 +18,12 @@ export class WebsitesService {
   getWebsiteById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
+  getWebsiteChecks(id: number): Observable<WebsiteCheck[]> {
+    return this.http.get<WebsiteCheck[]>(`${this.apiUrl}/${id}/checks`);
+  }
+  checkWebsite(id: number): Observable<Website> {
+    return this.http.post<Website>(`${this.apiUrl}/${id}/check`, {});
+  }
   createWebsite(website: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}/new`, website, { headers });
@@ -39,4 +45,15 @@ export class WebsitesService {
     return this.http.get<any>(`${this.apiUrl}/user/${userId}`);
   }
 
+}
+
+export interface WebsiteCheck {
+  checkedAt: string;
+  availability: string;
+  httpStatusCode: number | null;
+  responseTimeMs: number | null;
+  sslStatus: string;
+  sslExpiresInDays: number | null;
+  headersScore: number | null;
+  headersGrade: string | null;
 }

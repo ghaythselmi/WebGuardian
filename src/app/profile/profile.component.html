@@ -25,13 +25,22 @@
         </div>
         <h1>{{ user.username || 'User profile' }}</h1>
         <p>{{ user.email || 'No email provided' }}</p>
-        <span class="role-badge">{{ user.role || 'Member' }}</span>
+        <span class="role-badge"><i class="fas fa-shield-alt"></i> {{ user.role === 'ROLE_ADMIN' ? 'Administrator' : 'Member' }}</span>
+        <div class="joined"><i class="far fa-calendar-check"></i> Member since {{ user.createdAt ? (user.createdAt | date:'MMM y') : '—' }}</div>
       </aside>
+
+      <div class="profile-content">
+      <section class="stats-grid" aria-label="Monitoring overview">
+        <article class="stat-card"><span class="stat-icon cyan"><i class="fas fa-globe"></i></span><div><strong>{{ websites.length }}</strong><span>Monitored websites</span></div></article>
+        <article class="stat-card"><span class="stat-icon green"><i class="fas fa-check-circle"></i></span><div><strong>{{ onlineCount }}</strong><span>Currently online</span></div></article>
+        <article class="stat-card"><span class="stat-icon amber"><i class="fas fa-lock"></i></span><div><strong>{{ expiringSslCount }}</strong><span>SSL needs attention</span></div></article>
+      </section>
 
       <section class="profile-details">
         <div class="section-header">
-          <span>Account</span>
-          <h2>Profile details</h2>
+          <span>Account overview</span>
+          <h2>Your profile</h2>
+          <p>Account information and monitoring preferences.</p>
         </div>
 
         <div class="detail-grid">
@@ -43,8 +52,21 @@
             <span>Email</span>
             <strong>{{ user.email || 'Not set' }}</strong>
           </div>
+          <div class="detail-item">
+            <span>Account type</span>
+            <strong>{{ user.role === 'ROLE_ADMIN' ? 'Administrator' : 'Standard member' }}</strong>
+          </div>
+          <div class="detail-item">
+            <span>Account created</span>
+            <strong>{{ user.createdAt ? (user.createdAt | date:'longDate') : 'Not available' }}</strong>
+          </div>
         </div>
       </section>
+      <section class="alerts-panel">
+        <div class="alerts-copy"><span class="section-eyebrow">Stay informed</span><h2>Email alerts</h2><p>Get an email when a website goes offline, recovers, or its SSL certificate is nearing expiry.</p><small *ngIf="alertMessage" role="status">{{ alertMessage }}</small></div>
+        <label class="toggle-control"><span>{{ user.emailAlertsEnabled ? 'Enabled' : 'Disabled' }}</span><input type="checkbox" [checked]="user.emailAlertsEnabled !== false" [disabled]="savingAlerts" (change)="setEmailAlerts($any($event.target).checked)"><span class="toggle-track"></span></label>
+      </section>
+      </div>
     </div>
   </section>
 </main>

@@ -5,5 +5,6 @@ export class User {
     password?: string;
     role?: string;
     imageUrl?: string;
+    createdAt?: string;
+    emailAlertsEnabled?: boolean;
   }
-  

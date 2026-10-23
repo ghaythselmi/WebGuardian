@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../entity/user';
-import { MonitoringService } from '../../services/monitoring.service';
-import { WebsitesService } from '../../services/websites.service';
+import { WebsitesService, WebsiteCheck } from '../../services/websites.service';
 import { Website } from '../../entity/website';
 import * as Papa from 'papaparse';
 
@@ -18,12 +17,17 @@ export class FrontClientComponent implements OnInit, OnDestroy {
   user!: User;
   websites: Website[] = [];
   loading: boolean = false;
-  intervalId: any;
+  addingWebsite = false;
+  monitoringError = '';
+  refreshTimer: ReturnType<typeof setInterval> | undefined;
   showScrollTop: boolean = false;
+  selectedWebsiteId?: number;
+  checkHistory: WebsiteCheck[] = [];
+  historyLoading = false;
+  historyError = '';
 
   constructor(
     private userService: UserService,
-    private websiteMonitorService: MonitoringService,
     private websitesService: WebsitesService
   ) {}
 
@@ -38,19 +42,12 @@ export class FrontClientComponent implements OnInit, OnDestroy {
       },
       error => console.error(error)
     );
-
-    // Auto-refresh every 5 minutes
-    this.intervalId = setInterval(() => {
-      if (this.websites.length > 0) {
-        this.updatedCheck();
-      }
-    }, 300000);
+    // Refresh the saved results; the backend scheduler performs the actual checks.
+    this.refreshTimer = setInterval(() => this.getWebsitesByUserId(), 300000);
   }
 
   ngOnDestroy(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+    if (this.refreshTimer) clearInterval(this.refreshTimer);
   }
 
   // Listen to scroll event from window
@@ -61,36 +58,66 @@ export class FrontClientComponent implements OnInit, OnDestroy {
 
   checkWebsite() {
     if (!this.url.trim()) return;
-
-    this.websiteMonitorService.checkWebsite(this.url).subscribe(
-      response => {
-        this.result = response;
-        this.addWebsite(this.url);
-      },
-      error => console.error('Error checking website:', error)
-    );
+    this.addWebsite(this.url.trim());
   }
 
+  selectHistoryWebsite(id: number | undefined): void {
+    this.selectedWebsiteId = id;
+    this.loadCheckHistory();
+  }
+
+  loadCheckHistory(): void {
+    if (!this.selectedWebsiteId) { this.checkHistory = []; this.historyLoading = false; return; }
+    this.historyLoading = true;
+    this.historyError = '';
+    this.websitesService.getWebsiteChecks(this.selectedWebsiteId).subscribe({
+      next: checks => { this.checkHistory = checks.slice().reverse(); this.historyLoading = false; },
+      error: () => { this.checkHistory = []; this.historyError = 'Could not load monitoring history.'; this.historyLoading = false; }
+    });
+  }
+
+  get uptimeRate(): number {
+    return this.checkHistory.length ? Math.round(this.checkHistory.filter(check => check.availability === 'Online').length * 100 / this.checkHistory.length) : 0;
+  }
+
+  get averageResponseMs(): number | null {
+    const samples = this.checkHistory.map(check => check.responseTimeMs).filter((value): value is number => value !== null);
+    return samples.length ? Math.round(samples.reduce((sum, value) => sum + value, 0) / samples.length) : null;
+  }
+
+  get latencyPoints(): Array<{ x: number; y: number; value: number }> {
+    const samples = this.checkHistory.map(check => check.responseTimeMs);
+    const valid = samples.filter((value): value is number => value !== null);
+    const max = Math.max(...valid, 1);
+    return samples.flatMap((value, index) => value === null ? [] : [{
+      x: samples.length <= 1 ? 380 : 40 + index * 680 / (samples.length - 1),
+      y: 184 - value / max * 145,
+      value
+    }]);
+  }
+
+  get responsePoints(): string {
+    return this.latencyPoints.map(point => `${point.x},${point.y}`).join(' ');
+  }
+
+  get recentHistory(): WebsiteCheck[] { return this.checkHistory.slice(-30); }
+
   addWebsite(url: string) {
-    if (!this.result) return;
-
-    const newWebsite: Website = {
-      url: url,
-      availability: this.result.availability?.status || 'Unknown',
-      ssl_status: this.result.ssl?.status || 'Expired',
-      expires_in: this.result.ssl?.expires_in_days || 0,
-      user_id: this.user.id,
-      last_check: new Date()
-    };
-
-    this.websitesService.createWebsite(newWebsite).subscribe(
+    this.addingWebsite = true;
+    this.monitoringError = '';
+    this.websitesService.createWebsite({ url, user_id: this.user.id }).subscribe(
       (response: Website) => {
-        console.log('Website added successfully:', response);
         this.websites.push(response);
+        this.selectedWebsiteId = response.id;
+        this.result = { availability: { status: response.availability }, ssl: { status: response.ssl_status, expires_in_days: response.expires_in } };
+        this.loadCheckHistory();
         this.url = '';
-        this.result = null;
+        this.addingWebsite = false;
       },
-      error => console.error('Error adding website:', error)
+      error => {
+        this.monitoringError = error.error?.error || 'Could not add and check this website.';
+        this.addingWebsite = false;
+      }
     );
   }
 
@@ -99,6 +126,8 @@ export class FrontClientComponent implements OnInit, OnDestroy {
     this.websitesService.getWebsitesByUser(this.userId).subscribe(
       (data: Website[]) => {
         this.websites = data;
+        if (!this.websites.some(site => site.id === this.selectedWebsiteId)) this.selectedWebsiteId = this.websites[0]?.id;
+        this.loadCheckHistory();
       },
       error => console.error('Error fetching websites:', error)
     );
@@ -109,13 +138,12 @@ export class FrontClientComponent implements OnInit, OnDestroy {
 
     const requests = this.websites.map(website => {
       if (website.url) {
-        return this.websiteMonitorService.checkWebsite(website.url).toPromise().then(
-          response => {
-            website.availability = response.availability?.status || 'Offline';
-            website.ssl_status = response.ssl?.status || 'Expired';
-            website.expires_in = response.ssl?.expires_in_days || 0;
-            website.last_check = new Date();
-            return this.websitesService.updateWebsite(website.id!, website).toPromise();
+        return this.websitesService.checkWebsite(website.id!).toPromise().then(
+          checked => {
+            if (!checked) return null;
+            const index = this.websites.findIndex(item => item.id === checked.id);
+            if (index !== -1) this.websites[index] = checked;
+            return checked;
           },
           error => {
             console.error(`Error checking ${website.url}:`, error);
@@ -128,27 +156,18 @@ export class FrontClientComponent implements OnInit, OnDestroy {
 
     Promise.allSettled(requests).then(() => {
       this.loading = false;
+      this.loadCheckHistory();
     });
   }
 
   updateWebsite(website: Website) {
     if (!website.url) return;
 
-    this.websiteMonitorService.checkWebsite(website.url).subscribe(
-      response => {
-        website.availability = response.availability?.status || 'Offline';
-        website.ssl_status = response.ssl?.status || 'Expired';
-        website.expires_in = response.ssl?.expires_in_days || 0;
-        website.last_check = new Date();
-
-        this.websitesService.updateWebsite(website.id!, website).subscribe(
-          updatedWebsite => {
-            console.log('Website updated successfully');
-            const index = this.websites.findIndex(w => w.id === website.id);
-            if (index !== -1) this.websites[index] = updatedWebsite;
-          },
-          error => console.error('Error updating website:', error)
-        );
+    this.websitesService.checkWebsite(website.id!).subscribe(
+      updatedWebsite => {
+        const index = this.websites.findIndex(w => w.id === website.id);
+        if (index !== -1) this.websites[index] = updatedWebsite;
+        if (website.id === this.selectedWebsiteId) this.loadCheckHistory();
       },
       error => console.error('Error checking website:', error)
     );
@@ -159,6 +178,10 @@ export class FrontClientComponent implements OnInit, OnDestroy {
       this.websitesService.deleteWebsite(id).subscribe(
         response => {
           this.websites = this.websites.filter(website => website.id !== id);
+          if (this.selectedWebsiteId === id) {
+            this.selectedWebsiteId = this.websites[0]?.id;
+            this.loadCheckHistory();
+          }
         },
         error => console.error('Error deleting website:', error)
       );
@@ -184,23 +207,10 @@ export class FrontClientComponent implements OnInit, OnDestroy {
   checkMultipleWebsites(urls: string[]) {
     const requests = urls.map(url => {
       return new Promise<void>((resolve) => {
-        this.websiteMonitorService.checkWebsite(url).subscribe(
-          response => {
-            const newWebsite: Website = {
-              url: url,
-              availability: response.availability?.status || 'Unknown',
-              ssl_status: response.ssl?.status || 'Expired',
-              expires_in: response.ssl?.expires_in_days || 0,
-              user_id: this.user.id,
-              last_check: new Date()
-            };
-            this.websitesService.createWebsite(newWebsite).subscribe(() => resolve());
-          },
-          error => {
-            console.error(`Error checking ${url}:`, error);
-            resolve();
-          }
-        );
+        this.websitesService.createWebsite({ url, user_id: this.user.id }).subscribe({
+          next: () => resolve(),
+          error: error => { console.error(`Error adding ${url}:`, error); resolve(); }
+        });
       });
     });
 
