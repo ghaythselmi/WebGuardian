@@ -1,6 +1,4 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
 import { User } from '../../entity/user';
 import { MonitoringService } from '../../services/monitoring.service';
@@ -24,21 +22,18 @@ export class FrontClientComponent implements OnInit, OnDestroy {
   showScrollTop: boolean = false;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private httpClient: HttpClient,
     private userService: UserService,
     private websiteMonitorService: MonitoringService,
     private websitesService: WebsitesService
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.params["id"];
     this.user = new User();
 
-    this.userService.getUser(this.userId).subscribe(
+    this.userService.me().subscribe(
       data => {
         this.user = data;
+        this.userId = data.id!;
         this.getWebsitesByUserId();
       },
       error => console.error(error)
@@ -100,6 +95,7 @@ export class FrontClientComponent implements OnInit, OnDestroy {
   }
 
   getWebsitesByUserId() {
+    if (!this.userId) return;
     this.websitesService.getWebsitesByUser(this.userId).subscribe(
       (data: Website[]) => {
         this.websites = data;

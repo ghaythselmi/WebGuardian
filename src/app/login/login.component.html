@@ -6,7 +6,7 @@
 <div class="auth-page">
 
   <!-- Brand -->
-  <a href="/h" class="auth-brand">
+  <a routerLink="/h" class="auth-brand">
     <div class="brand-icon">
       <i class="fas fa-shield-alt"></i>
     </div>
@@ -72,7 +72,7 @@
         {{ errorMessage }}
       </div>
 
-      <form (submit)="login()" class="auth-form">
+      <form (ngSubmit)="login()" class="auth-form">
         <div class="field-group">
           <label class="field-label">Email address</label>
           <div class="field-wrap">
@@ -111,7 +111,7 @@
       <div class="auth-divider"><span>or</span></div>
 
       <p class="auth-switch">
-        Don't have an account? <a href="/register">Create one for free</a>
+        Don't have an account? <a routerLink="/register">Create one for free</a>
       </p>
     </div>
 

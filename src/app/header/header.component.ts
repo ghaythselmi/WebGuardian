@@ -25,10 +25,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (this.mode === 'client' && this.userId) {
-      this.userService.getUser(this.userId).subscribe(
+    if (this.mode === 'client') {
+      this.userService.me().subscribe(
         data => { 
           this.user = data;
+          this.userId = data.id!;
         },
         error => console.error(error)
       );
@@ -75,8 +76,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    localStorage.clear();
-    sessionStorage.clear();
+    this.userService.logout();
     this.router.navigate(['/login']);
   }
 }

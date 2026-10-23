@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { User } from '../entity/user';
 import { UserService } from '../services/user.service';
@@ -16,24 +16,16 @@ export class ProfileComponent implements OnInit {
   errorMessage = '';
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
     private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
-    this.userId = Number(this.route.snapshot.paramMap.get('id'));
-
-    if (!this.userId) {
-      this.errorMessage = 'Unable to load profile.';
-      this.isLoading = false;
-      return;
-    }
-
-    this.userService.getUser(this.userId).subscribe(
+    this.userService.me().subscribe(
       data => {
         this.user = data;
+        this.userId = data.id!;
         this.isLoading = false;
       },
       () => {
@@ -50,6 +42,6 @@ export class ProfileComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/frontClient', this.userId]);
+    this.router.navigate(['/home']);
   }
 }

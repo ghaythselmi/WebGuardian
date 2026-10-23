@@ -2,7 +2,7 @@
   <div class="navbar-container">
 
     <!-- Logo / Brand -->
-    <a [href]="mode === 'client' ? '/frontClient/' + userId : '#home'" class="navbar-brand">
+    <a [routerLink]="mode === 'client' ? ['/home'] : ['/h']" class="navbar-brand">
       <div class="brand-icon">
         <i class="fas fa-shield-alt"></i>
       </div>
@@ -12,26 +12,26 @@
     <!-- PUBLIC mode -->
     <ng-container *ngIf="mode === 'public'">
       <div class="navbar-links">
-        <a href="#home" class="nav-link">Home</a>
+        <a routerLink="/h" fragment="home" class="nav-link">Home</a>
         <a href="#works" class="nav-link">Features</a>
         <a href="#contact" class="nav-link">Contact</a>
       </div>
       <div class="navbar-actions">
-        <a href="login" class="nav-link btn-outline">Login</a>
-        <a href="register" class="nav-link btn-filled">Sign Up</a>
+        <a routerLink="/login" class="nav-link btn-outline">Login</a>
+        <a routerLink="/register" class="nav-link btn-filled">Sign Up</a>
       </div>
     </ng-container>
 
     <!-- CLIENT mode -->
     <ng-container *ngIf="mode === 'client'">
       <div class="navbar-links">
-        <a [routerLink]="['/frontClient', userId]" class="nav-link">
+        <a routerLink="/home" class="nav-link">
           <i class="fas fa-home"></i> Home
         </a>
-        <a [routerLink]="['/websites', userId]" class="nav-link">
-          <i class="fas fa-globe"></i> My Websites
+        <a routerLink="/home" fragment="website-list" class="nav-link">
+          <i class="fas fa-globe"></i> Monitored Websites
         </a>
-        <a routerLink="/stats" class="nav-link">
+        <a routerLink="/home" fragment="website-list" class="nav-link">
           <i class="fas fa-chart-bar"></i> Stats
         </a>
       </div>
@@ -45,7 +45,7 @@
         
         <!-- Dropdown Menu -->
         <div class="user-dropdown-menu" *ngIf="dropdownVisible" (click)="$event.stopPropagation()">
-          <a [routerLink]="['/profile', userId]" class="user-dropdown-item" (click)="dropdownVisible = false">
+          <a routerLink="/profile" class="user-dropdown-item" (click)="dropdownVisible = false">
             <i class="fas fa-user"></i> Profile
           </a>
           <div class="dropdown-divider"></div>

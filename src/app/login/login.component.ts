@@ -22,9 +22,9 @@ export class LoginComponent {
     this.errorMessage = '';
 
     this.userService.login(this.email, this.password).subscribe(
-      (response: any) => {
+      () => {
         this.isLoading = false;
-        this.router.navigate(['frontClient', response.userId]);
+        this.router.navigate(['/home']);
       },
       () => {
         this.isLoading = false;
