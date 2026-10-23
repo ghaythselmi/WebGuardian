@@ -12,6 +12,7 @@ import { FrontClientComponent } from './frontTemplate/front-client/front-client.
 import { HomeComponent } from './frontTemplate/home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileComponent } from './profile/profile.component';
+import { StatsComponent } from './stats/stats.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
 
@@ -24,7 +25,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     FrontClientComponent,
     HomeComponent,
     HeaderComponent,
-    ProfileComponent
+    ProfileComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,59 @@
+<app-header mode="client"></app-header>
+
+<main class="stats-page">
+  <div class="stats-container">
+    <a routerLink="/home" class="back-dashboard"><i class="fas fa-arrow-left"></i> Back to dashboard</a>
+
+    <header class="stats-heading">
+      <div>
+        <span class="stats-eyebrow">MONITORING OVERVIEW</span>
+        <h1>Website <span>Stats</span></h1>
+        <p>Availability and response-time trends from your saved background checks.</p>
+      </div>
+      <label class="history-site-select">Select website
+        <select [ngModel]="selectedWebsiteId" (ngModelChange)="selectWebsite($event)" name="statsWebsite" [disabled]="websites.length === 0">
+          <option *ngFor="let website of websites" [ngValue]="website.id">{{ website.url }}</option>
+        </select>
+      </label>
+    </header>
+
+    <div *ngIf="isLoading || historyLoading" class="stats-state"><i class="fas fa-spinner fa-spin"></i> Loading monitoring analytics…</div>
+    <div *ngIf="errorMessage && !isLoading && !historyLoading" class="stats-state error-state"><i class="fas fa-exclamation-circle"></i>{{ errorMessage }}</div>
+    <div *ngIf="!isLoading && !historyLoading && !errorMessage && websites.length === 0" class="stats-state">
+      <i class="fas fa-globe"></i><span>No websites are being monitored yet.</span><a routerLink="/home" fragment="website-list">Add your first website</a>
+    </div>
+    <div *ngIf="!isLoading && !historyLoading && !errorMessage && websites.length > 0 && checkHistory.length === 0" class="stats-state">
+      <i class="fas fa-chart-line"></i><span>No saved checks for this website yet.</span><a routerLink="/home" fragment="website-list">Run a check from your dashboard</a>
+    </div>
+
+    <ng-container *ngIf="!isLoading && !historyLoading && !errorMessage && checkHistory.length > 0">
+      <section class="history-metrics" aria-label="Monitoring summary">
+        <article class="history-metric"><span>Checks shown (up to 100)</span><strong>{{ checkHistory.length }}</strong></article>
+        <article class="history-metric"><span>Availability in history</span><strong>{{ uptimeRate }}%</strong></article>
+        <article class="history-metric"><span>Average response</span><strong>{{ averageResponseMs === null ? '—' : averageResponseMs + ' ms' }}</strong></article>
+      </section>
+
+      <section class="history-chart-card">
+        <div class="chart-title"><div><h2>Response time</h2><p>Milliseconds per saved check</p></div><span><i class="fas fa-circle"></i> Response time</span></div>
+        <div class="chart-scroll">
+          <svg class="response-chart" viewBox="0 0 760 220" role="img" aria-label="Response time by monitoring check">
+            <line x1="40" y1="39" x2="720" y2="39" class="chart-gridline"></line>
+            <line x1="40" y1="111" x2="720" y2="111" class="chart-gridline"></line>
+            <line x1="40" y1="184" x2="720" y2="184" class="chart-gridline"></line>
+            <polyline *ngIf="latencyPoints.length > 1" [attr.points]="responsePoints" class="chart-line"></polyline>
+            <circle *ngFor="let point of latencyPoints" [attr.cx]="point.x" [attr.cy]="point.y" r="4" class="chart-point"><title>{{ point.value }} ms</title></circle>
+          </svg>
+        </div>
+        <p *ngIf="latencyPoints.length === 0" class="chart-empty">No response-time samples are available yet.</p>
+        <div class="chart-axis"><span>{{ checkHistory[0].checkedAt | date:'short' }}</span><span>{{ checkHistory[checkHistory.length - 1].checkedAt | date:'short' }}</span></div>
+      </section>
+
+      <section class="history-chart-card status-history-card">
+        <div class="chart-title"><div><h2>Availability history</h2><p>Most recent {{ recentHistory.length }} checks</p></div><div class="status-legend"><span><i class="online-dot"></i>Online</span><span><i class="offline-dot"></i>Offline</span></div></div>
+        <div class="status-timeline" role="list" aria-label="Website availability in recent checks">
+          <span *ngFor="let check of recentHistory" role="listitem" [class.is-online]="check.availability === 'Online'" [class.is-offline]="check.availability !== 'Online'" [title]="(check.checkedAt | date:'medium') + ' · ' + check.availability"></span>
+        </div>
+      </section>
+    </ng-container>
+  </div>
+</main>

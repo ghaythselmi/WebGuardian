@@ -6,6 +6,7 @@ import { SignupComponent } from './signup/signup.component';
 import { FrontClientComponent } from './frontTemplate/front-client/front-client.component';
 import { HomeComponent } from './frontTemplate/home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { StatsComponent } from './stats/stats.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'register', component: SignupComponent },
   { path: 'home', component: FrontClientComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'stats', component: StatsComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'h', component: HomeComponent },
   { path: '', redirectTo: '/h', pathMatch: 'full' },
