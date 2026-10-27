@@ -766,8 +766,46 @@ main, .main-content, app-root, router-outlet + * {
 .monitoring-form-error { margin: 9px 0 0; color: #fca5a5; font-size: .85rem; }
 .add-result-card { max-width: 980px; margin: 0 auto 24px; }
 
+/* Match the public home (/h) footer. */
+.site-footer { position: relative; z-index: 1; padding: 0 5%; border-top: 1px solid rgba(150, 183, 213, .1); background-color: #070c15; background-image: linear-gradient(180deg, rgba(7, 12, 21, .9), rgba(7, 12, 21, .78)), url('/assets/img/Futuristic Cybersecurity.png'); background-repeat: no-repeat; background-size: cover; background-position: center 72%; }
+.footer-main, .footer-bottom { width: min(1220px, 100%); margin: auto; }
+.footer-main { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 32px; padding: 54px 0 46px; }
+.footer-brand { display: inline-flex; align-items: center; gap: 10px; color: #edf5ff; font-size: 1.08rem; font-weight: 750; letter-spacing: -.035em; text-decoration: none; }
+.footer-brand > span:last-child > span { color: #6addeb; }
+.footer-brand-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; color: #081522; background: linear-gradient(135deg, #56e6e8, #5a8cff 75%, #9a7cff); font-size: .91rem; }
+.footer-brand-block > p { max-width: 345px; margin: 15px 0 16px; color: #8292a7; font-size: .81rem; line-height: 1.7; }
+.footer-status { display: inline-flex; align-items: center; gap: 8px; color: #92a3b7; font-size: .68rem; }
+.footer-status i { width: 6px; height: 6px; display: inline-block; border-radius: 50%; background: #51e4a5; box-shadow: 0 0 12px rgba(81,228,165,.55); }
+.footer-links { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; gap: 12px; }
+.footer-links h3 { margin: 5px 0; color: #dce7f4; font-size: .75rem; font-weight: 700; }
+.footer-links a { color: #8291a6; font-size: .74rem; text-decoration: none; transition: color .2s ease; }
+.footer-links a:hover { color: #73dce9; }
+.footer-contact a i { width: 14px; text-align: center; }
+.footer-contact .footer-email { white-space: nowrap; font-size: .66rem; }
+.copy-email { padding: 0; border: 0; color: #8291a6; background: transparent; font: inherit; font-size: .74rem; cursor: pointer; }
+.copy-email:hover { color: #73dce9; }
+.footer-bottom { min-height: 57px; display: flex; align-items: center; justify-content: space-between; gap: 15px; border-top: 1px solid rgba(141, 174, 205, .1); color: #68788c; font-size: .67rem; }
+.back-to-top { display: inline-flex; align-items: center; gap: 8px; color: #8ca0b7; text-decoration: none; }
+.back-to-top:hover { color: #6fe0ed; }
+.back-to-top i { color: #59cfe0; }
+
+@media (max-width: 860px) {
+    .footer-main { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; }
+    .footer-brand-block { grid-column: 1 / -1; }
+}
+
 @media (max-width: 640px) {
     .add-website-panel { padding: 18px 15px 15px; }
     .add-website-panel .input-wrapper { align-items: stretch; }
     .add-website-panel .check-btn { min-height: 48px; }
+    .site-footer { padding: 0 20px; }
+    .footer-main { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; padding: 40px 0 30px; }
+    .footer-brand-block { grid-column: 1 / -1; }
+    .footer-brand-block > p { max-width: 420px; }
+    .footer-links { gap: 10px; }
+    .footer-links h3 { font-size: .68rem; }
+    .footer-links a, .copy-email { font-size: .65rem; }
+    .footer-contact .footer-email { font-size: .61rem; }
+    .footer-bottom { min-height: 64px; font-size: .58rem; }
+    .scroll-top { right: 14px; bottom: 14px; }
 }

@@ -21,6 +21,8 @@ export class FrontClientComponent implements OnInit, OnDestroy {
   monitoringError = '';
   refreshTimer: ReturnType<typeof setInterval> | undefined;
   showScrollTop: boolean = false;
+  readonly currentYear = new Date().getFullYear();
+  emailCopyLabel = 'Copy email';
 
   constructor(
     private userService: UserService,
@@ -165,5 +167,15 @@ export class FrontClientComponent implements OnInit, OnDestroy {
 
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async copyEmail(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText('ghaith.selmi1905@gmail.com');
+      this.emailCopyLabel = 'Copied!';
+    } catch {
+      this.emailCopyLabel = 'Copy unavailable';
+    }
+    window.setTimeout(() => this.emailCopyLabel = 'Copy email', 2000);
   }
 }

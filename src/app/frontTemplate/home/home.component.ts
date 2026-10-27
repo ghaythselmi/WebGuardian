@@ -8,6 +8,17 @@ import { Component, HostListener } from '@angular/core';
 export class HomeComponent {
   showScrollTop = false;
   readonly currentYear = new Date().getFullYear();
+  emailCopyLabel = 'Copy email';
+
+  async copyEmail(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText('ghaith.selmi1905@gmail.com');
+      this.emailCopyLabel = 'Copied!';
+    } catch {
+      this.emailCopyLabel = 'Copy unavailable';
+    }
+    window.setTimeout(() => this.emailCopyLabel = 'Copy email', 2000);
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
