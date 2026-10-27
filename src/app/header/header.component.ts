@@ -2,6 +2,8 @@ import { Component, HostListener, Input, OnInit, OnDestroy, ElementRef } from '@
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../entity/user';
+import { AppNotification } from '../entity/app-notification';
+import { NotificationsService } from '../services/notifications.service';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +16,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navbarVisible = true;
   dropdownVisible = false;
+  notificationsOpen = false;
+  notifications: AppNotification[] = [];
+  unreadNotificationCount = 0;
+  private notificationTimer?: ReturnType<typeof setInterval>;
   user: User = new User();
   private lastScrollPosition = 0;
   private scrollThreshold = 50;
@@ -21,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private userService: UserService,
+    private notificationsService: NotificationsService,
     private elementRef: ElementRef
   ) {}
 
@@ -30,6 +37,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         data => { 
           this.user = data;
           this.userId = data.id!;
+          this.loadNotifications();
+          this.notificationTimer = setInterval(() => this.loadNotifications(), 30000);
         },
         error => console.error(error)
       );
@@ -37,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Clean up
+    if (this.notificationTimer) clearInterval(this.notificationTimer);
   }
 
   @HostListener('window:scroll')
@@ -68,8 +77,39 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dropdownVisible = !this.dropdownVisible;
   }
 
+  toggleNotifications(event: Event): void {
+    event.stopPropagation();
+    this.notificationsOpen = !this.notificationsOpen;
+    if (this.notificationsOpen) this.loadNotifications();
+  }
+
+  loadNotifications(): void {
+    if (this.mode !== 'client' || !this.userId) return;
+    this.notificationsService.getNotifications().subscribe({
+      next: feed => {
+        this.notifications = feed.notifications || [];
+        this.unreadNotificationCount = feed.unreadCount || 0;
+      },
+      error: error => console.error('Could not load website notifications:', error)
+    });
+  }
+
+  markNotificationRead(notification: AppNotification): void {
+    if (notification.read) return;
+    this.notificationsService.markRead(notification.id).subscribe({
+      next: () => {
+        notification.read = true;
+        this.unreadNotificationCount = Math.max(0, this.unreadNotificationCount - 1);
+      },
+      error: error => console.error('Could not mark notification as read:', error)
+    });
+  }
+
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event): void {
+    if (this.notificationsOpen && !this.elementRef.nativeElement.contains(event.target)) {
+      this.notificationsOpen = false;
+    }
     if (this.dropdownVisible && !this.elementRef.nativeElement.contains(event.target)) {
       this.dropdownVisible = false;
     }

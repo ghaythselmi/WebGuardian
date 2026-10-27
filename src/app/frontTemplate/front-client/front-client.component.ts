@@ -11,6 +11,7 @@ import * as Papa from 'papaparse';
   styleUrls: ['./front-client.component.css']
 })
 export class FrontClientComponent implements OnInit, OnDestroy {
+  headersHelpOpen = false;
   url: string = '';
   result: any;
   userId!: number;
@@ -40,8 +41,10 @@ export class FrontClientComponent implements OnInit, OnDestroy {
       },
       error => console.error(error)
     );
-    // Refresh the saved results; the backend scheduler performs the actual checks.
-    this.refreshTimer = setInterval(() => this.getWebsitesByUserId(), 300000);
+    // Check saved sites every five minutes while the dashboard is open.
+    this.refreshTimer = setInterval(() => {
+      if (!document.hidden && !this.loading && this.websites.length > 0) this.updatedCheck();
+    }, 300000);
   }
 
   ngOnDestroy(): void {

@@ -99,6 +99,37 @@
       <a routerLink="/stats" class="view-details">
         <i class="fas fa-chart-line"></i> View details
       </a>
+      <button type="button" class="headers-help-button" (click)="headersHelpOpen = true" aria-haspopup="dialog" [attr.aria-expanded]="headersHelpOpen">
+        <i class="fas fa-circle-question" aria-hidden="true"></i> Help
+      </button>
+    </div>
+
+    <div *ngIf="headersHelpOpen" class="headers-help-backdrop" (click)="headersHelpOpen = false" (keydown.escape)="headersHelpOpen = false">
+      <section class="headers-help-dialog" role="dialog" aria-modal="true" aria-labelledby="headers-help-title" (click)="$event.stopPropagation()">
+        <button type="button" class="headers-help-close" (click)="headersHelpOpen = false" aria-label="Close help dialog">
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+        <span class="headers-help-eyebrow">SECURITY HEADERS</span>
+        <h2 id="headers-help-title">Understanding the score</h2>
+        <p class="headers-help-intro">The score shows how many of six recommended HTTP security headers the website sends. Each header counts equally, so each one is worth about 16.7 points.</p>
+        <div class="headers-score-guide" aria-label="Score grades">
+          <span><b class="grade-chip grade-a">A</b> 90–100</span>
+          <span><b class="grade-chip grade-b">B</b> 75–89</span>
+          <span><b class="grade-chip grade-c">C</b> 60–74</span>
+          <span><b class="grade-chip grade-d">D</b> 40–59</span>
+          <span><b class="grade-chip grade-f">F</b> 0–39</span>
+        </div>
+        <ul class="header-definitions">
+          <li><strong>Strict-Transport-Security (HSTS)</strong><span>Asks browsers to use HTTPS for future visits.</span></li>
+          <li><strong>Content-Security-Policy (CSP)</strong><span>Restricts which sources can provide scripts, styles, images, and other page content.</span></li>
+          <li><strong>X-Frame-Options</strong><span>Helps prevent other sites from embedding the page in a frame to trick visitors.</span></li>
+          <li><strong>X-Content-Type-Options</strong><span>Prevents browsers from guessing a file’s content type, reducing MIME sniffing risks.</span></li>
+          <li><strong>Referrer-Policy</strong><span>Controls how much page URL information is shared when visitors follow links.</span></li>
+          <li><strong>Permissions-Policy</strong><span>Limits browser features such as camera, microphone, and location access.</span></li>
+        </ul>
+        <p class="headers-help-note">This score checks whether each header is present. It does not assess whether its value is configured correctly or securely.</p>
+        <button type="button" class="headers-help-done" (click)="headersHelpOpen = false">Got it</button>
+      </section>
     </div>
 
     <div class="table-container" *ngIf="!loading">
