@@ -561,6 +561,10 @@ main, .main-content, app-root, router-outlet + * {
 }
 
 .website-table { width: 100%; border-collapse: collapse; }
+.website-table { min-width: 1600px; }
+.detail-cell { max-width: 260px; overflow-wrap: anywhere; }
+.detail-cell span { display: block; font-size: 0.78rem; }
+.missing-headers { color: #f87171; }
 
 .website-table th {
     padding: 16px;

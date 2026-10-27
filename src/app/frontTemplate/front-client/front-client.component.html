@@ -87,17 +87,6 @@
       <p *ngIf="monitoringError" class="monitoring-form-error" role="alert">{{ monitoringError }}</p>
     </form>
 
-    <div *ngIf="result" class="result-card add-result-card">
-      <div class="result-header">
-        <i class="fas fa-chart-line"></i><h3>First check complete</h3>
-        <span class="status" [class.online]="result.availability?.status === 'Online'">{{ result.availability?.status || 'Unknown' }}</span>
-      </div>
-      <div class="result-details">
-        <div class="detail-row"><span>SSL status:</span><strong>{{ result.ssl?.status || 'Unknown' }}</strong></div>
-        <div class="detail-row"><span>SSL expires:</span><strong [class.warning]="(result.ssl?.expires_in_days || 0) < 30">{{ result.ssl?.expires_in_days || 0 }} days</strong></div>
-      </div>
-    </div>
-
     <div class="table-actions">
       <button (click)="updatedCheck()" class="update-all" [disabled]="loading">
         <i class="fas fa-sync-alt" [class.spin]="loading"></i>
@@ -114,9 +103,16 @@
         <thead>
           <tr>
             <th>URL</th>
+            <th>Page Title</th>
             <th>Availability</th>
+            <th>HTTP</th>
+            <th>Response</th>
             <th>SSL Status</th>
             <th>Expires In</th>
+            <th>Certificate Expires</th>
+            <th>SSL Issuer</th>
+            <th>Headers Score</th>
+            <th>Headers Grade</th>
             <th>Last Check</th>
             <th>Actions</th>
           </tr>
@@ -124,11 +120,14 @@
         <tbody>
           <tr *ngFor="let website of websites">
             <td class="url-cell">{{ website.url || 'N/A' }}</td>
+            <td>{{ website.page_title || '—' }}</td>
             <td>
               <span class="status-badge" [class.online]="website.availability === 'Online'">
                 {{ website.availability || 'Unknown' }}
               </span>
             </td>
+            <td>{{ website.http_status_code ?? '—' }}</td>
+            <td>{{ website.response_time_ms != null ? (website.response_time_ms + ' ms') : '—' }}</td>
             <td>
               <span class="ssl-badge" [class.valid]="website.ssl_status === 'Valid'">
                 {{ website.ssl_status || 'Unknown' }}
@@ -139,6 +138,10 @@
                 [class.warning]="(website.expires_in || 0) > 0 && (website.expires_in || 0) < 30">
               {{ website.expires_in || 0 }} days
             </td>
+            <td>{{ website.ssl_expires_at ? (website.ssl_expires_at | date:'medium') : '—' }}</td>
+            <td>{{ website.ssl_issuer || '—' }}</td>
+            <td>{{ website.headers_score ?? '—' }}</td>
+            <td>{{ website.headers_grade || '—' }}</td>
             <td class="date-cell">
               <i class="far fa-calendar-alt"></i>
               {{ website.last_check | date:'short' }}
@@ -153,7 +156,7 @@
             </td>
           </tr>
           <tr *ngIf="!websites || websites.length === 0">
-            <td colspan="6" class="empty-state">
+            <td colspan="13" class="empty-state">
               <i class="fas fa-globe"></i>
               <p>No websites added yet</p>
               <small>Add a URL above to get started</small>
