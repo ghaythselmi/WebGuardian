@@ -28,4 +28,16 @@ export class HomeComponent {
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  navigateToSection(event: MouseEvent, sectionId: string): void {
+    event.preventDefault();
+    const section = document.getElementById(sectionId);
+    if (!section) {
+      window.location.assign(`/h#${sectionId}`);
+      return;
+    }
+
+    window.history.replaceState(null, '', `/h#${sectionId}`);
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }

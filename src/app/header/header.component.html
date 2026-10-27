@@ -4,7 +4,7 @@
     <!-- Logo / Brand -->
     <a [routerLink]="mode === 'client' ? ['/home'] : ['/h']" class="navbar-brand">
       <div class="brand-icon">
-        <i class="fas fa-shield-alt"></i>
+        <img class="brand-icon-image" src="/assets/img/webguardian-neon-shield-mark.png" alt="" aria-hidden="true">
       </div>
       <span class="brand-name">Web<span>Guardian</span></span>
     </a>
@@ -12,9 +12,9 @@
     <!-- PUBLIC mode -->
     <ng-container *ngIf="mode === 'public'">
       <div class="navbar-links">
-        <a routerLink="/h" fragment="home" class="nav-link">Home</a>
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#contact" class="nav-link">Contact</a>
+        <a href="/h#home" (click)="navigateToSection($event, 'home')" class="nav-link">Home</a>
+        <a href="/h#how-it-works" (click)="navigateToSection($event, 'how-it-works')" class="nav-link">Features</a>
+        <a href="/h#contact" (click)="navigateToSection($event, 'contact')" class="nav-link">Contact</a>
       </div>
       <div class="navbar-actions">
         <a routerLink="/login" class="nav-link btn-outline">Login</a>
