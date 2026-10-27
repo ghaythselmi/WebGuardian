@@ -4,7 +4,7 @@
     <!-- Logo / Brand -->
     <a [routerLink]="mode === 'client' ? ['/home'] : ['/h']" class="navbar-brand">
       <div class="brand-icon">
-        <img class="brand-icon-image" src="/assets/img/webguardian-neon-shield-mark.png" alt="" aria-hidden="true">
+        <img class="brand-icon-image" src="/assets/img/webguardian-neon-shield-app-icon.png" alt="" aria-hidden="true">
       </div>
       <span class="brand-name">Web<span>Guardian</span></span>
     </a>
@@ -28,7 +28,7 @@
         <a routerLink="/home" class="nav-link">
           <i class="fas fa-home"></i> Home
         </a>
-        <a routerLink="/home" fragment="website-list" class="nav-link">
+        <a href="/home#website-list" (click)="navigateToSection($event, 'website-list')" class="nav-link">
           <i class="fas fa-globe"></i> Monitored Websites
         </a>
         <a routerLink="/stats" class="nav-link" routerLinkActive="active">

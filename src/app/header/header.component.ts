@@ -84,12 +84,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     event.preventDefault();
     const section = document.getElementById(sectionId);
     if (section) {
-      window.history.replaceState(null, '', `/h#${sectionId}`);
+      window.history.replaceState(null, '', `${this.mode === 'client' ? '/home' : '/h'}#${sectionId}`);
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
     }
 
-    this.router.navigate(['/h'], { fragment: sectionId }).then(() => {
+    const route = this.mode === 'client' ? '/home' : '/h';
+    this.router.navigate([route], { fragment: sectionId }).then(() => {
       requestAnimationFrame(() => document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     });
   }

@@ -96,57 +96,63 @@
       <button (click)="csvFileInput.click()" class="upload-csv">
         <i class="fas fa-upload"></i> Upload CSV
       </button>
+      <a routerLink="/stats" class="view-details">
+        <i class="fas fa-chart-line"></i> View details
+      </a>
     </div>
 
     <div class="table-container" *ngIf="!loading">
       <table class="website-table">
         <thead>
           <tr>
-            <th>URL</th>
-            <th>Page Title</th>
-            <th>Availability</th>
-            <th>HTTP</th>
+            <th>Website</th>
+            <th>Status</th>
             <th>Response</th>
-            <th>SSL Status</th>
-            <th>Expires In</th>
-            <th>Certificate Expires</th>
-            <th>SSL Issuer</th>
-            <th>Headers Score</th>
-            <th>Headers Grade</th>
-            <th>Last Check</th>
-            <th>Actions</th>
+            <th>SSL certificate</th>
+            <th>Headers</th>
+            <th>Last check</th>
+            <th class="actions-heading">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let website of websites">
-            <td class="url-cell">{{ website.url || 'N/A' }}</td>
-            <td>{{ website.page_title || '—' }}</td>
-            <td>
+            <td class="website-cell" data-label="Website">
+              <strong *ngIf="website.page_title" class="website-title">{{ website.page_title }}</strong>
+              <span class="url-cell" [title]="website.url || 'N/A'">{{ website.url || 'N/A' }}</span>
+            </td>
+            <td class="status-cell" data-label="Status">
               <span class="status-badge" [class.online]="website.availability === 'Online'">
                 {{ website.availability || 'Unknown' }}
               </span>
+              <small class="http-status">HTTP {{ website.http_status_code ?? '—' }}</small>
             </td>
-            <td>{{ website.http_status_code ?? '—' }}</td>
-            <td>{{ website.response_time_ms != null ? (website.response_time_ms + ' ms') : '—' }}</td>
-            <td>
+            <td class="response-cell" data-label="Response">{{ website.response_time_ms != null ? (website.response_time_ms + ' ms') : '—' }}</td>
+            <td class="ssl-cell" data-label="SSL certificate">
               <span class="ssl-badge" [class.valid]="website.ssl_status === 'Valid'">
                 {{ website.ssl_status || 'Unknown' }}
               </span>
+              <span class="ssl-expiry expiry"
+                    [class.expired]="(website.expires_in || 0) <= 0"
+                    [class.warning]="(website.expires_in || 0) > 0 && (website.expires_in || 0) < 30">
+                {{ website.expires_in || 0 }} days left
+              </span>
+              <small class="ssl-detail">Expires {{ website.ssl_expires_at ? (website.ssl_expires_at | date:'mediumDate') : 'date unknown' }}</small>
+              <span class="ssl-issuer" [title]="website.ssl_issuer || 'Issuer unavailable'">
+                <span class="ssl-issuer-label">Issuer</span>
+                <strong>{{ website.ssl_issuer || 'Unavailable' }}</strong>
+              </span>
             </td>
-            <td class="expiry"
-                [class.expired]="(website.expires_in || 0) <= 0"
-                [class.warning]="(website.expires_in || 0) > 0 && (website.expires_in || 0) < 30">
-              {{ website.expires_in || 0 }} days
+            <td class="headers-cell" data-label="Headers">
+              <span class="headers-summary">
+                <span class="headers-score">{{ website.headers_score ?? '—' }}<small>/100</small></span>
+                <span class="headers-grade" [ngClass]="'grade-' + (website.headers_grade || 'unrated').toLowerCase()">{{ website.headers_grade || '—' }}</span>
+              </span>
             </td>
-            <td>{{ website.ssl_expires_at ? (website.ssl_expires_at | date:'medium') : '—' }}</td>
-            <td>{{ website.ssl_issuer || '—' }}</td>
-            <td>{{ website.headers_score ?? '—' }}</td>
-            <td>{{ website.headers_grade || '—' }}</td>
-            <td class="date-cell">
+            <td class="date-cell" data-label="Last check">
               <i class="far fa-calendar-alt"></i>
               {{ website.last_check | date:'short' }}
             </td>
-            <td class="actions">
+            <td class="actions" data-label="Actions">
               <button (click)="updateWebsite(website)" class="btn-update" title="Update">
                 <i class="fas fa-sync-alt"></i>
               </button>
@@ -156,7 +162,7 @@
             </td>
           </tr>
           <tr *ngIf="!websites || websites.length === 0">
-            <td colspan="13" class="empty-state">
+            <td colspan="7" class="empty-state">
               <i class="fas fa-globe"></i>
               <p>No websites added yet</p>
               <small>Add a URL above to get started</small>
@@ -174,7 +180,7 @@
 </section>
 
 <!-- How It Works -->
-<section class="how-it-works">
+<section id="how-it-works" class="how-it-works">
   <div class="container">
     <div class="section-header">
       <span class="section-tag">— How It Works</span>
@@ -203,16 +209,15 @@
 <footer id="contact" class="site-footer">
   <div class="footer-main">
     <div class="footer-brand-block">
-      <a routerLink="/h" class="footer-brand"><span class="footer-brand-icon"><img class="footer-brand-image" src="/assets/img/webguardian-neon-shield-mark.png" alt="" aria-hidden="true"></span><span>Web<span>Guardian</span></span></a>
+      <a routerLink="/h" class="footer-brand"><span class="footer-brand-icon"><img class="footer-brand-image" src="/assets/img/webguardian-neon-shield-app-icon.png" alt="" aria-hidden="true"></span><span>Web<span>Guardian</span></span></a>
       <p>A clearer view of your website health. Monitor uptime, SSL, and response time from one place.</p>
       <div class="footer-status"><i></i> Monitoring made simpler</div>
     </div>
-    <div class="footer-links"><h3>Explore</h3><a href="#home">Home</a><a href="#how-it-works">How it works</a><a href="#features">Features</a></div>
-    <div class="footer-links"><h3>Your account</h3><a routerLink="/login">Log in</a><a routerLink="/register">Create account</a></div>
-    <div class="footer-links"><h3>What we monitor</h3><a href="#features">Website availability</a><a href="#features">SSL certificates</a><a href="#features">Response insights</a></div>
+    <div class="footer-links"><h3>Explore</h3><a href="#home" (click)="navigateToSection($event, 'home')">Home</a><a href="#how-it-works" (click)="navigateToSection($event, 'how-it-works')">How it works</a><a href="/h#features" (click)="navigateToSection($event, 'features')">Features</a></div>
+    <div class="footer-links"><h3>What we monitor</h3><a>Website availability</a><a>SSL certificates</a><a>Response insights</a></div>
     <div class="footer-links footer-contact"><h3>Contact</h3><a href="https://www.linkedin.com/in/selmi-ghaith-675a12240" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i> Ghaith Selmi</a><a href="https://github.com/ghaythselmi" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> ghaythselmi</a><a class="footer-email" href="mailto:ghaith.selmi1905@gmail.com"><i class="fas fa-envelope"></i> ghaith.selmi1905@gmail.com</a><button type="button" class="copy-email" (click)="copyEmail()"><i class="far fa-copy"></i> {{ emailCopyLabel }}</button></div>
   </div>
-  <div class="footer-bottom"><span>© {{ currentYear }} WebGuardian. Built for a healthier web.</span><a href="#page-top" class="back-to-top">Back to top <i class="fas fa-arrow-up"></i></a></div>
+  <div class="footer-bottom"><span>© {{ currentYear }} WebGuardian. Built for a healthier web.</span><a href="#home" class="back-to-top" (click)="navigateToSection($event, 'home')">Back to top <i class="fas fa-arrow-up"></i></a></div>
 </footer>
 
 <!-- Scroll Top -->

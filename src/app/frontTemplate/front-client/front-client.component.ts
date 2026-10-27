@@ -169,6 +169,17 @@ export class FrontClientComponent implements OnInit, OnDestroy {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  navigateToSection(event: MouseEvent, sectionId: string): void {
+    event.preventDefault();
+    const section = document.getElementById(sectionId);
+    if (!section) {
+      window.location.assign(`/h#${sectionId}`);
+      return;
+    }
+    window.history.replaceState(null, '', `/home#${sectionId}`);
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   async copyEmail(): Promise<void> {
     try {
       await navigator.clipboard.writeText('ghaith.selmi1905@gmail.com');
