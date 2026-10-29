@@ -69,6 +69,9 @@
           <a routerLink="/profile" class="user-dropdown-item" (click)="dropdownVisible = false">
             <i class="fas fa-user"></i> Profile
           </a>
+          <a routerLink="/settings" class="user-dropdown-item" (click)="dropdownVisible = false">
+            <i class="fas fa-cog"></i> Settings
+          </a>
           <div class="dropdown-divider"></div>
           <a href="#" (click)="logout(); $event.preventDefault(); dropdownVisible = false" class="user-dropdown-item">
             <i class="fas fa-sign-out-alt"></i> Logout

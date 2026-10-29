@@ -1,0 +1,30 @@
+<app-header mode="client"></app-header>
+<main class="settings-page">
+  <div class="settings-grid" aria-hidden="true"></div>
+  <div class="settings-wrap">
+    <header class="page-heading"><div><span class="eyebrow">ACCOUNT CENTER <b>WG / 04</b></span><h1>Security settings</h1><p>Keep your WebGuardian account protected and up to date.</p></div><a routerLink="/profile"><i class="fas fa-arrow-left"></i> Back to profile</a></header>
+    <div class="settings-layout">
+      <aside class="settings-aside">
+        <div class="settings-art" aria-hidden="true"><span class="art-ring ring-a"></span><span class="art-ring ring-b"></span><span class="art-ring ring-c"></span><span class="art-shield"><i class="fas fa-shield-alt"></i><i class="fas fa-lock"></i></span><span class="art-node node-a"><i class="fas fa-key"></i></span><span class="art-node node-b"><i class="fas fa-check"></i></span></div>
+        <span class="aside-kicker"><i class="fas fa-circle"></i> YOUR ACCOUNT, YOUR CONTROL</span>
+        <h2>Strong security<br><span>starts with you.</span></h2>
+        <p>Update your password regularly and keep your monitoring workspace protected.</p>
+        <div class="secure-points"><div><i class="fas fa-check"></i><span>Current password verified</span></div><div><i class="fas fa-check"></i><span>New password encrypted</span></div><div><i class="fas fa-check"></i><span>Private to your account</span></div></div>
+      </aside>
+      <section class="settings-card">
+        <div class="card-kicker"><span class="lock-badge"><i class="fas fa-lock"></i></span><span>LOGIN CREDENTIALS</span><span class="card-status"><i class="fas fa-circle"></i> SECURE</span></div>
+        <div class="card-heading"><h2>Change password</h2><p>Confirm your current password, then choose a new one.</p></div>
+        <div *ngIf="message" class="feedback success" role="status"><i class="fas fa-check-circle"></i>{{ message }}</div>
+        <div *ngIf="error" class="feedback error" role="alert"><i class="fas fa-exclamation-circle"></i>{{ error }}</div>
+        <form (ngSubmit)="updatePassword()" class="settings-form">
+          <label for="currentPassword">Current password</label>
+          <div class="settings-field"><i class="fas fa-lock"></i><input id="currentPassword" type="password" name="currentPassword" [(ngModel)]="currentPassword" autocomplete="current-password" placeholder="Enter current password" required></div>
+          <div class="field-split"><div><label for="newPassword">New password</label><div class="settings-field"><i class="fas fa-key"></i><input id="newPassword" type="password" name="newPassword" [(ngModel)]="newPassword" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required></div></div><div><label for="confirmPassword">Confirm new password</label><div class="settings-field"><i class="fas fa-check"></i><input id="confirmPassword" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" autocomplete="new-password" placeholder="Repeat new password" required></div></div></div>
+          <div class="password-guidance"><span class="guidance-icon"><i class="fas fa-shield-alt"></i></span><span><strong>Password tip</strong><small>Use 8 or more characters. A unique passphrase is easier to remember and harder to guess.</small></span></div>
+          <button type="submit" class="save-button" [disabled]="loading"><span>{{ loading ? 'Updating credentials…' : 'Update password' }}</span><i class="fas" [class.fa-arrow-right]="!loading" [class.fa-spinner]="loading" [class.fa-spin]="loading"></i></button>
+        </form>
+        <div class="card-foot"><i class="fas fa-user-shield"></i> Your password is never displayed or emailed.</div>
+      </section>
+    </div>
+  </div>
+</main>

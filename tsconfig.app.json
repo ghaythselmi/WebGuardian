@@ -7,7 +7,10 @@
   },
   "files": [
     "src/main.ts",
-    "src/app/stats/stats.component.ts"
+    "src/app/stats/stats.component.ts",
+    "src/app/forgot-password/forgot-password.component.ts",
+    "src/app/reset-password/reset-password.component.ts",
+    "src/app/settings/settings.component.ts"
   ],
   "include": [
     "src/**/*.d.ts"

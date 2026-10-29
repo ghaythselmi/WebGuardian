@@ -24,6 +24,18 @@ export class UserService {
     );
   }
 
+  requestPasswordReset(email: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/forgot-password`, { email });
+  }
+
+  resetPassword(token: string, password: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/reset-password`, { token, password });
+  }
+
+  changePassword(currentPassword: string, newPassword: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/change-password`, { currentPassword, newPassword });
+  }
+
   getToken(): string | null { return sessionStorage.getItem(this.tokenKey); }
   isAuthenticated(): boolean { return !!this.getToken(); }
   logout(): void {

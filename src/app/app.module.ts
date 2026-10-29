@@ -15,6 +15,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { StatsComponent } from './stats/stats.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { AuthInterceptor } from './services/auth.interceptor';
     HomeComponent,
     HeaderComponent,
     ProfileComponent,
-    StatsComponent
+    StatsComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

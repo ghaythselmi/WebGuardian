@@ -8,12 +8,18 @@ import { HomeComponent } from './frontTemplate/home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { StatsComponent } from './stats/stats.component';
 import { AuthGuard } from './services/auth.guard';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: SignupComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'home', component: FrontClientComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'stats', component: StatsComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'h', component: HomeComponent },
