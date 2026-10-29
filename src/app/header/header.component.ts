@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../entity/user';
 import { AppNotification } from '../entity/app-notification';
 import { NotificationsService } from '../services/notifications.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   notifications: AppNotification[] = [];
   unreadNotificationCount = 0;
   private notificationTimer?: ReturnType<typeof setInterval>;
+  private notificationRefreshSubscription?: Subscription;
   user: User = new User();
   private lastScrollPosition = 0;
   private scrollThreshold = 50;
@@ -32,6 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.notificationRefreshSubscription = this.notificationsService.refreshRequested$.subscribe(() => this.loadNotifications());
     if (this.mode === 'client') {
       this.userService.me().subscribe(
         data => { 
@@ -47,6 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.notificationTimer) clearInterval(this.notificationTimer);
+    this.notificationRefreshSubscription?.unsubscribe();
   }
 
   @HostListener('window:scroll')

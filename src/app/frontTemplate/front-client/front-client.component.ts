@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../entity/user';
 import { WebsitesService } from '../../services/websites.service';
 import { Website } from '../../entity/website';
+import { NotificationsService } from '../../services/notifications.service';
 import * as Papa from 'papaparse';
 
 @Component({
@@ -27,7 +28,8 @@ export class FrontClientComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private websitesService: WebsitesService
+    private websitesService: WebsitesService,
+    private notificationsService: NotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -41,10 +43,8 @@ export class FrontClientComponent implements OnInit, OnDestroy {
       },
       error => console.error(error)
     );
-    // Check saved sites every five minutes while the dashboard is open.
-    this.refreshTimer = setInterval(() => {
-      if (!document.hidden && !this.loading && this.websites.length > 0) this.updatedCheck();
-    }, 300000);
+    // Refresh saved results periodically; explicit checks trigger offline alerts.
+    this.refreshTimer = setInterval(() => this.getWebsitesByUserId(), 300000);
   }
 
   ngOnDestroy(): void {
@@ -71,6 +71,7 @@ export class FrontClientComponent implements OnInit, OnDestroy {
         this.result = { availability: { status: response.availability }, ssl: { status: response.ssl_status, expires_in_days: response.expires_in } };
         this.url = '';
         this.addingWebsite = false;
+        this.notificationsService.refreshNow();
       },
       error => {
         this.monitoringError = error.error?.error || 'Could not add and check this website.';
@@ -110,6 +111,7 @@ export class FrontClientComponent implements OnInit, OnDestroy {
 
     Promise.allSettled(requests).then(() => {
       this.loading = false;
+      this.notificationsService.refreshNow();
     });
   }
 
@@ -120,6 +122,7 @@ export class FrontClientComponent implements OnInit, OnDestroy {
       updatedWebsite => {
         const index = this.websites.findIndex(w => w.id === website.id);
         if (index !== -1) this.websites[index] = updatedWebsite;
+        this.notificationsService.refreshNow();
       },
       error => console.error('Error checking website:', error)
     );
@@ -165,6 +168,7 @@ export class FrontClientComponent implements OnInit, OnDestroy {
     Promise.allSettled(requests).then(() => {
       this.loading = false;
       this.getWebsitesByUserId();
+      this.notificationsService.refreshNow();
     });
   }
 

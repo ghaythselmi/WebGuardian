@@ -2,58 +2,82 @@
 
 <main class="stats-page">
   <div class="stats-container">
-    <a routerLink="/home" class="back-dashboard"><i class="fas fa-arrow-left"></i> Back to dashboard</a>
+    <a routerLink="/home" class="back-dashboard"><i class="fas fa-arrow-left"></i> Dashboard</a>
 
     <header class="stats-heading">
       <div>
-        <span class="stats-eyebrow">MONITORING OVERVIEW</span>
-        <h1>Website <span>Stats</span></h1>
-        <p>Availability and response-time trends from your saved background checks.</p>
+        <span class="stats-eyebrow"><span class="eyebrow-pulse"></span> WEBGUARDIAN ANALYTICS</span>
+        <h1>Website <span>health</span></h1>
+        <p>Understand uptime, speed and security across your monitored sites.</p>
       </div>
-      <label class="history-site-select">Select website
-        <select [ngModel]="selectedWebsiteId" (ngModelChange)="selectWebsite($event)" name="statsWebsite" [disabled]="websites.length === 0">
-          <option *ngFor="let website of websites" [ngValue]="website.id">{{ website.url }}</option>
-        </select>
-      </label>
+      <a routerLink="/home" fragment="website-list" class="manage-link"><i class="fas fa-plus"></i> Manage websites</a>
     </header>
+
+    <section class="site-picker" *ngIf="!isLoading && websites.length > 0" aria-label="Choose a website">
+      <div class="picker-heading">
+        <div><span class="section-kicker">YOUR MONITORED SITES</span><h2>Choose a website</h2></div>
+        <label class="site-search"><i class="fas fa-search" aria-hidden="true"></i><input type="search" [(ngModel)]="siteSearch" placeholder="Search your sites" aria-label="Search monitored websites"></label>
+      </div>
+      <div class="site-grid" role="listbox" aria-label="Monitored websites">
+        <button *ngFor="let site of filteredWebsites" type="button" class="site-option" role="option"
+          [attr.aria-selected]="site.id === selectedWebsiteId" [class.is-selected]="site.id === selectedWebsiteId"
+          (click)="selectWebsite(site.id)">
+          <span class="site-avatar" [class.avatar-down]="!isOnline(site)">{{ initials(site) }}</span>
+          <span class="site-copy"><strong>{{ siteLabel(site) }}</strong><small>{{ domain(site.url) }}</small></span>
+          <span class="site-state" [class.state-down]="!isOnline(site)"><i></i>{{ isOnline(site) ? 'Online' : (site.availability || 'Unknown') }}</span>
+          <i class="fas fa-check selected-check" aria-hidden="true"></i>
+        </button>
+        <div class="no-sites-match" *ngIf="filteredWebsites.length === 0">No websites match “{{ siteSearch }}”.</div>
+      </div>
+    </section>
 
     <div *ngIf="isLoading || historyLoading" class="stats-state"><i class="fas fa-spinner fa-spin"></i> Loading monitoring analytics…</div>
     <div *ngIf="errorMessage && !isLoading && !historyLoading" class="stats-state error-state"><i class="fas fa-exclamation-circle"></i>{{ errorMessage }}</div>
-    <div *ngIf="!isLoading && !historyLoading && !errorMessage && websites.length === 0" class="stats-state">
-      <i class="fas fa-globe"></i><span>No websites are being monitored yet.</span><a routerLink="/home" fragment="website-list">Add your first website</a>
-    </div>
-    <div *ngIf="!isLoading && !historyLoading && !errorMessage && websites.length > 0 && checkHistory.length === 0" class="stats-state">
-      <i class="fas fa-chart-line"></i><span>No saved checks for this website yet.</span><a routerLink="/home" fragment="website-list">Run a check from your dashboard</a>
+    <div *ngIf="!isLoading && !historyLoading && !errorMessage && websites.length === 0" class="stats-state empty-state">
+      <span class="empty-icon"><i class="fas fa-globe"></i></span><h2>Your monitoring starts here</h2><p>Add a website to start tracking uptime, response time and security.</p><a routerLink="/home" fragment="website-list">Add your first website <i class="fas fa-arrow-right"></i></a>
     </div>
 
-    <ng-container *ngIf="!isLoading && !historyLoading && !errorMessage && checkHistory.length > 0">
-      <section class="history-metrics" aria-label="Monitoring summary">
-        <article class="history-metric"><span>Checks shown (up to 100)</span><strong>{{ checkHistory.length }}</strong></article>
-        <article class="history-metric"><span>Availability in history</span><strong>{{ uptimeRate }}%</strong></article>
-        <article class="history-metric"><span>Average response</span><strong>{{ averageResponseMs === null ? '—' : averageResponseMs + ' ms' }}</strong></article>
+    <ng-container *ngIf="!isLoading && !historyLoading && !errorMessage && selectedWebsite">
+      <section class="selected-site-bar">
+        <div class="selected-site-identity"><span class="site-avatar large" [class.avatar-down]="!isOnline(selectedWebsite)">{{ initials(selectedWebsite) }}</span><div><span class="section-kicker">ANALYTICS FOR</span><h2>{{ siteLabel(selectedWebsite) }}</h2><a [href]="selectedWebsite.url" target="_blank" rel="noopener noreferrer">{{ domain(selectedWebsite.url) }} <i class="fas fa-arrow-up-right-from-square"></i></a></div></div>
+        <div class="selected-meta"><span class="health-pill" [class.health-down]="!isOnline(selectedWebsite)"><i></i>{{ selectedWebsite.availability || 'Unknown' }}</span><span>Last check <strong>{{ lastCheckedLabel }}</strong></span></div>
       </section>
 
-      <section class="history-chart-card">
-        <div class="chart-title"><div><h2>Response time</h2><p>Milliseconds per saved check</p></div><span><i class="fas fa-circle"></i> Response time</span></div>
-        <div class="chart-scroll">
-          <svg class="response-chart" viewBox="0 0 760 220" role="img" aria-label="Response time by monitoring check">
-            <line x1="40" y1="39" x2="720" y2="39" class="chart-gridline"></line>
-            <line x1="40" y1="111" x2="720" y2="111" class="chart-gridline"></line>
-            <line x1="40" y1="184" x2="720" y2="184" class="chart-gridline"></line>
-            <polyline *ngIf="latencyPoints.length > 1" [attr.points]="responsePoints" class="chart-line"></polyline>
-            <circle *ngFor="let point of latencyPoints" [attr.cx]="point.x" [attr.cy]="point.y" r="4" class="chart-point"><title>{{ point.value }} ms</title></circle>
-          </svg>
-        </div>
-        <p *ngIf="latencyPoints.length === 0" class="chart-empty">No response-time samples are available yet.</p>
-        <div class="chart-axis"><span>{{ checkHistory[0].checkedAt | date:'short' }}</span><span>{{ checkHistory[checkHistory.length - 1].checkedAt | date:'short' }}</span></div>
-      </section>
+      <div class="analytics-toolbar"><div><span class="section-kicker">PERFORMANCE SNAPSHOT</span><p>Based on {{ visibleHistory.length }} saved checks</p></div><div class="period-control" role="group" aria-label="Choose statistics period"><button *ngFor="let item of periods" type="button" [class.active]="period === item.id" [attr.aria-pressed]="period === item.id" (click)="period = item.id">{{ item.label }}</button></div></div>
 
-      <section class="history-chart-card status-history-card">
-        <div class="chart-title"><div><h2>Availability history</h2><p>Most recent {{ recentHistory.length }} checks</p></div><div class="status-legend"><span><i class="online-dot"></i>Online</span><span><i class="offline-dot"></i>Offline</span></div></div>
-        <div class="status-timeline" role="list" aria-label="Website availability in recent checks">
-          <span *ngFor="let check of recentHistory" role="listitem" [class.is-online]="check.availability === 'Online'" [class.is-offline]="check.availability !== 'Online'" [title]="(check.checkedAt | date:'medium') + ' · ' + check.availability"></span>
-        </div>
-      </section>
+      <div *ngIf="checkHistory.length === 0" class="stats-state no-history"><i class="fas fa-chart-line"></i><div><strong>No saved checks yet</strong><span>Run a check from your dashboard to start building this website’s history.</span></div><a routerLink="/home" fragment="website-list">Go to dashboard <i class="fas fa-arrow-right"></i></a></div>
+      <div *ngIf="checkHistory.length > 0 && visibleHistory.length === 0" class="stats-state no-history"><i class="fas fa-calendar-alt"></i><div><strong>No checks in this period</strong><span>Try a wider time range to see more of your monitoring history.</span></div><button type="button" (click)="period = 'all'">View all time</button></div>
+
+      <ng-container *ngIf="visibleHistory.length > 0">
+        <section class="history-metrics" aria-label="Monitoring summary">
+          <article class="history-metric uptime-card"><span class="metric-icon"><i class="fas fa-heartbeat"></i></span><div class="metric-label">Uptime <span>IN SELECTED PERIOD</span></div><strong>{{ uptimeRate }}<small>%</small></strong><div class="metric-foot"><span class="metric-dot"></span>{{ incidentCount === 0 ? 'No incidents recorded' : incidentCount + ' unavailable ' + (incidentCount === 1 ? 'check' : 'checks') }}</div></article>
+          <article class="history-metric"><span class="metric-icon speed-icon"><i class="fas fa-bolt"></i></span><div class="metric-label">Average response <span>IN SELECTED PERIOD</span></div><strong>{{ averageResponseMs === null ? '—' : averageResponseMs }}<small>{{ averageResponseMs === null ? '' : 'ms' }}</small></strong><div class="metric-foot">{{ visibleHistory.length }} checks analyzed</div></article>
+          <article class="history-metric"><span class="metric-icon checks-icon"><i class="fas fa-wave-square"></i></span><div class="metric-label">Checks recorded <span>IN SELECTED PERIOD</span></div><strong>{{ visibleHistory.length }}</strong><div class="metric-foot">{{ fastestResponseMs === null ? 'No response samples yet' : 'Fastest response · ' + fastestResponseMs + ' ms' }}</div></article>
+        </section>
+
+        <section class="history-chart-card response-card">
+          <div class="chart-title"><div><span class="section-kicker">LATENCY TREND</span><h2>Response time</h2><p>How quickly your website responded to each check.</p></div><div class="chart-summary" *ngIf="averageResponseMs !== null"><span class="legend-line"></span><span>Response time</span><strong>{{ averageResponseMs }}<small> ms avg</small></strong></div></div>
+          <div class="chart-scroll" *ngIf="latencyPoints.length > 0; else chartNoData">
+            <svg class="response-chart" viewBox="0 0 760 220" role="img" [attr.aria-label]="'Response time chart for ' + siteLabel(selectedWebsite)">
+              <defs><linearGradient id="latencyFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#50e5c2" stop-opacity=".22"></stop><stop offset="100%" stop-color="#50e5c2" stop-opacity="0"></stop></linearGradient></defs>
+              <line x1="48" y1="50" x2="712" y2="50" class="chart-gridline"></line><line x1="48" y1="112" x2="712" y2="112" class="chart-gridline"></line><line x1="48" y1="184" x2="712" y2="184" class="chart-gridline"></line>
+              <text x="0" y="54" class="chart-label">{{ chartMax }} ms</text><text x="0" y="188" class="chart-label">0 ms</text>
+              <polygon *ngIf="latencyPoints.length > 1" [attr.points]="chartArea" class="chart-area"></polygon>
+              <polyline *ngIf="latencyPoints.length > 1" [attr.points]="responsePoints" class="chart-line"></polyline>
+              <circle *ngFor="let point of latencyPoints" [attr.cx]="point.x" [attr.cy]="point.y" r="4" class="chart-point"><title>{{ point.value }} ms</title></circle>
+              <circle *ngIf="latencyPoints.length === 1" [attr.cx]="latencyPoints[0].x" [attr.cy]="latencyPoints[0].y" r="6" class="chart-point"></circle>
+            </svg>
+          </div>
+          <ng-template #chartNoData><p class="chart-empty"><i class="fas fa-info-circle"></i> No response-time samples are available for this period.</p></ng-template>
+          <div class="chart-axis" *ngIf="visibleHistory.length"><span>{{ visibleHistory[0].checkedAt | date:'mediumDate' }}</span><span>{{ visibleHistory[visibleHistory.length - 1].checkedAt | date:'mediumDate' }}</span></div>
+        </section>
+
+        <section class="history-chart-card status-history-card">
+          <div class="chart-title"><div><span class="section-kicker">RELIABILITY</span><h2>Availability history</h2><p>Each bar represents one monitoring check · latest {{ recentHistory.length }} checks</p></div><div class="status-legend"><span><i class="online-dot"></i>Online</span><span><i class="offline-dot"></i>Unavailable</span></div></div>
+          <div class="status-timeline" role="list" aria-label="Website availability in recent checks"><span *ngFor="let check of recentHistory" role="listitem" [class.is-online]="check.availability === 'Online'" [class.is-offline]="check.availability !== 'Online'" [title]="(check.checkedAt | date:'medium') + ' · ' + check.availability"></span></div>
+          <div class="timeline-axis"><span>Older</span><span>Most recent</span></div>
+        </section>
+      </ng-container>
     </ng-container>
   </div>
 </main>

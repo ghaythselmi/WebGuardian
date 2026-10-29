@@ -25,13 +25,13 @@
     <!-- CLIENT mode -->
     <ng-container *ngIf="mode === 'client'">
       <div class="navbar-links">
-        <a routerLink="/home" class="nav-link">
+        <a routerLink="/home" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <i class="fas fa-home"></i> Home
         </a>
         <a href="/home#website-list" (click)="navigateToSection($event, 'website-list')" class="nav-link">
           <i class="fas fa-globe"></i> Monitored Websites
         </a>
-        <a routerLink="/stats" class="nav-link" routerLinkActive="active">
+        <a routerLink="/stats" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <i class="fas fa-chart-bar"></i> Stats
         </a>
       </div>

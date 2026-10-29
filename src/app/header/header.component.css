@@ -311,3 +311,91 @@
       min-width: 160px;
     }
   }
+
+  /* Clearer spacing and active states for the shared navigation. */
+  .navbar {
+    background: rgba(8, 13, 24, .96);
+    border-bottom-color: rgba(54, 228, 244, .13);
+  }
+
+  .navbar-container {
+    max-width: 1320px;
+    min-height: 76px;
+    height: 76px;
+    gap: clamp(18px, 3vw, 46px);
+  }
+
+  .navbar-brand { gap: 14px; }
+  .navbar-links { gap: 7px; }
+
+  .nav-link {
+    position: relative;
+    min-height: 42px;
+    padding: 0 15px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #a5b4c7;
+    font-size: .91rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: color .18s ease, background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+
+  .nav-link i { width: 16px; color: #8298ae; text-align: center; transition: color .18s ease; }
+
+  .nav-link:hover {
+    border-color: rgba(54, 228, 244, .12);
+    color: #f2f8ff;
+    background: rgba(54, 228, 244, .055);
+  }
+
+  .nav-link:hover i { color: #65e5f3; }
+
+  .navbar-links .nav-link.active {
+    border-color: rgba(54, 228, 244, .16);
+    color: #dffaff;
+    background: linear-gradient(135deg, rgba(54, 228, 244, .105), rgba(67, 140, 255, .07));
+    box-shadow: inset 0 1px rgba(255,255,255,.025);
+  }
+
+  .navbar-links .nav-link.active i { color: #54e2f1; }
+
+  .navbar-actions { gap: 11px; }
+
+  .notification-bell {
+    width: 42px;
+    height: 42px;
+    border-color: rgba(54, 228, 244, .16);
+    border-radius: 11px;
+    background: rgba(54, 228, 244, .035);
+  }
+
+  .user-menu {
+    min-height: 44px;
+    gap: 10px;
+    padding: 0 14px;
+    border-color: rgba(54, 228, 244, .16);
+    border-radius: 11px;
+    background: rgba(54, 228, 244, .035);
+  }
+
+  .user-menu:hover, .user-menu:focus-visible {
+    border-color: rgba(54, 228, 244, .34);
+    background: rgba(54, 228, 244, .075);
+  }
+
+  .user-menu:focus-visible, .nav-link:focus-visible {
+    outline: 2px solid rgba(84, 226, 241, .75);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 968px) {
+    .navbar-container { height: auto; min-height: 0; gap: 12px; }
+    .navbar-links { gap: 5px; }
+  }
+
+  @media (max-width: 640px) {
+    .navbar-links { gap: 2px; }
+    .nav-link { min-height: 38px; padding: 0 10px; font-size: .82rem; }
+    .nav-link i { width: auto; }
+  }

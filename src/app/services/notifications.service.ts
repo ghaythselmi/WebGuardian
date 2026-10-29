@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AppNotification, NotificationFeed } from '../entity/app-notification';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationsService {
   private readonly apiUrl = 'http://127.0.0.1:8000/api/notifications';
+  private readonly refreshRequested = new Subject<void>();
+  readonly refreshRequested$ = this.refreshRequested.asObservable();
 
   constructor(private readonly http: HttpClient) {}
 
@@ -15,5 +17,9 @@ export class NotificationsService {
 
   markRead(id: number): Observable<AppNotification> {
     return this.http.patch<AppNotification>(`${this.apiUrl}/${id}/read`, {});
+  }
+
+  refreshNow(): void {
+    this.refreshRequested.next();
   }
 }
